@@ -713,7 +713,7 @@ body.dark-theme tr:hover td{background:#1F2937}
     <ul><li>To assemble, test and deliver your PC or component order.</li><li>To issue GST tax invoices and provide warranty support.</li><li>To send order status updates via SMS, WhatsApp or email.</li></ul>
     <p>We never sell or rent your personal data. Order data may be synced to our Google Sheets backend solely for fulfilment and accounting.</p>
     <h3>3. Your rights</h3>
-    <p>You may request access, correction or deletion of your personal data at any time by writing to <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e393918a9582809aa3819a8c90cd8a8d">[email&#160;protected]</a></b> or calling <b>+91 422 400 1234</b>. We respond within 7 working days as per the Information Technology Act, 2000 and applicable Tamil Nadu regulations.</p>
+    <p>You may request access, correction or deletion of your personal data at any time by writing to <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0272706b7463617b42607b6d712c6b6c">[email&#160;protected]</a></b> or calling <b>+91 422 400 1234</b>. We respond within 7 working days as per the Information Technology Act, 2000 and applicable Tamil Nadu regulations.</p>
     <h3>4. Data retention</h3>
     <p>Tax invoices and GST records are retained for 8 years as required under the CGST Act. Other order data is retained for 3 years for warranty purposes, then anonymised.</p>
   </div>
@@ -749,7 +749,7 @@ body.dark-theme tr:hover td{background:#1F2937}
           <p class="small" id="contactAddress" style="font-size:13px;line-height:1.7"></p>
           <p style="font-size:13px;margin-top:10px;line-height:1.8" id="contactPhones"></p>
           <p style="font-size:13px;margin-top:6px;line-height:1.8">
-            Email: <a href="/cdn-cgi/l/email-protection#177f727b7b7857756e7864397e79" id="contactEmail" style="font-weight:600"><span class="__cf_email__" data-cfemail="462e232a2a2906243f2935682f28">[email&#160;protected]</span></a><br>
+            Email: <a href="/cdn-cgi/l/email-protection#cba3aea7a7a48ba9b2a4b8e5a2a5" id="contactEmail" style="font-weight:600"><span class="__cf_email__" data-cfemail="deb6bbb2b2b19ebca7b1adf0b7b0">[email&#160;protected]</span></a><br>
             Hours: Mon–Sat 10 AM – 8 PM · Sun 11 AM – 5 PM
           </p>
           <div style="margin-top:12px"><b style="font-size:12px">Follow BYOS</b><div class="social-row" id="contactSocials" style="margin-top:8px"></div></div>
@@ -813,7 +813,7 @@ body.dark-theme tr:hover td{background:#1F2937}
         <button data-apane="settings" onclick="showAdminPane('settings',this)">Settings &amp; Integrations</button>
         <div class="divider"></div>
         <button onclick="adminLogout()">Lock Portal</button>
-        <p class="small" style="padding:8px 12px">Signed in as <b>Store Manager</b><br><span class="mono-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1677727b7f7856746f7965387f78">[email&#160;protected]</a></span></p>
+        <p class="small" style="padding:8px 12px">Signed in as <b>Store Manager</b><br><span class="mono-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9c99909493bd9f84928ed39493">[email&#160;protected]</a></span></p>
       </aside>
 
       <div>
@@ -1454,6 +1454,10 @@ function doGet(e){
   if(action==='getProducts') return jsonOut({status:'ok', data: rowsToJson(sheet('Products'))});
   if(action==='getOrders')   return jsonOut({status:'ok', data: rowsToJson(sheet('Orders'))});
   if(action==='getSettings') return jsonOut({status:'ok', data: rowsToJson(sheet('Settings'))});
+  if(action==='getUpload'){
+    const url = CacheService.getScriptCache().get('up_' + String((e && e.parameter && e.parameter.id) || '')) || '';
+    return jsonOut({status: url?'ok':'pending', url: url});
+  }
   if(action==='getImageConfig'){
     const props = PropertiesService.getScriptProperties();
     return jsonOut({status:'ok', data:{
@@ -1560,7 +1564,9 @@ function doPost(e){
     const folder = folderId ? DriveApp.getFolderById(folderId) : DriveApp.getRootFolder();
     const file = folder.createFile(blob);
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-    return jsonOut({status:'ok', url:'https://lh3.googleusercontent.com/d/'+file.getId()});
+    const driveUrl = 'https://lh3.googleusercontent.com/d/' + file.getId();
+    if(body.uploadId) CacheService.getScriptCache().put('up_' + String(body.uploadId), driveUrl, 120);
+    return jsonOut({status:'ok', url: driveUrl});
   }
   if(body.action==='bulkFetchRealImages'){
     return jsonOut(Object.assign({status:'ok'}, bulkFetchRealImages(Boolean(body.force))));
@@ -3103,12 +3109,26 @@ async function handleProductImagesUpload(input){
     await new Promise(res=>{ try{ fileToDataUrl(f,async url=>{
       if(url){
         if(isSync){
+          const uid='u'+Date.now()+Math.random().toString(36).slice(2,6);
+          const payload=JSON.stringify({action:'uploadImage',uploadId:uid,dataUrl:url,name:($('pName')&&$('pName').value)||'product'});
           try{
-            const res=await fetch(ApiService.GAS_URL,{method:'POST',mode:'cors',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'uploadImage',dataUrl:url,name:($('pName')&&$('pName').value)||'product'})});
+            const res=await fetch(ApiService.GAS_URL,{method:'POST',mode:'cors',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload});
             const r=await res.json();
             if(r&&r.url) _pImages.push(r.url);
-            else { toast('Drive upload failed: '+(r&&r.message||'unknown'),'error'); _pImages.push(url); }
-          }catch(e){ toast('Drive upload error: '+e.message,'error'); _pImages.push(url); }
+            else _pImages.push(url);
+          }catch(e){
+            await fetch(ApiService.GAS_URL,{method:'POST',mode:'no-cors',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload});
+            let found='';
+            for(let k=0;k<8&&!found;k++){
+              await new Promise(w=>setTimeout(w,750));
+              try{
+                const g=await fetch(ApiService.GAS_URL+'?action=getUpload&id='+encodeURIComponent(uid),{mode:'cors',credentials:'omit',redirect:'follow'});
+                const gr=await g.json();
+                if(gr&&gr.url) found=gr.url;
+              }catch(err){}
+            }
+            _pImages.push(found||url);
+          }
         } else { _pImages.push(url); }
       }
       res();
@@ -3273,5 +3293,5 @@ try{ if(sessionStorage.getItem('byos_admin')==='1'){ State.admin=true; $('adminG
 routeFromHash();
 </script>
 <div id="printRoot" aria-hidden="true"></div>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5fbb6a07c107ab9',t:'MTc5NTU1NzkwOA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5fbb6a07c107ab9',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5fbd4b31e8b6cce',t:'MTc5NTU1OTE0MA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5fbd4b31e8b6cce',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
