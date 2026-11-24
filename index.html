@@ -1549,6 +1549,19 @@ function doPost(e){
     if(c.driveFolderId!==undefined) props.setProperty('DRIVE_FOLDER_ID', String(c.driveFolderId));
     return jsonOut({status:'ok'});
   }
+  if(body.action==='uploadImage'){
+    const props = PropertiesService.getScriptProperties();
+    const folderId = props.getProperty('DRIVE_FOLDER_ID') || '';
+    const raw = String(body.dataUrl || '');
+    const m = raw.match(/^data:([^;]+);base64,(.+)$/);
+    if(!m) return jsonOut({status:'error', message:'Invalid dataUrl'});
+    const bytes = Utilities.base64Decode(m[2]);
+    const blob = Utilities.newBlob(bytes, m[1], (body.name||'product').replace(/[^a-zA-Z0-9_-]/g,'_')+'.jpg');
+    const folder = folderId ? DriveApp.getFolderById(folderId) : DriveApp.getRootFolder();
+    const file = folder.createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    return jsonOut({status:'ok', url:'https://lh3.googleusercontent.com/d/'+file.getId()});
+  }
   if(body.action==='bulkFetchRealImages'){
     return jsonOut(Object.assign({status:'ok'}, bulkFetchRealImages(Boolean(body.force))));
   }
@@ -3085,7 +3098,20 @@ function addProductImageUrl(){
 }
 async function handleProductImagesUpload(input){
   const files=[...(input.files||[])]; if(!files.length) return;
-  for(const f of files){ await new Promise(res=>{ try{ fileToDataUrl(f,url=>{ if(url) _pImages.push(url); res(); }, 600); }catch(e){ res(); } }); }
+  const isSync = State.settings.mode==='sync' && ApiService.GAS_URL;
+  for(const f of files){
+    await new Promise(res=>{ try{ fileToDataUrl(f,async url=>{
+      if(url){
+        if(isSync){
+          try{
+            const r=await ApiService._fetch('uploadImage',{dataUrl:url,name:($('pName')&&$('pName').value)||'product'});
+            _pImages.push((r&&r.url)?r.url:url);
+          }catch(e){ _pImages.push(url); }
+        } else { _pImages.push(url); }
+      }
+      res();
+    }, 600); }catch(e){ res(); } });
+  }
   input.value=''; renderPImagesList();
   toast(files.length+' image(s) added','success');
 }
