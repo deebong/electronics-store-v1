@@ -1707,7 +1707,7 @@ const ApiService = {
     const url = this.GAS_URL;
     if(!url) throw new Error('No Apps Script URL configured');
     if(payload){
-      const res = await fetch(url, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, redirect:'follow', body: JSON.stringify({action, ...payload})});
+      const res = await fetch(url, {method:'POST', mode:'cors', credentials:'omit', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action, ...payload})});
       return res.json();
     }
     const res = await fetch(url + '?action=' + encodeURIComponent(action));
