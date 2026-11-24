@@ -1441,6 +1441,17 @@ function doPost(e){
   }
   // One-time (or deliberate) bulk load from the app into the sheet.
   // Rewrites the tab with a header row + one row per object.
+  if(body.action==='saveSettings'){
+    const sh = sheet('Settings');
+    sh.clearContents();
+    sh.appendRow(SCHEMA.Settings);
+    const st = body.settings || {};
+    Object.keys(st).forEach(k=>{
+      const v = typeof st[k]==='object' ? JSON.stringify(st[k]) : String(st[k]??'');
+      sh.appendRow([k, v]);
+    });
+    return jsonOut({status:'ok'});
+  }
   if(body.action==='seed'){
     Object.keys(body.data||{}).forEach(function(name){
       const sh = sheet(name); const list = body.data[name] || [];
@@ -1703,6 +1714,10 @@ const ApiService = {
     if(State.settings.mode==='sync' && this.GAS_URL){ try{ await this._fetch('createOrder',{order}); }catch(e){} }
     State.orders.unshift(order);
     persist();
+  },
+  async saveSettings(settings){
+    if(!this.isSync()) return;
+    try{ await this._post({action:'saveSettings',settings}); }catch(e){ console.warn('saveSettings sync failed',e); }
   },
   async updateOrderStatus(orderId, status){
     const o = State.orders.find(x=>x.order_id===orderId);
@@ -2713,6 +2728,7 @@ function addContactRow(){
   $('contactsEditor').appendChild(d);
 }
 function saveContacts(){
+  setTimeout(()=>ApiService.saveSettings(State.settings), 50);
   const rows=[...document.querySelectorAll('#contactsEditor .phone-row')].map(r=>({label:r.querySelector('.c-label').value.trim(),phone:r.querySelector('.c-phone').value.trim()})).filter(c=>c.phone);
   if(!rows.length){ toast('Add at least one contact number','error'); return; }
   State.settings.contacts=rows; State.settings.phone=rows[0].phone;
@@ -2736,6 +2752,7 @@ function addReviewRow(){
   $('reviewsEditor').appendChild(d);
 }
 function saveReviews(){
+  setTimeout(()=>ApiService.saveSettings(State.settings), 50);
   const rows=[...document.querySelectorAll('#reviewsEditor .panel')].map(r=>({name:r.querySelector('.r-name').value.trim(),rating:Math.max(1,Math.min(5,Number(r.querySelector('.r-rating').value)||5)),date:r.querySelector('.r-date').value.trim(),text:r.querySelector('.r-text').value.trim()})).filter(r=>r.name&&r.text);
   State.settings.reviews=rows;
   persist(); renderReviews(); renderFooter();
@@ -2752,6 +2769,7 @@ function renderSettings(){
 }
 function onModeChange(){ updateSyncPill(); toast($('setMode').value==='sync'?'Sync Mode selected — save settings to connect Google Sheets':'Demo Mode — data stored locally'); }
 function saveSettings(){
+  setTimeout(()=>ApiService.saveSettings(State.settings), 50);
   State.settings.mode=$('setMode').value;
   State.settings.gasUrl=$('setGasUrl').value.trim();
   State.settings.razorpayKey=$('setRazorpay').value.trim();
@@ -2883,6 +2901,7 @@ function renderBrandingForm(){
   $('bLogoPreview').innerHTML=s.logo?'<img class="thumb" src="'+esc(s.logo)+'" alt="">':'';
 }
 function saveBranding(){
+  setTimeout(()=>ApiService.saveSettings(State.settings), 50);
   const s=State.settings;
   s.storeName=$('bName').value.trim()||'BYOS'; s.storeEmail=$('bEmail').value.trim(); s.storeAddress=$('bAddress').value.trim();
   s.accent=$('bAccent').value; s.font=$('bFont').value; s.theme=$('bTheme').value;
