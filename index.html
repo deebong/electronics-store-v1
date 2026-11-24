@@ -81,6 +81,19 @@ a{color:inherit;text-decoration:none}
 .search-box input:focus{border-color:var(--charcoal);box-shadow:0 0 0 3px rgba(24,24,27,.08)}
 .select{height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;background:#fff;outline:none;font-weight:500}
 .select:focus{border-color:var(--charcoal)}
+/* Selects: replace the OS arrow with a hairline chevron pinned to the right edge */
+select{appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  height:38px;padding:0 34px 0 11px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background-color:#fff;color:var(--ink);font-weight:500;font-size:13px;cursor:pointer;outline:none;line-height:1.2;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23475569' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px}
+select:hover{border-color:var(--border-strong)}
+select:focus{border-color:var(--charcoal);box-shadow:0 0 0 2px rgba(234,88,12,.12)}
+select:disabled{opacity:.55;cursor:not-allowed}
+select[multiple]{padding:6px 10px;background-image:none}
+.field select{width:100%}
+body.dark-theme select{background-color:#1F2937;color:var(--ink);border-color:var(--border)}
+@media print{select{background-image:none;padding-right:11px}}
 .cat-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .pill{border:1px solid var(--border);background:#fff;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:500;color:var(--muted);white-space:nowrap}
 .pill:hover{border-color:var(--border-strong);color:var(--ink)}
@@ -296,6 +309,29 @@ code.block{display:block;background:#0F172A;color:#E2E8F0;padding:14px;border-ra
   .doc-table td::before{content:attr(data-label);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748B;flex:0 0 auto;text-align:left}
   .doc-table td.sub{justify-content:space-between}
 }
+.gst-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;min-width:0;table-layout:auto;border:1px solid #CBD5E1}
+.gst-table th{background:#F1F5F9;color:#334155;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:8px 10px;border:1px solid #CBD5E1;text-align:right;vertical-align:bottom;white-space:nowrap}
+.gst-table th.l{text-align:left}
+.gst-table td{padding:8px 10px;border:1px solid #E2E8F0;text-align:right;vertical-align:top;background:#fff}
+.gst-table td.l{text-align:left}
+.gst-table tbody tr:nth-child(even) td{background:#FCFDFE}
+.gst-table tbody tr{page-break-inside:avoid;break-inside:avoid}
+.gst-table tfoot td{border-left:1px solid #E2E8F0;border-right:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0;background:#F8FAFC;font-weight:600}
+.gst-table tfoot td.rule{border-top:1px solid #CBD5E1}
+.gst-table tfoot td.grand{border-top:2px solid #18181B;font-weight:700;font-size:14px}
+.gst-table .num{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gst-table .muted{color:#64748B;font-size:11px}
+@media screen and (max-width:700px){
+  .gst-table thead{display:none}
+  .gst-table,.gst-table tbody,.gst-table tr,.gst-table td{display:block;width:100%}
+  .gst-table tr{border:1px solid #CBD5E1;margin-bottom:10px}
+  .gst-table td{display:flex;justify-content:space-between;gap:12px;border:none;border-bottom:1px solid #E2E8F0;text-align:right}
+  .gst-table td::before{content:attr(data-label);font-weight:600;color:#475569;text-align:left}
+  .gst-table tfoot td{display:flex;justify-content:space-between}
+  .gst-table tfoot td::before{content:none}
+}
+@media print{.gst-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 .doc-body{max-width:820px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:8px;padding:32px;line-height:1.7;color:var(--muted);font-size:14px}
 .doc-body h2{color:var(--ink);margin-bottom:12px}
 .doc-body h3{color:var(--ink);margin:20px 0 8px;font-size:16px}
@@ -322,6 +358,44 @@ body.dark-theme .modal-body{background:var(--surface)}
 body.dark-theme .invoice-paper,body.dark-theme .quote-paper{background:#fff;color:#0F172A}
 body.dark-theme .table-wrap th{background:#1F2937;color:var(--muted)}
 body.dark-theme tr:hover td{background:#1F2937}
+
+/* ── Gallery & product page ── */
+.gal-main{width:100%;aspect-ratio:16/9;object-fit:contain;border:1px solid var(--border);border-radius:var(--radius-sm);background:#F7F8FA;display:block}
+.gal-thumbs{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.gal-th{width:74px;height:56px;object-fit:contain;border:1px solid var(--border);border-radius:var(--radius-sm);background:#F7F8FA;cursor:pointer;padding:2px}
+.gal-th.on{border-color:var(--charcoal);box-shadow:0 0 0 1px var(--charcoal)}
+.pp-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.pp-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:22px;align-items:start}
+.pp-buy{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.pp-price{font-size:28px}
+.spec-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:0;table-layout:fixed}
+.spec-tbl th{text-align:left;width:44%;font-weight:600;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.spec-tbl td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:500;word-break:break-word}
+.crumbs{font-size:12px;color:var(--muted);margin-bottom:10px}
+.crumbs a{font-weight:600}.crumbs a:hover{color:var(--orange-dark)}
+/* Pre-built tiers */
+.tier{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.tier-img{width:100%;aspect-ratio:16/9;object-fit:contain;background:#F7F8FA;border-bottom:1px solid var(--border)}
+.tier-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tier h3{font-size:17px}
+.tier-flag{position:absolute;top:10px;left:10px;z-index:2;background:var(--charcoal);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:var(--radius-sm)}
+.tier-wrap{position:relative}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.cmp{width:100%;border-collapse:collapse;font-size:12px}
+.cmp th,.cmp td{border:1px solid var(--border);padding:8px 10px;text-align:left}
+.cmp thead th{background:#F1F5F9;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.cmp td.num,.cmp th.num{text-align:right;font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
+/* YouTube shorts rail */
+.yt-rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.yt-card{flex:0 0 190px;scroll-snap-align:start;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden;display:block}
+.yt-card:hover{border-color:var(--border-strong)}
+.yt-thumb{width:100%;aspect-ratio:9/16;max-height:250px;object-fit:cover;background:#F1F5F9;display:block}
+.yt-meta{padding:9px 10px}
+.yt-meta b{display:block;font-size:12px;line-height:1.35;font-weight:600;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+/* Contact numbers */
+.phone-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px}
+.qr-live{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;text-align:left}
+.qr-live svg{border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;flex:0 0 auto}
 
 /* ── Responsive ── */
 .nav{scrollbar-width:none}
@@ -405,6 +479,7 @@ body.dark-theme tr:hover td{background:#1F2937}
     <span class="badge-loc">Coimbatore, TN</span>
     <nav class="nav" id="mainNav">
       <button class="nav-btn active" data-nav="store" onclick="showView('store')">Storefront</button>
+      <button class="nav-btn" data-nav="prebuilt" onclick="showView('prebuilt')">Pre-Built PCs</button>
       <button class="nav-btn cta" data-nav="builder" onclick="showView('builder')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a5 5 0 0 0-7.4 6.6L3 17.2V21h3.8l4.3-4.3a5 5 0 0 0 6.6-7.4l-3 3-2.5-.6-.6-2.5 3.1-2.9z"/></svg>
         Custom PC Builder
@@ -471,6 +546,55 @@ body.dark-theme tr:hover td{background:#1F2937}
 
   <div class="grid" id="productGrid"></div>
   <div class="empty" id="storeEmpty" style="display:none"><b>No products match your filters</b>Try clearing search or choosing a different category.</div>
+
+  <!-- ═══ Latest from BYOS on YouTube ═══ -->
+  <div style="margin-top:44px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <div>
+        <h2 style="font-size:22px">Latest from BYOS on YouTube</h2>
+        <p class="small" style="margin-top:4px">Build videos, unboxings and shorts from our official channel — new uploads every week.</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn sm" href="https://www.youtube.com/@byos-buildyourownsystem7316" target="_blank" rel="noopener">Visit Channel</a>
+        <a class="btn sm dark" href="https://www.youtube.com/@byos-buildyourownsystem7316?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+    </div>
+    <div class="yt-rail" id="ytRail"></div>
+  </div>
+
+  <!-- ═══ Google rating strip ═══ -->
+  <div class="panel" style="margin-top:28px" id="ratingStrip"></div>
+</section>
+
+<!-- ══════════ PRE-BUILT DESKTOPS ══════════ -->
+<section id="view-prebuilt" class="view">
+  <div class="hero" style="margin-bottom:20px">
+    <div>
+      <h1>Pre-Built Desktops,<br>ready to <span>ship.</span></h1>
+      <p>Factory-assembled by our Coimbatore team, stress-tested for 48 hours and shipped with a 3-year BYOS service warranty. Every machine is upgradeable — ask us to customise any tier in the PC Builder.</p>
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn primary" onclick="showView('builder')">Open Custom PC Builder →</button>
+        <button class="btn" onclick="showView('contact')">Talk to a Build Specialist</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><b>48 hr</b><span>Burn-in Tested</span></div>
+      <div class="hstat"><b>3 Year</b><span>BYOS Warranty</span></div>
+      <div class="hstat"><b>Free</b><span>Coimbatore Delivery</span></div>
+      <div class="hstat"><b>4.8★</b><span>1,295 Google Reviews</span></div>
+    </div>
+  </div>
+  <div class="tier-grid" id="prebuiltGrid"></div>
+  <div class="panel" style="margin-top:22px">
+    <h3 style="margin-bottom:10px">Compare Pre-Built Tiers</h3>
+    <div style="overflow-x:auto"><table class="cmp" id="prebuiltCmp"></table></div>
+    <p class="small" style="margin-top:10px">All prices include GST. Monitors, keyboard and mouse not included unless stated. Need a different GPU, more RAM or a hard-tube liquid loop? Use the <a href="#" onclick="showView('builder');return false" style="font-weight:600">PC Builder</a> or call <a href="tel:+917530015155" style="font-weight:600">75300 15155</a>.</p>
+  </div>
+</section>
+
+<!-- ══════════ PRODUCT DETAIL ══════════ -->
+<section id="view-product" class="view">
+  <div id="productPage"></div>
 </section>
 
 <!-- ══════════ PC BUILDER ══════════ -->
@@ -596,8 +720,8 @@ body.dark-theme tr:hover td{background:#1F2937}
         <div class="panel" style="margin-bottom:12px">
           <h3 style="margin-bottom:10px">Store Details</h3>
           <p class="small" id="contactAddress" style="font-size:13px;line-height:1.7"></p>
-          <p style="font-size:13px;margin-top:10px;line-height:1.8">
-            Phone: <a href="tel:+914224001234" id="contactPhone" style="font-weight:600"></a><br>
+          <p style="font-size:13px;margin-top:10px;line-height:1.8" id="contactPhones"></p>
+          <p style="font-size:13px;margin-top:6px;line-height:1.8">
             Email: <a href="mailto:hello@byos.in" id="contactEmail" style="font-weight:600">hello@byos.in</a><br>
             Hours: Mon–Sat 10 AM – 8 PM · Sun 11 AM – 5 PM
           </p>
@@ -615,13 +739,24 @@ body.dark-theme tr:hover td{background:#1F2937}
         </div>
       </div>
       <div>
-        <iframe class="map-frame" title="BYOS Store Location — RS Puram, Coimbatore" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=RS%20Puram%2C%20Coimbatore%2C%20Tamil%20Nadu&output=embed"></iframe>
+        <iframe class="map-frame" id="contactMap" title="BYOS Computer Store — Peelamedu, Coimbatore" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=11.0261568,77.0202886&z=17&hl=en&output=embed"></iframe>
+        <p class="small" style="margin-top:8px"><a id="contactMapLink" href="https://maps.app.goo.gl/zu9FS3TSkmNGJBWx8" target="_blank" rel="noopener" style="font-weight:600">Open in Google Maps →</a></p>
         <div class="panel" style="margin-top:12px">
           <h3 style="margin-bottom:8px">Getting Here</h3>
-          <p class="small" style="font-size:13px;line-height:1.7">2 min from RS Puram bus stop · 10 min from Coimbatore Junction railway station · Free 2-wheeler parking at the store. Landmark: Opposite Sri Ayyappan Temple, 3rd Cross Street.</p>
+          <p class="small" style="font-size:13px;line-height:1.7">On Avinashi Road, Peelamedu — 5 min from Hope College signal · 10 min from Coimbatore Junction railway station · Free 2-wheeler parking at the store. Landmark: Near Sri Nagar, Periyar Nagar.</p>
         </div>
       </div>
+    </div>
+    <div class="panel" style="margin-top:16px" id="reviewsPanel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <div>
+          <h3>What Customers Say</h3>
+          <p class="small" style="margin-top:4px" id="reviewsSummary"></p>
+        </div>
+        <a class="btn sm" id="reviewsGmbLink" href="https://maps.app.goo.gl/zu9FS3TSkmNGJBWx8" target="_blank" rel="noopener">Read all reviews on Google</a>
+      </div>
+      <div class="grid" id="reviewsGrid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"></div>
     </div>
   </div>
 </section>
@@ -734,11 +869,30 @@ body.dark-theme tr:hover td{background:#1F2937}
             </div>
           </div>
           <div class="panel">
+            <div class="panel-head"><h3>Contact Numbers</h3><span class="small">Shown in footer, contact page &amp; invoices</span></div>
+            <div id="contactsEditor"></div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn sm" onclick="addContactRow()">+ Add Number</button>
+              <button class="btn sm dark" onclick="saveContacts()">Save Contact Numbers</button>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Google Reviews</h3><span class="small">Curated entries shown on the storefront &amp; contact page</span></div>
+            <div id="reviewsEditor"></div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn sm" onclick="addReviewRow()">+ Add Review</button>
+              <button class="btn sm dark" onclick="saveReviews()">Save Reviews</button>
+            </div>
+          </div>
+          <div class="panel">
             <div class="panel-head"><h3>Branding &amp; Store Identity</h3><span class="small">Applies instantly across store, invoices &amp; quotes</span></div>
             <div class="form-grid">
               <div class="field"><label>Store Name</label><input id="bName" placeholder="BYOS"></div>
               <div class="field"><label>Store Email</label><input id="bEmail" placeholder="hello@byos.in"></div>
-              <div class="field" style="grid-column:1/-1"><label>Store Address</label><textarea id="bAddress" rows="2" placeholder="42, 3rd Cross Street, RS Puram, Coimbatore, TN 641002"></textarea></div>
+              <div class="field" style="grid-column:1/-1"><label>Store Address</label><textarea id="bAddress" rows="2" placeholder="93, Avinashi Rd, Peelamedu, Coimbatore, TN 641004"></textarea></div>
+              <div class="field" style="grid-column:1/-1"><label>Store Tagline / About</label><textarea id="bTagline" rows="2" placeholder="BYOS (Build Your Own System) is a retail store in Coimbatore…"></textarea></div>
+              <div class="field"><label>Google Rating</label><input id="bGmbRating" placeholder="4.8"></div>
+              <div class="field"><label>Google Review Count</label><input id="bGmbReviews" placeholder="1295"></div>
               <div class="field"><label>Logo Image</label><input type="file" id="bLogoFile" accept="image/*" onchange="handleLogoUpload(this)"><div class="hint" id="bLogoPreview"></div><div class="hint"><button class="btn sm" type="button" onclick="clearBrandingImage('logo')">Remove logo</button></div></div>
               <div class="field"><label>Favicon Image</label><input type="file" id="bFaviconFile" accept="image/*" onchange="handleFaviconUpload(this)"><div class="hint">PNG/SVG, square. Shown in browser tab &amp; PWA.</div><div class="hint"><button class="btn sm" type="button" onclick="clearBrandingImage('favicon')">Remove favicon</button></div></div>
               <div class="field"><label>Accent Colour (CTAs)</label><input type="color" id="bAccent" value="#EA580C" style="height:38px;padding:2px"></div>
@@ -827,8 +981,15 @@ body.dark-theme tr:hover td{background:#1F2937}
         <div class="field"><label>RAM Type</label><select id="pRamType"><option value="">—</option><option>DDR5</option><option>DDR4</option></select></div>
         <div class="field"><label>Form Factor</label><input id="pForm" placeholder="ATX / mATX / ITX"></div>
         <div class="field"><label>Wattage / TDP (W)</label><input id="pWatt" type="number" placeholder="120"></div>
-        <div class="field" style="grid-column:1/-1"><label>Product Image URL</label><input id="pImage" placeholder="https://…/image.jpg"><div class="hint">Paste an image URL, or upload below. Leave blank for the default icon.</div></div>
-        <div class="field"><label>Upload Image</label><input type="file" id="pImageFile" accept="image/*" onchange="handleProductImageUpload(this)"><div class="hint" id="pImagePreview"></div></div>
+        <div class="field" style="grid-column:1/-1"><label>Product Images (gallery)</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <input id="pImage" placeholder="Paste an image URL and press Add…" style="flex:1;min-width:200px">
+            <button class="btn sm" type="button" onclick="addProductImageUrl()">Add URL</button>
+          </div>
+          <div class="hint">Add as many images as you like — they appear as a gallery on the product page. Leave empty for the default artwork.</div>
+          <div class="gal-thumbs" id="pImagesList"></div>
+        </div>
+        <div class="field"><label>Upload Images</label><input type="file" id="pImageFile" accept="image/*" multiple onchange="handleProductImagesUpload(this)"><div class="hint">Select multiple photos at once.</div></div>
         <div class="field" style="grid-column:1/-1"><label>Spec Pills (comma separated)</label><input id="pSpecs" placeholder="AM5, 8C/16T, 120W"></div>
         <div class="field" style="grid-column:1/-1"><label>Description</label><textarea id="pDesc" rows="2"></textarea></div>
         <label class="toggle-wrap">Serial Tracking Required <button class="switch" id="pSerial" onclick="this.classList.toggle('on')"></button></label>
@@ -967,7 +1128,7 @@ body.dark-theme tr:hover td{background:#1F2937}
       <p id="footerAddress">Build Your Own System<br>42, 3rd Cross Street, RS Puram,<br>Coimbatore, Tamil Nadu 641002</p>
       <div class="social-row" id="footerSocials" style="margin-top:10px"></div>
     </div>
-    <div><h4>Store</h4><p id="footerContact">Mon–Sat: 10 AM – 8 PM<br>Sunday: 11 AM – 5 PM<br>+91 422 400 1234<br>hello@byos.in</p>
+    <div><h4>Store</h4><p id="footerContact"></p><p style="margin-top:8px" id="footerRating"></p>
       <p style="margin-top:10px"><button class="btn sm install-btn" id="installBtnFooter" onclick="promptInstall()">Install App (PWA)</button></p></div>
     <div><h4>Quick Links</h4><p><a href="#" onclick="showView('faq');return false">FAQs</a><br><a href="#" onclick="showView('contact');return false">Contact Us</a><br><a href="#" onclick="showView('privacy');return false">Privacy Policy</a><br><a href="#" onclick="showView('terms');return false">Terms &amp; Conditions</a><br><span id="footerCustomLinks"></span></p></div>
     <div><h4>Compliance</h4><p>GSTIN: <span class="mono" id="footerGstin">33AABCB1234F1Z5</span><br>State Code: 33 (Tamil Nadu)<br>All prices include GST unless<br>marked exclusive. GST invoice<br>provided on every order.</p></div>
@@ -1125,6 +1286,11 @@ function plateSvg(p){
 }
 function plateUri(p){ return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(plateSvg(p)); }
 function productSrc(p){ return (p.image&&p.image.trim())?p.image.trim():plateUri(p); }
+function productImages(p){
+  const arr=Array.isArray(p.images)?p.images.filter(x=>x&&String(x).trim()):[];
+  if(p.image&&p.image.trim()&&!arr.includes(p.image.trim())) arr.unshift(p.image.trim());
+  return arr.length?arr:[plateUri(p)];
+}
 function seedProducts(){
   const P=(id,sku,name,brand,category,price,cost,stock,hsn,specs,extra={})=>Object.assign({
     id,sku,barcode_ean:'890'+String(100000000000+id*7919).slice(0,10),name,brand,category,
@@ -1259,6 +1425,207 @@ function doPost(e){
   return jsonOut({status:'error', message:'Unknown action'});
 }`;
 
+/* ---------- QR encoder (embedded, no dependency) ---------- */
+/* ── QR encoder (byte mode, EC level M, versions 1–10) ──────────────────────
+   Self-contained so UPI payment codes render offline with no third-party
+   script. Follows ISO/IEC 18004: byte segmentation, Reed–Solomon over
+   GF(256), alignment/version patterns, 8 data masks scored by the penalty
+   rules, and BCH-encoded format information. */
+const QR = (function(){
+  // version → [ecCodewordsPerBlock, blocks1, dataCw1, blocks2, dataCw2]
+  const TBL={1:[10,1,16,0,0],2:[16,1,28,0,0],3:[26,1,44,0,0],4:[18,2,32,0,0],5:[24,2,43,0,0],
+             6:[16,4,27,0,0],7:[18,4,31,0,0],8:[22,2,38,2,39],9:[22,3,36,2,37],10:[26,4,43,1,44]};
+  const TOTAL={1:26,2:44,3:70,4:100,5:134,6:172,7:196,8:242,9:292,10:346};
+  const ALIGN={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  const REM={1:0,2:7,3:7,4:7,5:7,6:7,7:0,8:0,9:0,10:0};
+
+  const EXP=new Uint8Array(512), LOG=new Uint8Array(256);
+  (function(){ let x=1; for(let i=0;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if(x&0x100) x^=0x11D; } for(let i=255;i<512;i++) EXP[i]=EXP[i-255]; })();
+  const mul=(a,b)=>(a===0||b===0)?0:EXP[LOG[a]+LOG[b]];
+  function genPoly(deg){ let g=[1];
+    for(let i=0;i<deg;i++){ const n=new Array(g.length+1).fill(0);
+      for(let j=0;j<g.length;j++){ n[j]^=mul(g[j],1); n[j+1]^=mul(g[j],EXP[i]); }
+      g=n; }
+    return g; }
+  function ecc(data,deg){ const g=genPoly(deg); const res=new Array(deg).fill(0);
+    for(const b of data){ const f=b^res[0]; res.shift(); res.push(0);
+      for(let i=0;i<deg;i++) res[i]^=mul(g[i+1],f); }
+    return res; }
+
+  function toUtf8(s){
+    if(typeof TextEncoder!=='undefined') return Array.from(new TextEncoder().encode(s));
+    const out=[];
+    for(let i=0;i<s.length;i++){ let c=s.charCodeAt(i);
+      if(c<0x80) out.push(c);
+      else if(c<0x800) out.push(0xC0|c>>6,0x80|c&63);
+      else if(c>=0xD800&&c<0xDC00&&i+1<s.length){ const cp=0x10000+((c&0x3FF)<<10)+(s.charCodeAt(++i)&0x3FF);
+        out.push(0xF0|cp>>18,0x80|(cp>>12)&63,0x80|(cp>>6)&63,0x80|cp&63); }
+      else out.push(0xE0|c>>12,0x80|(c>>6)&63,0x80|c&63); }
+    return out;
+  }
+  const dataCw=v=>{ const t=TBL[v]; return t[1]*t[2]+t[3]*t[4]; };
+  function pickVersion(len){
+    for(let v=1;v<=10;v++) if(4+(v>=10?16:8)+8*len<=dataCw(v)*8) return v;
+    return 0;
+  }
+
+  function encode(text){
+    const bytes=toUtf8(String(text));
+    const v=pickVersion(bytes.length);
+    if(!v) throw new Error('QR payload too long (max '+dataCw(10)+' bytes)');
+    const [ecPer,b1,d1,b2,d2]=TBL[v];
+    const total=dataCw(v);
+
+    const bits=[];
+    const put=(val,n)=>{ for(let i=n-1;i>=0;i--) bits.push((val>>>i)&1); };
+    put(4,4); put(bytes.length, v>=10?16:8);
+    bytes.forEach(x=>put(x,8));
+    put(0, Math.min(4, total*8-bits.length));
+    while(bits.length%8) bits.push(0);
+    const filled=bits.length/8;
+    const cw=new Uint8Array(total);
+    for(let i=0;i<filled;i++) cw[i]=parseInt(bits.slice(i*8,i*8+8).map(String).join(''),2);
+    // pad codewords alternate 0xEC, 0x11 starting with 0xEC at the first pad slot
+    for(let i=filled;i<total;i++) cw[i]=((i-filled)%2===0)?0xEC:0x11;
+
+    const blocks=[]; let p=0;
+    for(let i=0;i<b1;i++){ blocks.push(Array.from(cw.slice(p,p+d1))); p+=d1; }
+    for(let i=0;i<b2;i++){ blocks.push(Array.from(cw.slice(p,p+d2))); p+=d2; }
+    const ecBlocks=blocks.map(b=>ecc(b,ecPer));
+    const stream=[];
+    const maxD=Math.max(d1,d2);
+    for(let i=0;i<maxD;i++) blocks.forEach(b=>{ if(i<b.length) stream.push(b[i]); });
+    for(let i=0;i<ecPer;i++) ecBlocks.forEach(b=>stream.push(b[i]));
+
+    const out=[];
+    stream.forEach(x=>{ for(let i=7;i>=0;i--) out.push((x>>>i)&1); });
+    for(let i=0;i<REM[v];i++) out.push(0);
+    const need=TOTAL[v]*8;
+    while(out.length<need) out.push(0);
+    return build(v,out.slice(0,need));
+  }
+
+  function build(v, bits){
+    const size=17+4*v;
+    const m=Array.from({length:size},()=>new Int8Array(size));
+    const fn=Array.from({length:size},()=>new Uint8Array(size));   // function-pattern mask
+    const set=(r,c,val)=>{ if(r<0||c<0||r>=size||c>=size) return; m[r][c]=val; fn[r][c]=1; };
+
+    for(let r=-1;r<=7;r++) for(let c=-1;c<=7;c++){
+      const inside=r>=0&&r<=6&&c>=0&&c<=6;
+      const dark=inside&&((r===0||r===6||c===0||c===6)||(r>=2&&r<=4&&c>=2&&c<=4));
+      set(r,c,dark?1:0); set(r,size-7+c,dark?1:0); set(size-7+r,c,dark?1:0);
+    }
+    for(let i=8;i<size-8;i++){ set(6,i,i%2===0?1:0); set(i,6,i%2===0?1:0); }
+    const ac=ALIGN[v];
+    const last=ac.length-1;
+    for(let i=0;i<ac.length;i++) for(let j=0;j<ac.length;j++){
+      if((i===0&&j===0)||(i===0&&j===last)||(i===last&&j===0)) continue;   // only the three finder corners
+      const r=ac[i],c=ac[j];
+      for(let dr=-2;dr<=2;dr++) for(let dc=-2;dc<=2;dc++)
+        set(r+dr,c+dc,(Math.max(Math.abs(dr),Math.abs(dc))!==1)?1:0);
+    }
+    set(size-8,8,1);
+    for(let i=0;i<=8;i++){ set(8,i,0); set(i,8,0); }
+    for(let i=0;i<8;i++){ set(size-1-i,8,0); set(8,size-1-i,0); }
+    if(v>=7) for(let i=0;i<18;i++){ const r=Math.floor(i/3), c=i%3;
+      set(r, size-11+c, 0);            // top-right block: rows 0–5, cols size-11..size-9
+      set(size-11+c, r, 0); }           // bottom-left block: transpose of the same bits
+
+    let bi=0;
+    for(let right=size-1;right>=1;right-=2){
+      if(right===6) right=5;
+      const upward=((right+1)&2)===0;
+      for(let vert=0;vert<size;vert++){
+        const y=upward?size-1-vert:vert;
+        for(let k=0;k<2;k++){
+          const x=right-k;
+          if(fn[y][x]) continue;
+          m[y][x]= bi<bits.length ? bits[bi++] : 0;
+        }
+      }
+    }
+
+    const maskFn=[
+      (r,c)=>(r+c)%2===0, (r,c)=>r%2===0, (r,c)=>c%3===0, (r,c)=>(r+c)%3===0,
+      (r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2===0,
+      (r,c)=>((r*c)%2)+((r*c)%3)===0,
+      (r,c)=>(((r*c)%2)+((r*c)%3))%2===0,
+      (r,c)=>(((r+c)%2)+((r*c)%3))%2===0];
+
+    function penalty(mm){
+      let s=0;
+      const scan=line=>{ let run=1;
+        for(let i=1;i<line.length;i++){ if(line[i]===line[i-1]) run++; else { if(run>=5) s+=3+(run-5); run=1; } }
+        if(run>=5) s+=3+(run-5); };
+      for(let i=0;i<size;i++){ scan(Array.from(mm[i])); scan(mm.map(r=>r[i])); }
+      for(let r=0;r<size-1;r++) for(let c=0;c<size-1;c++){
+        const a=mm[r][c],b=mm[r][c+1],d=mm[r+1][c],e=mm[r+1][c+1];
+        if(a===b&&b===d&&d===e) s+=3; }
+      const pat=[1,0,1,1,1,0,1,0,0,0,0];
+      const finder=line=>{
+        for(let i=0;i+11<=line.length;i++){ let ok=true;
+          for(let k=0;k<11;k++) if(line[i+k]!==pat[k]){ ok=false; break; }
+          if(ok) s+=40; }
+        for(let i=0;i+11<=line.length;i++){ let ok=true;
+          for(let k=0;k<11;k++) if(line[i+k]!==pat[10-k]){ ok=false; break; }
+          if(ok) s+=40; } };
+      for(let i=0;i<size;i++){ const row=Array.from(mm[i]), col=[]; for(let r=0;r<size;r++) col.push(mm[r][i]); finder(row); finder(col); }
+      let dark=0; for(let r=0;r<size;r++) for(let c=0;c<size;c++) dark+=mm[r][c];
+      s+=Math.floor(Math.abs(dark*100/(size*size)-50)/5)*10;
+      return s;
+    }
+
+    let best=null;
+    for(let k=0;k<8;k++){
+      const cand=m.map(r=>Int8Array.from(r));
+      for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(!fn[r][c]&&maskFn[k](r,c)) cand[r][c]^=1;
+      const p=penalty(cand);
+      if(!best||p<best.p) best={k,mm:cand,p};
+    }
+
+    // format information, EC level M (00) + 3-bit mask, BCH(15,5) gen 0x537, mask 0x5412
+    const fdata=(0<<3)|best.k;
+    let rem=fdata<<10;
+    for(let i=14;i>=10;i--) if((rem>>i)&1) rem^=0x537<<(i-10);
+    const format=((fdata<<10)|rem)^0x5412;
+    const fb=i=>(format>>i)&1;
+    for(let i=0;i<=5;i++) best.mm[i][8]=fb(i);          // vertical strip, col 8
+    best.mm[7][8]=fb(6); best.mm[8][8]=fb(7); best.mm[8][7]=fb(8);
+    for(let i=9;i<=14;i++) best.mm[8][14-i]=fb(i);      // horizontal strip, row 8
+    for(let i=0;i<=7;i++) best.mm[8][size-1-i]=fb(i);
+    for(let i=8;i<=14;i++) best.mm[size-15+i][8]=fb(i);
+
+    if(v>=7){
+      let vr=v<<12;
+      for(let i=17;i>=12;i--) if((vr>>i)&1) vr^=0x1F25<<(i-12);
+      const info=(v<<12)|vr;
+      for(let i=0;i<18;i++){ const b=(info>>i)&1; const r=Math.floor(i/3), c=i%3;
+        best.mm[r][size-11+c]=b;
+        best.mm[size-11+c][r]=b; } }
+    return {size, modules:best.mm, version:v, mask:best.k};
+  }
+
+  function svg(text,opts={}){
+    const q=encode(text);
+    const scale=opts.scale||4, quiet=opts.quiet==null?4:opts.quiet;
+    const dim=(q.size+quiet*2)*scale;
+    let d='';
+    for(let r=0;r<q.size;r++){
+      let c=0;
+      while(c<q.size){
+        if(!q.modules[r][c]){ c++; continue; }
+        const s=c; while(c<q.size&&q.modules[r][c]) c++;
+        d+='M'+((s+quiet)*scale)+' '+((r+quiet)*scale)+'h'+((c-s)*scale)+'v'+scale+'h-'+((c-s)*scale)+'z';
+      }
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+dim+' '+dim+'" width="'+dim+'" height="'+dim+'" shape-rendering="crispEdges" role="img" aria-label="'+(opts.label||'QR code')+'">'
+      +'<rect width="'+dim+'" height="'+dim+'" fill="'+(opts.bg||'#FFFFFF')+'"/>'
+      +'<path d="'+d+'" fill="'+(opts.fg||'#0F172A')+'"/></svg>';
+  }
+  return {encode, svg, maxBytes:dataCw(10)};
+})();
+
 /* ---------- ApiService (Demo ⇄ Google Sheets) ---------- */
 const ApiService = {
   get settings(){ return State.settings; },
@@ -1368,10 +1735,29 @@ function parseSpecs(s){ if(Array.isArray(s)) return s; try{ return JSON.parse(s)
 const LS_KEY = 'byos_state_v1';
 const State = {
   products:[], orders:[], cart:[], build:{}, assembly:true,
-  settings:{mode:'demo', gasUrl:'', razorpayKey:'rzp_test_BYOSdemo123456', upiId:'byos@okhdfcbank', gstin:'33AABCB1234F1Z5', phone:'+91 422 400 1234',
-    storeName:'BYOS', storeEmail:'hello@byos.in', storeAddress:'42, 3rd Cross Street, RS Puram, Coimbatore, Tamil Nadu 641002',
+  settings:{mode:'demo', gasUrl:'', razorpayKey:'rzp_test_BYOSdemo123456', upiId:'byos@okhdfcbank', gstin:'33AABCB1234F1Z5', phone:'+91 75300 15155',
+    storeName:'BYOS', storeEmail:'hello@byos.in',
+    storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, Peelamedu, Coimbatore, Tamil Nadu 641004',
+    tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",
     logo:'', favicon:'', accent:'#EA580C', font:"'Space Grotesk','Inter',sans-serif", theme:'light',
-    whatsapp:'919843022110', instagram:'', facebook:'', youtube:'', twitter:'', customPages:[]},
+    contacts:[{label:'Mobile · Sales',phone:'7530015155'},{label:'Mobile · Service',phone:'7530016166'}],
+    whatsapp:'917530015155',
+    instagram:'https://instagram.com/byos_computerstore/?hl=en',
+    facebook:'https://facebook.com/BuildYourOwnSystem',
+    youtube:'https://www.youtube.com/@byos-buildyourownsystem7316',
+    youtubeChannel:'UCjmXdzMHdZ5piN6vxIl4OAg',
+    twitter:'', googleMaps:'https://www.google.com/maps/place/BYOS+Computer+Store/@11.0261568,77.0202886,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba857e9a254cda7:0x396de2c53feb416e!8m2!3d11.0261568!4d77.0202886!16s%2Fg%2F11gxgzlw91',
+    mapsShort:'https://maps.app.goo.gl/zu9FS3TSkmNGJBWx8',
+    mapEmbed:'https://maps.google.com/maps?q=11.0261568,77.0202886&z=17&hl=en&output=embed',
+    gmbRating:'4.8', gmbReviews:'1295', customPages:[],
+    reviews:[
+      {name:'Arun Kumar',rating:5,date:'2026-11-18',text:'Got my 7800X3D + RTX 4070 Super build from BYOS. Cable management is clean, temps are great and they stress-tested it for 2 days before handover. Best PC shop in Coimbatore, hands down.'},
+      {name:'Priya Sharma',rating:5,date:'2026-11-02',text:'They built a 4K editing workstation for my studio. Transparent pricing with a proper GST bill, and the team explained every component. No upselling at all.'},
+      {name:'Vikram Rao',rating:4,date:'2026-10-21',text:'Bought a pre-built Valor for 1080p gaming. Runs Valorant at 240+ FPS. Delivery to Peelamedu was same day. Only wish the cabinet had one more fan slot.'},
+      {name:'Deepak S',rating:5,date:'2026-10-08',text:'Hard-tube liquid cooling build done here — the bends are perfect and the loop has been leak-free for 3 months. These guys know what they are doing.'},
+      {name:'Meena K',rating:5,date:'2026-09-27',text:'Took my laptop in for a service and RAM upgrade. Honest diagnosis, fair price, and they showed me the old parts. Rare to find this kind of transparency.'},
+      {name:'Sathish Kumar',rating:4,date:'2026-09-12',text:'Ordered components online and picked up from the store. Genuine sealed boxes with GST invoice. Will definitely come back for my next build.'}
+    ] },
   filters:{search:'', category:'', brand:'', price:'', inStock:false},
   gstInclusive:true, admin:false, pickerSlot:null, pickerStockOnly:false, payMethod:'razorpay', checkoutSource:'cart',
 };
@@ -1386,6 +1772,19 @@ function loadState(){
   }catch(e){ State.products=seedProducts(); State.orders=seedOrders(); }
   // Migration: backfill images + branding defaults for older saved data
   if(!Array.isArray(State.settings.customPages)) State.settings.customPages=[];
+  if(!Array.isArray(State.settings.contacts)){
+    State.settings.contacts=State.settings.phone?[{label:'Mobile · Sales',phone:String(State.settings.phone).replace(/\D/g,'').slice(-10)}]:[];
+  }
+  if(!Array.isArray(State.settings.reviews)) State.settings.reviews=[];
+  if(!State.settings.youtubeChannel) State.settings.youtubeChannel='UCjmXdzMHdZ5piN6vxIl4OAg';
+  if(!State.settings.mapEmbed) State.settings.mapEmbed='https://maps.google.com/maps?q=11.0261568,77.0202886&z=17&hl=en&output=embed';
+  if(!State.settings.mapsShort) State.settings.mapsShort='https://maps.app.goo.gl/zu9FS3TSkmNGJBWx8';
+  if(!State.settings.googleMaps) State.settings.googleMaps=State.settings.mapsShort;
+  if(!State.settings.gmbRating) State.settings.gmbRating='4.8';
+  if(!State.settings.gmbReviews) State.settings.gmbReviews='1295';
+  if(State.settings.instagram==='https://instagram.com/byos.cbe') State.settings.instagram='https://instagram.com/byos_computerstore/?hl=en';
+  if(!State.settings.facebook) State.settings.facebook='https://facebook.com/BuildYourOwnSystem';
+  if(!State.settings.youtube) State.settings.youtube='https://www.youtube.com/@byos-buildyourownsystem7316';
   State.orders.forEach(o=>{ if(!o.order_type) o.order_type=o.items.some(i=>String(i.sku).startsWith('BYOS-PC'))?'Custom Build':'Accessories'; });
 }
 
@@ -1439,7 +1838,7 @@ const CAT_ICONS = {
 function catIcon(cat){ return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">'+(CAT_ICONS[cat]||CAT_ICONS['Peripherals'])+'</svg>'; }
 
 /* ---------- Router ---------- */
-const VIEWS=['store','builder','track','faq','contact','privacy','terms','custom','admin'];
+const VIEWS=['store','prebuilt','product','builder','track','faq','contact','privacy','terms','custom','admin'];
 function showView(name,updateHash=true){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el=$('view-'+name);
@@ -1448,6 +1847,7 @@ function showView(name,updateHash=true){
   window.scrollTo({top:0, behavior:'smooth'});
   if(name==='admin' && State.admin) renderAdminAll();
   if(name==='builder') renderBuilder();
+  if(name==='prebuilt') renderPrebuilt();
   if(name==='contact') renderContact();
   if(name==='faq') renderFaqs();
   if(updateHash && VIEWS.includes(name) && name!=='custom' && location.hash.slice(1)!==name){
@@ -1465,6 +1865,7 @@ function showCustomPage(id,updateHash=true){
 function routeFromHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(h.startsWith('build=')){ loadFromHash(); return; }
+  if(h.startsWith('product-')){ showProduct(h.slice(8),false); return; }
   if(h.startsWith('page-')||h.startsWith('page=')){
     const id=h.split(/[-=]/)[1];
     if((State.settings.customPages||[]).some(p=>String(p.id)===String(id))){ showCustomPage(id,false); return; }
@@ -1514,7 +1915,7 @@ function renderProducts(){
   $('productGrid').innerHTML=list.map(p=>{
     const s=stockInfo(p);
     const imgHtml='<div class="prod-img-wrap"><img class="prod-img" src="'+esc(productSrc(p))+'" alt="'+esc(p.name)+'" loading="lazy" onerror="imgFail(this)"></div>';
-    return '<article class="card">'
+    return '<article class="card" style="cursor:pointer" onclick="if(event.target.closest(\'button\'))return;showProduct(\''+p.id+'\')">'
       +imgHtml
       +'<div class="card-top"><div><div class="cat-label">'+esc(p.category)+'</div><div class="brand-label">'+esc(p.brand)+'</div></div></div>'
       +'<h3>'+esc(p.name)+'</h3>'
@@ -1525,6 +1926,146 @@ function renderProducts(){
       +'<button class="btn primary sm" style="margin-left:auto" '+(p.stock_qty<=0?'disabled':'onclick="addToCart(\''+p.id+'\')"')+'>Add to Cart</button></div>'
       +'</article>';
   }).join('');
+}
+
+function copyText(txt,msg){
+  const v=String(txt||'');
+  if(!v){ toast('Nothing to copy','error'); return; }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(v).then(()=>toast(msg||'Copied','success')).catch(()=>fallbackCopy(v,msg));
+  } else fallbackCopy(v,msg);
+}
+function fallbackCopy(v,msg){
+  const ta=document.createElement('textarea'); ta.value=v; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast(msg||'Copied','success'); }catch(e){ toast('Copy not supported — select the text manually','error'); }
+  document.body.removeChild(ta);
+}
+/* ---------- Product Page ---------- */
+function showProduct(id,updateHash=true){
+  const p=findP(id);
+  if(!p){ showView('store'); return; }
+  State._gal={id:String(id),idx:0};
+  renderProductPage(p);
+  showView('product',false);
+  if(updateHash) history.pushState(null,'','#product-'+p.id);
+}
+function setGal(i){
+  const g=State._gal; if(!g) return;
+  const p=findP(g.id); if(!p) return;
+  const imgs=productImages(p);
+  g.idx=Math.max(0,Math.min(imgs.length-1,i));
+  const main=$('galMain'); if(main) main.src=imgs[g.idx];
+  document.querySelectorAll('.gal-th').forEach((t,n)=>t.classList.toggle('on',n===g.idx));
+  const cnt=$('galCount'); if(cnt) cnt.textContent=(g.idx+1)+' / '+imgs.length;
+}
+function renderProductPage(p){
+  const imgs=productImages(p);
+  const s=stockInfo(p);
+  const specs=(p.specs||[]);
+  const specRows=specs.map(sp=>{
+    const m=String(sp).split(/\s*:\s*/);
+    return m.length>1
+      ? '<tr><th>'+esc(m[0])+'</th><td>'+esc(m.slice(1).join(': '))+'</td></tr>'
+      : '<tr><th>Highlight</th><td>'+esc(sp)+'</td></tr>';
+  }).join('');
+  const metaRows=[
+    ['SKU',p.sku],['HSN Code',p.hsn_code||'8471'],['GST Rate',(p.gst_rate||18)+'%'],
+    ['Barcode (EAN)',p.barcode_ean||'—'],['Serial Tracking',p.serial_tracking_required?'Required':'Not required'],
+    ['Socket',p.socket||'—'],['RAM Type',p.ram_type||'—'],['Form Factor',p.form_factor||'—'],
+    ['Wattage / TDP',p.wattage?p.wattage+' W':'—'],['Stock',s.label]
+  ].map(r=>'<tr><th>'+r[0]+'</th><td class="mono">'+esc(String(r[1]))+'</td></tr>').join('');
+  const related=State.products.filter(x=>x.category===p.category&&String(x.id)!==String(p.id)).slice(0,4);
+  $('productPage').innerHTML=
+    '<div class="crumbs"><a href="#" onclick="showView(\'store\');return false">Storefront</a> / <a href="#" onclick="setCategory(\''+esc(p.category)+'\');showView(\'store\');return false">'+esc(p.category)+'</a> / '+esc(p.name)+'</div>'
+    +'<div class="pp-head"><div><div class="cat-label">'+esc(p.category)+'</div><h2 style="font-size:26px;margin-top:4px">'+esc(p.name)+'</h2>'
+    +'<div class="sku mono" style="margin-top:6px">SKU: '+esc(p.sku)+' · '+esc(p.brand)+'</div></div>'
+    +'<div class="stock '+s.cls+'" style="font-size:13px"><span class="dot '+s.cls+'"></span>'+s.label+'</div></div>'
+    +'<div class="pp-grid" style="margin-top:18px">'
+    +'<div><img class="gal-main" id="galMain" src="'+esc(imgs[0])+'" alt="'+esc(p.name)+'" onerror="imgFail(this)">'
+    +(imgs.length>1?'<div class="gal-thumbs">'+imgs.map((src,i)=>'<img class="gal-th'+(i===0?' on':'')+'" src="'+esc(src)+'" alt="'+esc(p.name)+' view '+(i+1)+'" onclick="setGal('+i+')" onerror="imgFail(this)">').join('')+'</div><div class="small" style="margin-top:6px" id="galCount">1 / '+imgs.length+'</div>':'')
+    +'</div>'
+    +'<div><div class="price pp-price">'+fmtINR(displayPrice(p))+'</div>'
+    +'<div class="price-note">'+(State.gstInclusive?'incl. GST':'excl. GST')+' · HSN '+esc(p.hsn_code||'8471')+' · GST '+(p.gst_rate||18)+'%</div>'
+    +'<div class="pp-buy"><label class="small">Qty</label><input id="ppQty" type="number" min="1" max="'+Math.max(1,p.stock_qty)+'" value="1" style="width:70px;height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 8px">'
+    +'<button class="btn primary" '+(p.stock_qty<=0?'disabled':'onclick="addToCart(\''+p.id+'\',ppQty())"')+'>Add to Cart</button>'
+    +'<button class="btn dark" '+(p.stock_qty<=0?'disabled':'onclick="buyNow(\''+p.id+'\')"')+'>Buy Now</button></div>'
+    +(p.description?'<p style="margin-top:16px;font-size:14px;line-height:1.7">'+esc(p.description)+'</p>':'')
+    +'<h3 style="margin:20px 0 8px;font-size:16px">Specifications</h3><table class="spec-tbl">'+(specRows||'<tr><td class="small">No additional specifications listed.</td></tr>')+'</table>'
+    +'<h3 style="margin:20px 0 8px;font-size:16px">Product Details</h3><table class="spec-tbl">'+metaRows+'</table>'
+    +'<p class="small" style="margin-top:14px">Genuine product with manufacturer warranty. GST invoice provided on every order. Free delivery within Coimbatore city limits.</p>'
+    +'</div></div>'
+    +(related.length?'<h3 style="margin:28px 0 12px;font-size:18px">You May Also Like</h3><div class="grid">'+related.map(r=>'<article class="card" style="cursor:pointer" onclick="showProduct(\''+r.id+'\')"><div class="prod-img-wrap"><img class="prod-img" src="'+esc(productSrc(r))+'" alt="'+esc(r.name)+'" loading="lazy" onerror="imgFail(this)"></div><div class="cat-label">'+esc(r.category)+'</div><h3>'+esc(r.name)+'</h3><div class="price-row"><div class="price">'+fmtINR(displayPrice(r))+'</div><button class="btn primary sm" style="margin-left:auto" '+(r.stock_qty<=0?'disabled':'onclick="event.stopPropagation();addToCart(\''+r.id+'\')"')+'>Add to Cart</button></div></article>').join('')+'</div>':'');
+}
+function ppQty(){ const el=$('ppQty'); return Math.max(1,Number(el?el.value:1)||1); }
+function buyNow(id){ addToCart(id,ppQty(),true); openCheckout(); }
+
+/* ---------- Pre-Built Desktops ---------- */
+function renderPrebuilt(){
+  const tiers=State.products.filter(p=>p.category==='Pre-Built PCs');
+  $('prebuiltGrid').innerHTML=tiers.length?tiers.map((p,i)=>{
+    const flag=['1080p Gaming','1440p Workstation','AI / ML Rig'][i]||'BYOS Build';
+    const s=stockInfo(p);
+    return '<article class="tier"><div class="tier-wrap"><span class="tier-flag">'+esc(flag)+'</span>'
+      +'<img class="tier-img" src="'+esc(productSrc(p))+'" alt="'+esc(p.name)+'" onerror="imgFail(this)"></div>'
+      +'<div class="tier-body"><div><div class="cat-label">'+esc(p.sku)+'</div><h3>'+esc(p.name)+'</h3></div>'
+      +'<div class="spec-pills">'+(p.specs||[]).map(x=>'<span class="spec">'+esc(x)+'</span>').join('')+'</div>'
+      +(p.description?'<p class="small" style="line-height:1.6">'+esc(p.description)+'</p>':'')
+      +'<div class="stock '+s.cls+'"><span class="dot '+s.cls+'"></span>'+s.label+'</div>'
+      +'<div class="price-row" style="margin-top:auto"><div><div class="price">'+fmtINR(displayPrice(p))+'</div><div class="price-note">incl. GST · 48-hr tested</div></div></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+      +'<button class="btn primary sm" '+(p.stock_qty<=0?'disabled':'onclick="addToCart(\''+p.id+'\')"')+'>Add to Cart</button>'
+      +'<button class="btn sm" onclick="showProduct(\''+p.id+'\')">View Details</button></div>'
+      +'<button class="btn sm" onclick="showView(\'builder\')">Customise in PC Builder</button>'
+      +'</div></article>';
+  }).join(''):'<div class="empty"><b>No pre-built PCs right now</b>Add products under the "Pre-Built PCs" category in Admin → Products.</div>';
+  if(tiers.length){
+    const keys=[...new Set(tiers.flatMap(p=>p.specs||[]))];
+    $('prebuiltCmp').innerHTML='<thead><tr><th>Specification</th>'+tiers.map(p=>'<th class="num">'+esc(p.name.split('—')[0].trim())+'</th>').join('')+'</tr></thead><tbody>'
+      +keys.map(k=>'<tr><td><b>'+esc(k)+'</b></td>'+tiers.map(p=>'<td class="num">'+((p.specs||[]).includes(k)?'✓':'—')+'</td>').join('')+'</tr>').join('')
+      +'<tr><td><b>Price (incl. GST)</b></td>'+tiers.map(p=>'<td class="num"><b>'+fmtINR(displayPrice(p))+'</b></td>').join('')+'</tr></tbody>';
+  } else $('prebuiltCmp').innerHTML='';
+}
+
+/* ---------- YouTube feed ---------- */
+const YT_VIDEOS=[
+  ['dXsNZcaS3s0','4K Editing Build | RX 9060 XT 16GB | 500+ FPS','19 Nov 2026','345 views'],
+  ['7RK9YKJ36Os','MSI Katana Unboxing | i5 + RTX 3050 6GB','13 Nov 2026','336 views'],
+  ['gUCL1V9GI5A','Wedding Photography PC Build | DaVinci Resolve + Photoshop','11 Nov 2026','102 views'],
+  ['kmbn-VXxioY','Diwali Gaming PC Sale | Ryzen 7 9700X + RTX 5070 Ti 16GB','9 Nov 2026','795 views'],
+  ['1k7ueETjll8','Happy Diwali — Team BYOS Computers','7 Nov 2026','272 views'],
+  ['gruvBmNg704','MSI Prestige 16 | Ultra 7 155H | 16GB + 512GB','7 Nov 2026','825 views'],
+  ['Q6TIF4lMSbQ','Best Budget Gaming PC (Tamil)','5 Nov 2026','175 views'],
+  ['ZyMCv322Vy8','ADATA XPG Triton II 360SE ARGB Liquid Cooler','30 Oct 2026','351 views'],
+  ['naxNF0Of0n0','ADATA XPG Maestro Plus 62DA','26 Oct 2026','236 views'],
+  ['rT_Rp-l8e2g','ADATA XPG CPU Coolers Review (Tamil)','24 Oct 2026','403 views'],
+  ['V4NLmeLPrI4','MSI Prestige 14 AI Evo | Ultra 5 125H','20 Oct 2026','655 views'],
+  ['seFuGR7dsuk','Lenovo LOQ RTX 4050 Gaming Laptop','13 Oct 2026','595 views']
+];
+function renderYtRail(){
+  $('ytRail').innerHTML=YT_VIDEOS.map(v=>'<a class="yt-card" href="https://www.youtube.com/watch?v='+v[0]+'" target="_blank" rel="noopener">'
+    +'<img class="yt-thumb" src="https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg" alt="'+esc(v[1])+'" loading="lazy" onerror="this.style.display=\'none\'">'
+    +'<div class="yt-meta"><b>'+esc(v[1])+'</b><div class="small" style="margin-top:4px">'+v[2]+' · '+v[3]+'</div></div></a>').join('');
+}
+
+/* ---------- Footer + rating strip ---------- */
+function starsHtml(n){
+  let h=''; for(let i=1;i<=5;i++) h+='<svg width="14" height="14" viewBox="0 0 24 24" fill="'+(i<=n?'#F59E0B':'none')+'" stroke="#F59E0B" stroke-width="1.5"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>';
+  return h;
+}
+function renderFooter(){
+  const s=State.settings;
+  const contacts=(s.contacts&&s.contacts.length?s.contacts:[{label:'Mobile',phone:(s.phone||'').replace(/\D/g,'').slice(-10)}]);
+  $('footerContact').innerHTML='Mon–Sat: 10 AM – 8 PM<br>Sunday: 11 AM – 5 PM<br>'
+    +contacts.map(c=>'<a href="tel:+91'+String(c.phone).replace(/\D/g,'').slice(-10)+'" style="font-weight:600">'+esc(c.phone)+'</a>').join('<br>')
+    +'<br><a href="mailto:'+esc(s.storeEmail||'hello@byos.in')+'">'+esc(s.storeEmail||'hello@byos.in')+'</a>';
+  $('footerRating').innerHTML='<span style="display:inline-flex;gap:2px;vertical-align:-2px">'+starsHtml(5)+'</span> <b>'+esc(s.gmbRating||'4.8')+'</b> · '+esc(s.gmbReviews||'1295')+' reviews on <a href="'+esc(s.mapsShort||s.googleMaps||'#')+'" target="_blank" rel="noopener" style="font-weight:600">Google</a>';
+  $('footerGstin').textContent=s.gstin||'33AABCB1234F1Z5';
+  $('ratingStrip').innerHTML='<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">'
+    +'<div style="font-family:Space Grotesk;font-size:34px;font-weight:700">'+esc(s.gmbRating||'4.8')+'</div>'
+    +'<div><div style="display:flex;gap:2px">'+starsHtml(5)+'</div><div class="small" style="margin-top:4px">Rated <b>'+esc(s.gmbRating||'4.8')+'</b> from <b>'+esc(s.gmbReviews||'1295')+'</b> reviews on Google</div></div>'
+    +'<div style="flex:1;min-width:220px" class="small">'+esc(s.tagline||'BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer\'s need — from low-config systems to high-end hard-tube liquid-cooled builds.')+'</div>'
+    +'<a class="btn sm dark" href="'+esc(s.mapsShort||s.googleMaps||'#')+'" target="_blank" rel="noopener">View on Google Maps</a></div>';
 }
 
 /* ---------- Cart ---------- */
@@ -1600,15 +2141,47 @@ function selectPay(el){
   State.payMethod=el.dataset.pay;
   renderCheckoutTotals();
 }
+function upiPayload(total,ref){
+  const st=State.settings;
+  const vpa=(st.upiId||'byos@okhdfcbank').trim();
+  const amt=Number(total||0).toFixed(2);
+  const mk=(pn,tn,tr)=>{
+    const u='upi://pay?pa='+encodeURIComponent(vpa)+'&pn='+encodeURIComponent(pn)
+      +'&am='+amt+'&cu=INR'+(tn?'&tn='+encodeURIComponent(tn):'')+(tr?'&tr='+encodeURIComponent(tr):'');
+    return u;
+  };
+  const store=(st.storeName||'BYOS')+' Computer Store';
+  // Keep inside the QR byte budget (v10-M ≈ 213 bytes): drop the note, then shorten the payee.
+  const cands=[mk(store,'BYOS Order '+ref,ref), mk(store,'BYOS Order '+ref,''), mk(store,'',''), mk(st.storeName||'BYOS','',''), mk('BYOS','','')];
+  for(const u of cands){ if(new TextEncoder().encode(u).length<=213) return u; }
+  return cands[cands.length-1];
+}
+function upiQrHtml(total){
+  const st=State.settings;
+  const ref=(window._upiRef||(window._upiRef='DRAFT'+String(Date.now()).slice(-6)));
+  const payload=upiPayload(total,ref);
+  let qrHtml;
+  try{ qrHtml=QR.svg(payload,{scale:4,label:'UPI payment QR code'}); }
+  catch(e){ qrHtml='<div class="small">QR unavailable — pay to the UPI ID below.</div>'; }
+  return '<div class="qr-box"><div style="font-weight:700;margin-bottom:10px">Scan with any UPI app to pay <span class="mono">'+fmtINR(total)+'</span></div>'
+    +'<div class="qr-live">'+qrHtml
+    +'<div style="flex:1;min-width:200px">'
+      +'<div class="small">Payee UPI ID</div><div class="mono" style="font-weight:700;font-size:15px">'+esc(st.upiId||'byos@okhdfcbank')+'</div>'
+      +'<div class="small" style="margin-top:8px">Payee name</div><div style="font-weight:600">'+esc((st.storeName||'BYOS')+' Computer Store')+'</div>'
+      +'<div class="small" style="margin-top:8px">Payment reference</div><div class="mono" style="font-weight:600">'+esc(ref)+'</div>'
+      +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">'
+        +'<button class="btn sm" onclick="copyText(&quot;'+esc(st.upiId||'')+'&quot;,&quot;UPI ID copied&quot;)">Copy UPI ID</button>'
+        +'<a class="btn sm dark" href="'+esc(payload)+'">Open UPI App</a>'
+        +'<button class="btn sm" onclick="copyText(&quot;'+esc(payload)+'&quot;,&quot;UPI link copied&quot;)">Copy UPI Link</button>'
+      +'</div>'
+      +'<div class="small" style="margin-top:10px">The amount is encoded in the code, so no one can mistype it. Works with GPay, PhonePe, Paytm, BHIM and bank UPI apps. After paying, share the UTR on WhatsApp for same-day dispatch.</div>'
+    +'</div></div></div>';
+}
 function renderCheckoutTotals(){
   const t=cartTotals();
-  const upiId=State.settings.upiId||'byos@okhdfcbank';
   if(State.payMethod==='upi'){
     $('upiQrBox').style.display='block';
-    $('upiQrBox').innerHTML='<div class="qr-box"><div style="font-weight:700;margin-bottom:6px">Scan to Pay via UPI</div>'
-      +'<svg width="140" height="140" viewBox="0 0 140 140" style="background:#fff;border:1px solid var(--border);border-radius:6px"><rect x="10" y="10" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="18" y="18" width="20" height="20" fill="#0F172A"/><rect x="94" y="10" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="102" y="18" width="20" height="20" fill="#0F172A"/><rect x="10" y="94" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="18" y="102" width="20" height="20" fill="#0F172A"/><rect x="60" y="14" width="8" height="8" fill="#0F172A"/><rect x="76" y="22" width="8" height="8" fill="#0F172A"/><rect x="58" y="58" width="24" height="24" fill="#EA580C"/><rect x="62" y="62" width="16" height="16" fill="#fff"/><text x="70" y="74" font-size="11" font-weight="700" text-anchor="middle" fill="#0F172A">B</text><rect x="60" y="94" width="8" height="8" fill="#0F172A"/><rect x="78" y="102" width="8" height="8" fill="#0F172A"/><rect x="94" y="60" width="8" height="8" fill="#0F172A"/><rect x="110" y="78" width="8" height="8" fill="#0F172A"/><rect x="94" y="110" width="8" height="8" fill="#0F172A"/><rect x="112" y="112" width="8" height="8" fill="#0F172A"/></svg>'
-      +'<div class="mono" style="margin-top:8px;font-weight:700">'+esc(upiId)+'</div>'
-      +'<div class="small">Amount: <b class="mono">'+fmtINR(t.total)+'</b> · UPI ID verified by BYOS</div></div>';
+    $('upiQrBox').innerHTML=upiQrHtml(t.total);
   } else if(State.payMethod==='razorpay'){
     $('upiQrBox').style.display='block';
     $('upiQrBox').innerHTML='<div class="qr-box"><b>Razorpay Secure Checkout</b><div class="small" style="margin-top:4px">Key ID: <span class="mono">'+esc(State.settings.razorpayKey)+'</span><br>Cards, NetBanking, Wallets &amp; UPI accepted. You will be redirected to Razorpay after placing the order.</div></div>';
@@ -1802,16 +2375,22 @@ function buildQuoteHtml(){
   const valid=new Date(Date.now()+15*864e5).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
   const qno='BYOS/Q/26-27/'+Math.floor(1000+Math.random()*9000);
   const td=(l,v,cls)=>'<td data-label="'+l+'"'+(cls?' class="'+cls+'"':'')+'>'+v+'</td>';
-  const rows=items.map((i,n)=>'<tr>'+td('#',n+1)+td('SKU',esc(i.p.sku),'mono')+td('Item','<span>'+esc(i.p.name)+'<br><span style="color:#64748B;font-size:11px">'+esc(i.label)+'</span></span>')+td('HSN',esc(i.p.hsn_code),'mono')+td('Qty','1')+td('Rate',fmtINR(i.p.selling_price),'mono')+td('Taxable',fmtINR(taxableOf(i.p.selling_price)),'mono')+td('CGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'mono')+td('SGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'mono')+td('Total',fmtINR(i.p.selling_price),'mono')+'</tr>').join('');
+  const rows=items.map((i,n)=>'<tr>'+td('#',n+1,'l')+td('SKU',esc(i.p.sku),'l num')+td('Item','<span>'+esc(i.p.name)+'<br><span style="color:#64748B;font-size:11px">'+esc(i.label)+'</span></span>','l')+td('HSN',esc(i.p.hsn_code),'num')+td('Qty','1','num')+td('Rate',fmtINR(i.p.selling_price),'num')+td('Taxable',fmtINR(taxableOf(i.p.selling_price)),'num')+td('CGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'num')+td('SGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'num')+td('Total',fmtINR(i.p.selling_price),'num')+'</tr>').join('');
   const logoHtml=State.settings.logo?'<img src="'+esc(State.settings.logo)+'" style="height:44px;object-fit:contain" alt="logo">':'<div style="font-family:Space Grotesk;font-size:26px;font-weight:700">'+esc(State.settings.storeName||'BYOS')+'</div>';
   return '<div class="quote-paper">'
     +'<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid #18181B;padding-bottom:14px;margin-bottom:14px"><div>'+logoHtml+'<div style="font-size:11px;color:#475569">BUILD YOUR OWN SYSTEM · COIMBATORE</div></div><div style="text-align:right;font-size:12px;color:#475569">'+esc(State.settings.storeAddress||'')+'<br>State Code: 33<br>GSTIN: <span class="mono">'+esc(State.settings.gstin)+'</span><br>'+esc(State.settings.phone)+'</div></div>'
     +'<h2 style="font-size:20px;margin-bottom:4px">Custom PC Quotation</h2><p style="font-size:12px;color:#475569">Date: '+date+' · Valid until: '+valid+' · Quote No: '+qno+'</p>'
     +($('buildNotes').value?'<p style="font-size:12px;margin-top:8px"><b>Notes:</b> '+esc($('buildNotes').value)+'</p>':'')
-    +'<table class="doc-table" style="width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;min-width:0"><thead><tr style="background:#F8FAFC"><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">#</th><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">SKU</th><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">Description</th><th style="padding:8px;border:1px solid #E2E8F0">HSN</th><th style="padding:8px;border:1px solid #E2E8F0">Qty</th><th style="padding:8px;border:1px solid #E2E8F0">Rate</th><th style="padding:8px;border:1px solid #E2E8F0">Taxable</th><th style="padding:8px;border:1px solid #E2E8F0">CGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">SGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">Total</th></tr></thead><tbody>'+rows
-    +(assembly?'<tr>'+td('#','')+td('SKU','BYOS-SVC-001','mono')+td('Item','Assembly &amp; 48-hr Stress Test')+td('HSN','9983','mono')+td('Qty','1')+td('Rate',fmtINR(assembly),'mono')+td('Taxable',fmtINR(taxableOf(assembly)),'mono')+td('CGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'mono')+td('SGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'mono')+td('Total',fmtINR(assembly),'mono')+'</tr>':'')
-    +'</tbody></table>'
-    +'<div style="text-align:right;margin-top:14px;font-size:13px"><div>Taxable Value: <span class="mono">'+fmtINR(taxable)+'</span></div><div>CGST @ 9%: <span class="mono">'+fmtINR(Math.round(gst/2))+'</span> · SGST @ 9%: <span class="mono">'+fmtINR(gst-Math.round(gst/2))+'</span></div><div style="font-size:18px;font-weight:700;margin-top:6px">Grand Total: <span class="mono">'+fmtINR(grand)+'</span></div><div style="font-size:11px;color:#475569">Amount in words: '+amountInWords(grand)+'</div></div>'
+    +'<table class="gst-table"><thead><tr><th class="l">#</th><th class="l">SKU</th><th class="l">Description</th><th>HSN</th><th>Qty</th><th>Rate</th><th>Taxable</th><th>CGST 9%</th><th>SGST 9%</th><th>Total</th></tr></thead><tbody>'+rows
+    +(assembly?'<tr>'+td('#','','l')+td('SKU','BYOS-SVC-001','l num')+td('Item','Assembly &amp; 48-hr Stress Test','l')+td('HSN','9983','num')+td('Qty','1','num')+td('Rate',fmtINR(assembly),'num')+td('Taxable',fmtINR(taxableOf(assembly)),'num')+td('CGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'num')+td('SGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'num')+td('Total',fmtINR(assembly),'num')+'</tr>':'')
+    +'</tbody>'
+    +'<tfoot>'
+    +'<tr><td class="l rule" colspan="6">Taxable Value</td><td class="num rule" colspan="3"></td><td class="num rule">'+fmtINR(taxable)+'</td></tr>'
+    +'<tr><td class="l" colspan="6">CGST @ 9%</td><td class="num" colspan="3"></td><td class="num">'+fmtINR(Math.round(gst/2))+'</td></tr>'
+    +'<tr><td class="l" colspan="6">SGST @ 9%</td><td class="num" colspan="3"></td><td class="num">'+fmtINR(gst-Math.round(gst/2))+'</td></tr>'
+    +'<tr><td class="l grand" colspan="9">Grand Total</td><td class="num grand">'+fmtINR(grand)+'</td></tr>'
+    +'</tfoot></table>'
+    +'<div style="margin-top:14px;font-size:12px"><b>Amount in words:</b> '+amountInWords(grand)+'</div>'
     +'<p style="font-size:11px;color:#64748B;margin-top:18px">Terms: Prices include GST. Components carry manufacturer warranty; assembly covered by BYOS 3-year service warranty. Free delivery within Coimbatore city limits. This is a quotation, not a tax invoice.</p>'
     +'</div>';
 }
@@ -1981,7 +2560,7 @@ function renderAdminProducts(){
   $('adminProdBody').innerHTML=list.map(p=>'<tr>'
     +'<td><img class="thumb" style="width:52px;height:38px" src="'+esc(productSrc(p))+'" alt="" onerror="this.style.display=\'none\'"></td>'
     +'<td class="mono-sm">'+esc(p.sku)+'</td>'
-    +'<td><b>'+esc(p.name)+'</b><div class="mono-sm" style="color:var(--muted2)">'+esc(p.brand)+'</div></td>'
+    +'<td><b>'+esc(p.name)+'</b><div class="mono-sm" style="color:var(--muted2)">'+esc(p.brand)+' · '+productImages(p).length+' img</div></td>'
     +'<td>'+esc(p.category)+'</td>'
     +'<td class="mono">'+p.stock_qty+'</td>'
     +'<td class="mono">'+fmtNum(p.cost_price)+'</td>'
@@ -2001,7 +2580,8 @@ function openProductModal(id){
   $('pHsn').value=p?p.hsn_code:'8471'; $('pGst').value=p?p.gst_rate:18; $('pBarcode').value=p?p.barcode_ean:'';
   $('pSocket').value=p?p.socket:''; $('pRamType').value=p?p.ram_type:''; $('pForm').value=p?p.form_factor:'';
   $('pWatt').value=p?p.wattage:''; $('pSpecs').value=p?(p.specs||[]).join(', '):''; $('pDesc').value=p?p.description:'';
-  $('pImage').value=p?(p.image||''):''; $('pImagePreview').innerHTML=p?'<img class="thumb" src="'+esc(productSrc(p))+'" alt=""> <span class="small">current artwork</span>':'';
+  _pImages=p?((p.images||[]).filter(x=>x&&String(x).trim()).concat(p.image&&p.image.trim()&&!(p.images||[]).includes(p.image.trim())?[p.image.trim()]:[])):[];
+  $('pImage').value=''; renderPImagesList();
   $('pSerial').classList.toggle('on', !!(p&&p.serial_tracking_required));
   $('productModal').classList.add('show');
 }
@@ -2017,7 +2597,7 @@ async function saveProduct(){
     socket:$('pSocket').value.trim(), ram_type:$('pRamType').value, form_factor:$('pForm').value.trim(),
     wattage:Number($('pWatt').value)||0,
     stock_qty:Number($('pStock').value)||0, cost_price:Number($('pCost').value)||0, selling_price:Number($('pPrice').value)||0,
-    image:$('pImage').value.trim(),
+    image:_pImages[0]||'', images:_pImages.slice(),
     hsn_code:$('pHsn').value.trim()||'8471', gst_rate:Number($('pGst').value)||18,
     barcode_ean:$('pBarcode').value.trim()||('890'+String(id).padStart(10,'0')),
     serial_tracking_required:$('pSerial').classList.contains('on')
@@ -2062,7 +2642,7 @@ function generateInvoice(orderId){
     const taxable=taxableOf(i.price*i.qty);
     const cgst=isTN?Math.round(taxable*0.09):0, sgst=isTN?Math.round(taxable*0.09):0, igst=isTN?0:Math.round(taxable*0.18);
     const td=(l,v,cls)=>'<td data-label="'+l+'"'+(cls?' class="'+cls+'"':'')+'>'+v+'</td>';
-    return '<tr>'+td('#',n+1)+td('SKU',esc(i.sku),'mono')+td('Description',esc(i.name))+td('HSN',esc(findPBySku(i.sku)?.hsn_code||'8471'),'mono')+td('Qty',i.qty)+td('Rate',fmtINR(i.price),'mono')+td('Taxable',fmtINR(taxable),'mono')+td(isTN?'CGST 9%':'CGST',isTN?fmtINR(cgst):'—','mono')+td(isTN?'SGST 9%':'SGST',isTN?fmtINR(sgst):'—','mono')+td(isTN?'IGST 18%':'IGST',isTN?'—':fmtINR(igst),'mono')+td('Total',fmtINR(i.price*i.qty),'mono')+'</tr>';
+    return '<tr>'+td('#',n+1,'l')+td('SKU',esc(i.sku),'l num')+td('Description',esc(i.name),'l')+td('HSN',esc(findPBySku(i.sku)?.hsn_code||'8471'),'num')+td('Qty',i.qty,'num')+td('Rate',fmtINR(i.price),'num')+td('Taxable',fmtINR(taxable),'num')+td(isTN?'CGST 9%':'CGST',isTN?fmtINR(cgst):'—','num')+td(isTN?'SGST 9%':'SGST',isTN?fmtINR(sgst):'—','num')+td(isTN?'IGST 18%':'IGST',isTN?'—':fmtINR(igst),'num')+td('Total',fmtINR(i.price*i.qty),'num')+'</tr>';
   }).join('');
   const taxable=taxableOf(o.total), gst=o.total-taxable;
   $('invoicePrintArea').innerHTML='<div class="invoice-paper">'
@@ -2070,19 +2650,64 @@ function generateInvoice(orderId){
     +'<div style="text-align:right"><div style="font-family:Space Grotesk;font-size:20px;font-weight:700">TAX INVOICE</div><div class="mono" style="font-size:13px;margin-top:6px">Invoice No: '+esc(o.invoice_no)+'<br>Date: '+esc(o.date)+'<br>Order ID: '+esc(o.order_id)+'</div><div style="margin-top:8px">'+statusBadge(o.status)+'</div></div></div>'
     +'<div class="inv-meta"><div><b>Bill To:</b><br>'+esc(o.customer_name)+'<br>'+esc(o.address)+'<br>Phone: '+esc(o.phone)+(o.email?'<br>Email: '+esc(o.email):'')+'</div>'
     +'<div><b>Customer GSTIN:</b> '+(o.gstin?'<span class="mono">'+esc(o.gstin)+'</span>':'— (consumer sale)')+'<br><b>Place of Supply:</b> '+(isTN?'Tamil Nadu (33)':'Inter-state')+'<br><b>Payment:</b> '+esc(o.payment_method)+'</div></div>'
-    +'<table class="doc-table" style="width:100%;border-collapse:collapse;font-size:12px;min-width:0"><thead><tr style="background:#F8FAFC"><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">#</th><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">SKU</th><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">Description</th><th style="padding:8px;border:1px solid #E2E8F0">HSN</th><th style="padding:8px;border:1px solid #E2E8F0">Qty</th><th style="padding:8px;border:1px solid #E2E8F0">Rate</th><th style="padding:8px;border:1px solid #E2E8F0">Taxable</th><th style="padding:8px;border:1px solid #E2E8F0">CGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">SGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">IGST 18%</th><th style="padding:8px;border:1px solid #E2E8F0">Total</th></tr></thead><tbody>'+rows+'</tbody></table>'
-    +'<div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:16px"><div style="font-size:12px;max-width:380px"><b>Amount in Words:</b><br>'+amountInWords(o.total)+'<br><br><span style="color:#64748B">E&OE. Goods once sold will not be taken back. Warranty as per manufacturer terms. Please quote invoice number for all correspondence.</span></div>'
-    +'<div style="font-size:13px;min-width:240px"><div style="display:flex;justify-content:space-between;padding:4px 0"><span>Taxable Value</span><span class="mono">'+fmtINR(taxable)+'</span></div>'
-    +(isTN?'<div style="display:flex;justify-content:space-between;padding:4px 0"><span>CGST @ 9%</span><span class="mono">'+fmtINR(Math.round(gst/2))+'</span></div><div style="display:flex;justify-content:space-between;padding:4px 0"><span>SGST @ 9%</span><span class="mono">'+fmtINR(gst-Math.round(gst/2))+'</span></div>'
-        :'<div style="display:flex;justify-content:space-between;padding:4px 0"><span>IGST @ 18%</span><span class="mono">'+fmtINR(gst)+'</span></div>')
-    +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px solid #18181B;font-weight:700;font-size:16px"><span>Grand Total</span><span class="mono">'+fmtINR(o.total)+'</span></div>'
-    +'<div style="margin-top:24px;font-size:11px;color:#64748B">For BYOS Computer Systems Pvt. Ltd.<br><br>_________________________<br>Authorised Signatory</div></div></div></div>';
+    +'<table class="gst-table"><thead><tr><th class="l">#</th><th class="l">SKU</th><th class="l">Description</th><th>HSN</th><th>Qty</th><th>Rate</th><th>Taxable</th><th>CGST 9%</th><th>SGST 9%</th><th>IGST 18%</th><th>Total</th></tr></thead><tbody>'+rows+'</tbody>'
+    +'<tfoot>'
+    +'<tr><td class="l rule" colspan="6">Taxable Value</td><td class="num rule" colspan="4"></td><td class="num rule">'+fmtINR(taxable)+'</td></tr>'
+    +(isTN?'<tr><td class="l" colspan="6">CGST @ 9%</td><td class="num" colspan="4"></td><td class="num">'+fmtINR(Math.round(gst/2))+'</td></tr>'
+        +'<tr><td class="l" colspan="6">SGST @ 9%</td><td class="num" colspan="4"></td><td class="num">'+fmtINR(gst-Math.round(gst/2))+'</td></tr>'
+        :'<tr><td class="l" colspan="6">IGST @ 18%</td><td class="num" colspan="4"></td><td class="num">'+fmtINR(gst)+'</td></tr>')
+    +'<tr><td class="l grand" colspan="10">Grand Total</td><td class="num grand">'+fmtINR(o.total)+'</td></tr>'
+    +'</tfoot></table>'
+    +'<div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:16px"><div style="font-size:12px;max-width:420px"><b>Amount in Words:</b><br>'+amountInWords(o.total)+'<br><br><span style="color:#64748B">E&OE. Goods once sold will not be taken back. Warranty as per manufacturer terms. Please quote invoice number for all correspondence.</span></div>'
+    +'<div style="margin-top:24px;font-size:11px;color:#64748B;text-align:right">For BYOS Computer Systems Pvt. Ltd.<br><br>_________________________ <br>Authorised Signatory</div></div></div>';
   $('invoiceModal').classList.add('show');
 }
 function findPBySku(sku){ return State.products.find(p=>p.sku===sku); }
 
 /* ---------- Settings ---------- */
+function renderContactsEditor(){
+  const list=(State.settings.contacts&&State.settings.contacts.length?State.settings.contacts:[{label:'Mobile · Sales',phone:''}]);
+  $('contactsEditor').innerHTML=list.map(c=>'<div class="phone-row">'
+    +'<div class="field"><label>Label</label><input class="c-label" value="'+esc(c.label||'')+'" placeholder="Mobile · Sales"></div>'
+    +'<div class="field"><label>Number</label><input class="c-phone" value="'+esc(c.phone||'')+'" placeholder="7530015155"></div>'
+    +'<button class="btn sm danger" onclick="this.closest(\'.phone-row\').remove()">Remove</button></div>').join('');
+}
+function addContactRow(){
+  const d=document.createElement('div'); d.className='phone-row';
+  d.innerHTML='<div class="field"><label>Label</label><input class="c-label" placeholder="Mobile · Service"></div><div class="field"><label>Number</label><input class="c-phone" placeholder="7530016166"></div><button class="btn sm danger" onclick="this.closest(\'.phone-row\').remove()">Remove</button>';
+  $('contactsEditor').appendChild(d);
+}
+function saveContacts(){
+  const rows=[...document.querySelectorAll('#contactsEditor .phone-row')].map(r=>({label:r.querySelector('.c-label').value.trim(),phone:r.querySelector('.c-phone').value.trim()})).filter(c=>c.phone);
+  if(!rows.length){ toast('Add at least one contact number','error'); return; }
+  State.settings.contacts=rows; State.settings.phone=rows[0].phone;
+  persist(); renderFooter(); renderContact();
+  toast(rows.length+' contact number(s) saved','success');
+}
+function renderReviewsEditor(){
+  const list=(State.settings.reviews||[]);
+  $('reviewsEditor').innerHTML=list.map(r=>'<div class="panel" style="margin-bottom:8px;padding:12px">'
+    +'<div class="form-grid">'
+    +'<div class="field"><label>Name</label><input class="r-name" value="'+esc(r.name||'')+'"></div>'
+    +'<div class="field"><label>Rating (1–5)</label><input class="r-rating" type="number" min="1" max="5" value="'+(r.rating||5)+'"></div>'
+    +'<div class="field"><label>Date</label><input class="r-date" value="'+esc(r.date||'')+'" placeholder="2026-11-24"></div>'
+    +'<div class="field" style="grid-column:1/-1"><label>Review</label><textarea class="r-text" rows="2">'+esc(r.text||'')+'</textarea></div>'
+    +'</div><button class="btn sm danger" onclick="this.closest(\'.panel\').remove()">Remove</button></div>').join('')
+    ||'<p class="small">No reviews yet — add one.</p>';
+}
+function addReviewRow(){
+  const d=document.createElement('div'); d.className='panel'; d.style.cssText='margin-bottom:8px;padding:12px';
+  d.innerHTML='<div class="form-grid"><div class="field"><label>Name</label><input class="r-name" placeholder="Customer name"></div><div class="field"><label>Rating (1–5)</label><input class="r-rating" type="number" min="1" max="5" value="5"></div><div class="field"><label>Date</label><input class="r-date" placeholder="2026-11-24"></div><div class="field" style="grid-column:1/-1"><label>Review</label><textarea class="r-text" rows="2"></textarea></div></div><button class="btn sm danger" onclick="this.closest(\'.panel\').remove()">Remove</button>';
+  $('reviewsEditor').appendChild(d);
+}
+function saveReviews(){
+  const rows=[...document.querySelectorAll('#reviewsEditor .panel')].map(r=>({name:r.querySelector('.r-name').value.trim(),rating:Math.max(1,Math.min(5,Number(r.querySelector('.r-rating').value)||5)),date:r.querySelector('.r-date').value.trim(),text:r.querySelector('.r-text').value.trim()})).filter(r=>r.name&&r.text);
+  State.settings.reviews=rows;
+  persist(); renderReviews(); renderFooter();
+  toast(rows.length+' review(s) saved','success');
+}
 function renderSettings(){
+  renderContactsEditor(); renderReviewsEditor();
   $('setMode').value=State.settings.mode;
   $('setGasUrl').value=State.settings.gasUrl||'';
   $('setRazorpay').value=State.settings.razorpayKey||'';
@@ -2199,14 +2824,27 @@ function clearBrandingImage(which){
 }
 function handleLogoUpload(input){ fileToDataUrl(input.files[0], url=>{ State.settings.logo=url; persist(); applyBranding(); $('bLogoPreview').innerHTML='<img class="thumb" src="'+url+'" alt="">'; toast('Logo updated','success'); }); }
 function handleFaviconUpload(input){ fileToDataUrl(input.files[0], url=>{ State.settings.favicon=url; persist(); applyBranding(); toast('Favicon updated','success'); }); }
-function handleProductImageUpload(input){
-  fileToDataUrl(input.files[0], url=>{ $('pImage').value=url; $('pImagePreview').innerHTML='<img class="thumb" src="'+url+'" alt="">'; });
+let _pImages=[];
+function renderPImagesList(){
+  $('pImagesList').innerHTML=_pImages.length?_pImages.map((src,i)=>'<span style="position:relative;display:inline-block"><img class="gal-th" src="'+esc(src)+'" alt="" onerror="imgFail(this)"><button class="btn sm danger" type="button" style="position:absolute;top:-6px;right:-6px;padding:0 6px;font-size:11px" onclick="removeProductImage('+i+')" title="Remove image">×</button></span>').join(''):'<span class="small">No uploaded images — default artwork will be used.</span>';
+}
+function removeProductImage(i){ _pImages.splice(i,1); renderPImagesList(); }
+function addProductImageUrl(){
+  const v=$('pImage').value.trim(); if(!v){ toast('Paste an image URL first','error'); return; }
+  _pImages.push(v); $('pImage').value=''; renderPImagesList();
+}
+async function handleProductImagesUpload(input){
+  const files=[...(input.files||[])]; if(!files.length) return;
+  for(const f of files){ await new Promise(res=>fileToDataUrl(f,url=>{ _pImages.push(url); res(); })); }
+  input.value=''; renderPImagesList();
+  toast(files.length+' image(s) added','success');
 }
 function renderBrandingForm(){
   const s=State.settings;
   $('bName').value=s.storeName||''; $('bEmail').value=s.storeEmail||''; $('bAddress').value=s.storeAddress||'';
   $('bAccent').value=s.accent||'#EA580C'; $('bFont').value=s.font||"'Space Grotesk','Inter',sans-serif"; $('bTheme').value=s.theme||'light';
   $('bWhatsapp').value=s.whatsapp||''; $('bInstagram').value=s.instagram||''; $('bFacebook').value=s.facebook||''; $('bYoutube').value=s.youtube||''; $('bTwitter').value=s.twitter||'';
+  $('bTagline').value=s.tagline||''; $('bGmbRating').value=s.gmbRating||'4.8'; $('bGmbReviews').value=s.gmbReviews||'1295';
   $('bLogoPreview').innerHTML=s.logo?'<img class="thumb" src="'+esc(s.logo)+'" alt="">':'';
 }
 function saveBranding(){
@@ -2214,12 +2852,13 @@ function saveBranding(){
   s.storeName=$('bName').value.trim()||'BYOS'; s.storeEmail=$('bEmail').value.trim(); s.storeAddress=$('bAddress').value.trim();
   s.accent=$('bAccent').value; s.font=$('bFont').value; s.theme=$('bTheme').value;
   s.whatsapp=$('bWhatsapp').value.trim(); s.instagram=$('bInstagram').value.trim(); s.facebook=$('bFacebook').value.trim(); s.youtube=$('bYoutube').value.trim(); s.twitter=$('bTwitter').value.trim();
-  persist(); applyBranding(); renderContact();
+  s.tagline=$('bTagline').value.trim(); s.gmbRating=$('bGmbRating').value.trim()||'4.8'; s.gmbReviews=$('bGmbReviews').value.trim()||'1295';
+  persist(); applyBranding(); renderContact(); renderFooter();
   toast('Branding saved','success');
 }
 function resetBranding(){
-  Object.assign(State.settings,{storeName:'BYOS',storeEmail:'hello@byos.in',storeAddress:'42, 3rd Cross Street, RS Puram, Coimbatore, Tamil Nadu 641002',logo:'',favicon:'',accent:'#EA580C',font:"'Space Grotesk','Inter',sans-serif",theme:'light',whatsapp:'919843022110',instagram:'',facebook:'',youtube:'',twitter:''});
-  persist(); applyBranding(); renderBrandingForm(); renderContact();
+  Object.assign(State.settings,{storeName:'BYOS',storeEmail:'hello@byos.in',storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, Peelamedu, Coimbatore, Tamil Nadu 641004',tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",gmbRating:'4.8',gmbReviews:'1295',logo:'',favicon:'',accent:'#EA580C',font:"'Space Grotesk','Inter',sans-serif",theme:'light',whatsapp:'917530015155',instagram:'https://instagram.com/byos_computerstore/?hl=en',facebook:'https://facebook.com/BuildYourOwnSystem',youtube:'https://www.youtube.com/@byos-buildyourownsystem7316',twitter:''});
+  persist(); applyBranding(); renderBrandingForm(); renderContact(); renderFooter();
   toast('Branding reset','success');
 }
 
@@ -2276,10 +2915,24 @@ function renderFaqs(){
 function renderContact(){
   const s=State.settings;
   $('contactAddress').innerHTML=esc(s.storeAddress||'').replace(/\n/g,'<br>');
-  $('contactPhone').textContent=s.phone||'';
+  const contacts=(s.contacts&&s.contacts.length?s.contacts:[{label:'Mobile',phone:(s.phone||'').replace(/\D/g,'').slice(-10)}]);
+  $('contactPhones').innerHTML=contacts.map(c=>'Phone ('+esc(c.label||'Mobile')+'): <a href="tel:+91'+String(c.phone).replace(/\D/g,'').slice(-10)+'" style="font-weight:600">'+esc(c.phone)+'</a>').join('<br>');
   $('contactEmail').textContent=s.storeEmail||'hello@byos.in';
   $('contactEmail').href='mailto:'+(s.storeEmail||'hello@byos.in');
   $('contactWa').href='https://wa.me/'+(s.whatsapp||'').replace(/\D/g,'');
+  if(s.mapEmbed) $('contactMap').src=s.mapEmbed;
+  if(s.mapsShort) $('contactMapLink').href=s.mapsShort;
+  renderReviews();
+}
+function renderReviews(){
+  const s=State.settings;
+  const revs=(s.reviews||[]).slice(0,6);
+  $('reviewsSummary').innerHTML='Rated <b>'+esc(s.gmbRating||'4.8')+'</b> from <b>'+esc(s.gmbReviews||'1295')+'</b> reviews on Google · showing '+revs.length+' recent highlights';
+  $('reviewsGmbLink').href=s.mapsShort||s.googleMaps||'#';
+  $('reviewsGrid').innerHTML=revs.map(r=>'<div class="card" style="cursor:default"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">'+esc(r.name||'Customer')+'</b><span style="display:flex;gap:1px">'+starsHtml(Number(r.rating)||5)+'</span></div>'
+    +'<div class="small" style="margin:4px 0 8px">'+esc(r.date||'')+' · Google Review</div>'
+    +'<p style="font-size:13px;line-height:1.65">'+esc(r.text||'')+'</p></div>').join('')
+    ||'<div class="empty"><b>No reviews yet</b>Add curated reviews in Admin → Settings → Google Reviews.</div>';
 }
 function sendContactMessage(){
   const name=$('msgName').value.trim(), phone=$('msgPhone').value.trim(), text=$('msgText').value.trim();
@@ -2334,6 +2987,9 @@ applyBranding();
 renderBrandingForm();
 renderContact();
 renderFaqs();
+renderYtRail();
+renderFooter();
+renderPrebuilt();
 routeFromHash();
 </script>
 <div id="printRoot" aria-hidden="true"></div>
