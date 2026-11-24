@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#18181B">
+<meta name="description" content="BYOS — Custom PC builds & components in Coimbatore, Tamil Nadu. Hand-assembled PCs, genuine parts, GST billing.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="BYOS">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" id="faviconLink" data-default="svg" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%2318181B'/><text x='32' y='44' font-size='36' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'>B</text></svg>">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>BYOS — Custom PCs & Components | Coimbatore, Tamil Nadu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F8F9FA; --surface:#FFFFFF; --border:#E2E8F0; --border-strong:#CBD5E1;
+  --ink:#0F172A; --muted:#475569; --muted2:#94A3B8;
+  --orange:#EA580C; --orange-dark:#C2410C; --charcoal:#18181B;
+  --font-head:'Space Grotesk','Inter',sans-serif;
+  --green:#15803D; --green-bg:#F0FDF4; --red:#B91C1C; --red-bg:#FEF2F2; --amber:#B45309; --amber-bg:#FFFBEB;
+  --radius:6px; --radius-sm:4px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.font-display,.logo-text,.logo-mark{font-family:var(--font-head);letter-spacing:-.02em}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:13px}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px}::-webkit-scrollbar-track{background:transparent}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:200;background:var(--surface);border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:1440px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:34px;height:34px;background:var(--charcoal);color:#fff;display:grid;place-items:center;border-radius:var(--radius-sm);font-family:'Space Grotesk';font-weight:700;font-size:15px;letter-spacing:-.03em}
+.logo-text{font-family:'Space Grotesk';font-weight:700;font-size:20px;letter-spacing:-.04em;line-height:1}
+.logo-sub{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.badge-loc{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:#FFF7ED;color:var(--orange-dark);border:1px solid #FED7AA;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.nav{display:flex;gap:2px;margin-left:12px;flex:1;overflow-x:auto}
+.nav-btn{border:none;background:none;padding:8px 12px;font-size:13px;font-weight:500;color:var(--muted);border-radius:var(--radius-sm);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:#F1F5F9;color:var(--ink)}
+.nav-btn.active{background:var(--charcoal);color:#fff}
+.nav-btn.cta{background:var(--orange);color:#fff;font-weight:600}
+.nav-btn.cta:hover{background:var(--orange-dark)}
+.top-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.icon-btn{position:relative;width:38px;height:38px;border:1px solid var(--border);background:#fff;border-radius:var(--radius-sm);display:grid;place-items:center;color:var(--ink)}
+.icon-btn:hover{border-color:var(--border-strong);background:#F8FAFC}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center;padding:0 4px;border:2px solid #fff}
+.sync-pill{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:99px;border:1px solid var(--border);background:#F8FAFC;color:var(--muted)}
+.sync-pill.live{background:var(--green-bg);color:var(--green);border-color:#BBF7D0}
+
+/* LAYOUT */
+.wrap{max-width:1440px;margin:0 auto;padding:20px}
+.view{display:none}
+.view.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* HERO */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px;display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
+.hero h1{font-size:32px;line-height:1.05;font-weight:700}
+.hero h1 span{color:var(--orange)}
+.hero p{color:var(--muted);max-width:560px;margin-top:8px;font-size:14px}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hstat{text-align:left}
+.hstat b{font-family:'JetBrains Mono';font-size:20px;display:block}
+.hstat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+
+/* TOOLBAR / FILTERS */
+.toolbar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px}
+.toolbar-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search-box{flex:1;min-width:220px;position:relative}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted2)}
+.search-box input{width:100%;height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px 0 36px;background:#fff;outline:none}
+.search-box input:focus{border-color:var(--charcoal);box-shadow:0 0 0 3px rgba(24,24,27,.08)}
+.select{height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;background:#fff;outline:none;font-weight:500}
+.select:focus{border-color:var(--charcoal)}
+.cat-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.pill{border:1px solid var(--border);background:#fff;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:500;color:var(--muted);white-space:nowrap}
+.pill:hover{border-color:var(--border-strong);color:var(--ink)}
+.pill.active{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}
+.toggle-wrap{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--muted);white-space:nowrap}
+.switch{position:relative;width:36px;height:20px;background:#E2E8F0;border-radius:99px;border:none;flex-shrink:0;transition:.2s}
+.switch::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch.on{background:var(--charcoal)}
+.switch.on::after{left:18px}
+
+/* PRODUCT GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
+.card:hover{border-color:var(--border-strong)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.cat-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.brand-label{font-size:11px;color:var(--muted);font-weight:600}
+.card-icon{width:44px;height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#F8FAFC;display:grid;place-items:center;color:var(--charcoal);flex-shrink:0}
+.card h3{font-size:15px;line-height:1.3;font-weight:600}
+.sku{font-size:11px;color:var(--muted2)}
+.spec-pills{display:flex;flex-wrap:wrap;gap:5px}
+.spec{font-family:'JetBrains Mono';font-size:10px;font-weight:600;letter-spacing:.02em;background:#F1F5F9;border:1px solid var(--border);padding:3px 7px;border-radius:var(--radius-sm);color:var(--ink)}
+.stock{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot.green{background:var(--green)} .dot.red{background:var(--red)} .dot.amber{background:var(--amber)}
+.stock.green{color:var(--green)} .stock.red{color:var(--red)} .stock.amber{color:var(--amber)}
+.price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:8px;border-top:1px solid var(--border)}
+.price{font-family:'JetBrains Mono';font-size:19px;font-weight:700;letter-spacing:-.02em}
+.price-note{font-size:10px;color:var(--muted2)}
+.btn{border:1px solid var(--border);background:#fff;color:var(--ink);padding:9px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s;white-space:nowrap}
+.btn:hover{border-color:var(--border-strong);background:#F8FAFC}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.primary:hover{background:var(--orange-dark)}
+.btn.dark{background:var(--charcoal);border-color:var(--charcoal);color:#fff}
+.btn.dark:hover{background:#27272A}
+.btn.sm{padding:6px 10px;font-size:12px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.danger{color:var(--red);border-color:#FECACA}
+.btn.danger:hover{background:var(--red-bg)}
+
+/* BUILDER */
+.builder-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.builder-head h2{font-size:26px}
+.builder-head p{color:var(--muted);margin-top:4px;max-width:640px}
+.preset-row{display:flex;gap:8px;flex-wrap:wrap}
+.builder-layout{display:grid;grid-template-columns:1fr 384px;gap:16px;align-items:start}
+@media screen and (max-width:1024px){.builder-layout{grid-template-columns:1fr}}
+.slot{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:.15s}
+.slot:hover{border-color:var(--charcoal)}
+.slot.filled{border-color:var(--border-strong)}
+.slot.has-issue{border-color:#FCA5A5;background:#FFF7F7}
+.slot-num{width:32px;height:32px;border-radius:var(--radius-sm);background:#F1F5F9;border:1px solid var(--border);display:grid;place-items:center;font-family:'JetBrains Mono';font-size:12px;font-weight:700;flex-shrink:0}
+.slot-info{flex:1;min-width:0}
+.slot-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.slot-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot-empty{color:var(--muted2);font-size:13px}
+.slot-price{font-family:'JetBrains Mono';font-weight:700;font-size:14px;text-align:right;flex-shrink:0}
+.slot-action{font-size:12px;font-weight:600;color:var(--orange);flex-shrink:0}
+.summary{background:var(--surface);border:1px solid var(--border);border-radius:8px;position:sticky;top:76px;overflow:hidden}
+.summary-head{padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.summary-head h3{font-size:16px}
+.summary-body{padding:16px}
+.sum-item{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13px}
+.sum-item:last-child{border:none}
+.sum-item .sname{color:var(--muted);flex:1;min-width:0}
+.sum-item .sname b{color:var(--ink);font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum-item .sprice{font-family:'JetBrains Mono';font-weight:600;white-space:nowrap}
+.sum-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--muted)}
+.sum-row.total{border-top:1px solid var(--border);margin-top:8px;padding-top:12px;color:var(--ink)}
+.sum-row.total b{font-family:'JetBrains Mono';font-size:20px;color:var(--ink)}
+.compat-box{border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;margin-bottom:12px;border:1px solid}
+.compat-box.ok{background:var(--green-bg);border-color:#BBF7D0;color:#14532D}
+.compat-box.warn{background:var(--amber-bg);border-color:#FDE68A;color:#78350F}
+.compat-box.err{background:var(--red-bg);border-color:#FECACA;color:#7F1D1D}
+.compat-box ul{margin:6px 0 0 16px}
+.watt-bar{height:8px;background:#F1F5F9;border-radius:99px;overflow:hidden;border:1px solid var(--border);margin:8px 0}
+.watt-fill{height:100%;background:var(--charcoal);transition:width .3s}
+.watt-fill.over{background:var(--red)}
+.watt-fill.tight{background:var(--amber)}
+
+/* DRAWER */
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:300;opacity:0;pointer-events:none;transition:.2s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100dvh;width:min(420px,94vw);background:#fff;z-index:310;transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.drawer.show{transform:none}
+.drawer-head{padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.drawer-body{flex:1;overflow-y:auto;padding:16px}
+.drawer-foot{padding:16px;border-top:1px solid var(--border);background:#F8FAFC}
+.cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.cart-item:last-child{border:none}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.qty button{width:28px;height:28px;border:none;background:#fff;font-weight:700}
+.qty span{min-width:28px;text-align:center;font-family:'JetBrains Mono';font-size:13px}
+
+/* MODALS */
+.modal{position:fixed;inset:0;z-index:320;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(15,23,42,.5)}
+.modal-box{position:relative;background:#fff;border-radius:10px;width:100%;max-height:92dvh;display:flex;flex-direction:column;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.modal-box.lg{max-width:860px}.modal-box.md{max-width:620px}.modal-box.sm{max-width:480px}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.modal-head h3{font-size:17px}
+.modal-body{padding:20px;overflow-y:auto}
+.modal-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;background:#F8FAFC;border-radius:0 0 10px 10px}
+.x-btn{width:32px;height:32px;border:1px solid var(--border);background:#fff;border-radius:var(--radius-sm);display:grid;place-items:center;flex-shrink:0}
+.picker-item{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;cursor:pointer}
+.picker-item:hover{border-color:var(--charcoal)}
+.picker-item.selected{border-color:var(--orange);background:#FFF7ED}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media screen and (max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;outline:none;background:#fff}
+.field textarea{height:auto;padding:8px 10px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--charcoal)}
+.field .hint{font-size:11px;color:var(--muted2);margin-top:4px}
+
+/* ADMIN */
+.admin-layout{display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start}
+@media screen and (max-width:900px){.admin-layout{grid-template-columns:1fr}}
+.admin-side{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;position:sticky;top:76px}
+.admin-side button{width:100%;text-align:left;border:none;background:none;padding:10px 12px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--muted);display:flex;gap:8px;align-items:center}
+.admin-side button:hover{background:#F1F5F9;color:var(--ink)}
+.admin-side button.active{background:var(--charcoal);color:#fff}
+.admin-pane{display:none}.admin-pane.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
+.kpi-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi-value{font-family:'JetBrains Mono';font-size:24px;font-weight:700;margin-top:6px}
+.kpi-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.panel-head h3{font-size:16px}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:720px}
+th{text-align:left;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:#F8FAFC;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F8FAFC}
+.status-select{height:30px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:600;padding:0 6px;background:#fff}
+.status-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;border:1px solid}
+.status-badge.pending{background:var(--amber-bg);color:var(--amber);border-color:#FDE68A}
+.status-badge.progress{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
+.status-badge.done{background:var(--green-bg);color:var(--green);border-color:#BBF7D0}
+.gate{max-width:440px;margin:40px auto;background:#fff;border:1px solid var(--border);border-radius:10px;padding:28px;text-align:center}
+.gate input{text-align:center;font-family:'JetBrains Mono';font-size:20px;letter-spacing:.4em;height:52px}
+
+/* INVOICE / PRINT */
+.invoice-paper{background:#fff;border:1px solid var(--border);border-radius:8px;padding:32px;max-width:820px;margin:0 auto}
+.inv-head{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:2px solid var(--charcoal);padding-bottom:16px;margin-bottom:16px}
+.inv-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;font-size:13px}
+#printRoot{display:none}
+@media print{
+  html,body{background:#fff !important}
+  body>*:not(#printRoot){display:none !important}
+  #printRoot{display:block !important}
+  #printRoot .invoice-paper,#printRoot .quote-paper{border:none;border-radius:0;max-width:none;margin:0;padding:0;box-shadow:none;overflow:visible;color:#0F172A;background:#fff}
+  #printRoot table{min-width:0 !important}
+  .no-print{display:none !important}
+  @page{size:A4;margin:12mm}
+}
+.quote-paper{background:#fff;border:1px solid var(--border);border-radius:8px;padding:32px;max-width:820px;margin:0 auto;color:#0F172A}
+
+/* TRACK */
+.timeline{display:flex;gap:0;margin:20px 0;flex-wrap:wrap}
+.tstep{flex:1;min-width:100px;text-align:center;position:relative;padding-top:28px;font-size:11px;font-weight:600;color:var(--muted2)}
+.tstep::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#E2E8F0;border:2px solid #fff;z-index:1}
+.tstep::after{content:'';position:absolute;top:15px;left:calc(-50% + 10px);right:calc(50% + 10px);height:2px;background:#E2E8F0}
+.tstep:first-child::after{display:none}
+.tstep.done{color:var(--green)} .tstep.done::before{background:var(--green)} .tstep.done::after{background:var(--green)}
+.tstep.current{color:var(--ink)} .tstep.current::before{background:var(--orange);box-shadow:0 0 0 4px #FFF7ED}
+
+.toast-wrap{position:fixed;bottom:16px;right:16px;z-index:500;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--charcoal);color:#fff;padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.2);display:flex;gap:8px;align-items:center;max-width:360px;animation:slideUp .2s ease}
+.toast.success{background:var(--green)} .toast.error{background:var(--red)}
+@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty b{display:block;font-size:16px;color:var(--ink);margin-bottom:6px}
+.footer{background:var(--surface);border-top:1px solid var(--border);margin-top:32px;padding:28px 20px}
+.footer-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;font-size:13px;color:var(--muted)}
+.footer h4{color:var(--ink);font-size:13px;margin-bottom:8px}
+code.block{display:block;background:#0F172A;color:#E2E8F0;padding:14px;border-radius:var(--radius-sm);font-size:11px;overflow-x:auto;white-space:pre;line-height:1.6}
+.radio-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.radio-card:hover{border-color:var(--border-strong)}
+.radio-card.sel{border-color:var(--charcoal);background:#F8FAFC}
+.qr-box{border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px;text-align:center;background:#F8FAFC}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.small{font-size:12px;color:var(--muted)}
+.mono-sm{font-family:'JetBrains Mono';font-size:11px}
+
+/* ── Product images ── */
+.prod-img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#F1F5F9;display:block}
+.prod-img-wrap{position:relative;margin:-16px -16px 0;border-bottom:1px solid var(--border)}
+.prod-img-fallback{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#F1F5F9,#E2E8F0);display:grid;place-items:center;color:var(--charcoal)}
+.prod-img-fallback svg{width:34px;height:34px;opacity:.55}
+.thumb{width:56px;height:44px;object-fit:cover;border:1px solid var(--border);border-radius:var(--radius-sm);background:#F1F5F9;flex-shrink:0}
+.logo-img{width:34px;height:34px;object-fit:contain;border-radius:var(--radius-sm);background:#fff;border:1px solid var(--border)}
+.social-row{display:flex;gap:8px;flex-wrap:wrap}
+.social-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);display:grid;place-items:center;color:var(--ink);background:#fff}
+.social-btn:hover{border-color:var(--charcoal);background:#F8FAFC}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;background:#fff;overflow:hidden}
+.faq-q{width:100%;text-align:left;border:none;background:none;padding:14px 16px;font-weight:600;font-size:14px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--ink)}
+.faq-a{display:none;padding:0 16px 14px;color:var(--muted);font-size:13px;line-height:1.6}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-q{color:var(--orange-dark)}
+.doc-table td{border:1px solid #E2E8F0}
+@media screen and (max-width:700px){
+  .doc-table{min-width:0 !important;font-size:12px}
+  .doc-table thead{display:none}
+  .doc-table, .doc-table tbody, .doc-table tr, .doc-table td{display:block;width:100%}
+  .doc-table tr{border:1px solid #E2E8F0;border-radius:6px;padding:10px 12px;margin-bottom:8px;background:#fff}
+  .doc-table td{border:none;padding:3px 0;display:flex;justify-content:space-between;align-items:baseline;gap:16px;text-align:right}
+  .doc-table td::before{content:attr(data-label);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748B;flex:0 0 auto;text-align:left}
+  .doc-table td.sub{justify-content:space-between}
+}
+.doc-body{max-width:820px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:8px;padding:32px;line-height:1.7;color:var(--muted);font-size:14px}
+.doc-body h2{color:var(--ink);margin-bottom:12px}
+.doc-body h3{color:var(--ink);margin:20px 0 8px;font-size:16px}
+.doc-body p{margin-bottom:10px}
+.doc-body ul{margin:0 0 12px 20px}
+.map-frame{width:100%;height:320px;border:1px solid var(--border);border-radius:8px;background:#F1F5F9}
+.hamburger{display:none}
+.install-btn{display:none}
+.install-btn.show{display:inline-flex}
+.quote-actions{display:flex;gap:8px;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:#fff;padding:8px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;color:var(--ink)}
+.share-btn:hover{border-color:var(--charcoal);background:#F8FAFC}
+.custom-page-body{line-height:1.7;color:var(--muted)}
+.custom-page-body h2,.custom-page-body h3{color:var(--ink)}
+.custom-page-body p{margin-bottom:10px}
+
+/* ── Dark template (admin-selectable) ── */
+body.dark-theme{--canvas:#0B0F19;--surface:#111827;--border:#1F2937;--border-strong:#374151;--ink:#F1F5F9;--muted:#94A3B8;--muted2:#64748B}
+body.dark-theme .card,body.dark-theme .toolbar,body.dark-theme .hero,body.dark-theme .slot,body.dark-theme .summary,body.dark-theme .panel,body.dark-theme .kpi,body.dark-theme .admin-side,body.dark-theme .faq-item,body.dark-theme .doc-body,body.dark-theme .modal-box,body.dark-theme .drawer,body.dark-theme .topbar,body.dark-theme .footer,body.dark-theme .gate{background:var(--surface)}
+body.dark-theme input,body.dark-theme select,body.dark-theme textarea,body.dark-theme .btn,body.dark-theme .pill,body.dark-theme .icon-btn,body.dark-theme .x-btn,body.dark-theme .social-btn,body.dark-theme .share-btn{background:#1F2937;color:var(--ink);border-color:var(--border)}
+body.dark-theme .spec{background:#1F2937;color:var(--ink)}
+body.dark-theme .nav-btn:hover{background:#1F2937;color:#fff}
+body.dark-theme .modal-body{background:var(--surface)}
+body.dark-theme .invoice-paper,body.dark-theme .quote-paper{background:#fff;color:#0F172A}
+body.dark-theme .table-wrap th{background:#1F2937;color:var(--muted)}
+body.dark-theme tr:hover td{background:#1F2937}
+
+/* ── Responsive ── */
+.nav{scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+@media screen and (min-width:1700px){.wrap,.topbar-inner,.footer-inner{max-width:1640px}.grid{grid-template-columns:repeat(auto-fill,minmax(252px,1fr))}}
+
+@media screen and (max-width:1100px){
+  .hero h1{font-size:26px}
+  .builder-layout{grid-template-columns:1fr}
+  .summary{position:static}
+  .admin-layout{grid-template-columns:1fr}
+  .admin-side{position:static;display:flex;flex-wrap:wrap;gap:4px}
+  .admin-side button{width:auto;flex:1 1 auto}
+}
+@media screen and (max-width:860px){
+  .topbar-inner{flex-wrap:wrap;height:auto;padding:10px 14px;gap:10px}
+  .nav{order:3;flex-basis:100%;margin-left:0;padding-bottom:4px}
+  .badge-loc{display:none}
+  .sync-pill{display:none}
+  .wrap{padding:12px}
+  .hero{padding:18px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:16px}
+  .hstat b{font-size:16px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .card{padding:12px}
+  .card h3{font-size:13px}
+  .price{font-size:16px}
+  .price-row{flex-wrap:wrap}
+  .toolbar-row{flex-direction:column;align-items:stretch}
+  .select{width:100%}
+  .form-grid{grid-template-columns:1fr}
+  .inv-meta{grid-template-columns:1fr}
+  .doc-body{padding:18px}
+  .invoice-paper,.quote-paper{padding:16px}
+  .modal{padding:8px;align-items:flex-end}
+  .modal-box{max-height:94dvh;border-radius:10px 10px 0 0}
+  .drawer{width:100vw}
+  .slot{flex-wrap:wrap}
+  .slot-price{width:100%;text-align:left}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .map-frame{height:240px}
+  .quote-paper,.invoice-paper{overflow-x:auto}
+  .inv-head{flex-wrap:wrap;gap:14px}
+  .modal-head{flex-wrap:wrap}
+  .modal-head h3{flex:1 1 100%}
+  .modal-head>div:last-child{flex:1 1 100%;justify-content:flex-start}
+  .modal-head{padding:12px 14px}
+  .modal-foot{padding:12px 14px}
+  .contact-grid,#contactGrid>div{min-width:0}
+  #contactGrid{grid-template-columns:1fr !important}
+  .timeline{flex-direction:column;gap:12px}
+  .tstep{text-align:left;padding:0 0 0 28px}
+  .tstep::before{left:8px;top:2px;transform:none}
+  .tstep::after{display:none}
+}
+@media screen and (max-width:480px){
+  .grid{grid-template-columns:1fr 1fr}
+  .kpi-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:10px}
+  .preset-row .btn{flex:1 1 45%}
+  .quote-actions .share-btn{flex:1 1 45%;justify-content:center}
+  .logo-sub{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ TOP NAV ══════════ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="#" onclick="showView('store');return false">
+      <span id="logoSlot"><div class="logo-mark">B</div></span>
+      <div>
+        <div class="logo-text" id="logoText">BYOS</div>
+        <div class="logo-sub">Build Your Own System</div>
+      </div>
+    </a>
+    <span class="badge-loc">Coimbatore, TN</span>
+    <nav class="nav" id="mainNav">
+      <button class="nav-btn active" data-nav="store" onclick="showView('store')">Storefront</button>
+      <button class="nav-btn cta" data-nav="builder" onclick="showView('builder')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a5 5 0 0 0-7.4 6.6L3 17.2V21h3.8l4.3-4.3a5 5 0 0 0 6.6-7.4l-3 3-2.5-.6-.6-2.5 3.1-2.9z"/></svg>
+        Custom PC Builder
+      </button>
+      <button class="nav-btn" data-nav="track" onclick="showView('track')">Track Order</button>
+      <button class="nav-btn" data-nav="faq" onclick="showView('faq')">FAQs</button>
+      <button class="nav-btn" data-nav="contact" onclick="showView('contact')">Contact</button>
+      <span id="customNavLinks" style="display:contents"></span>
+      <button class="nav-btn" data-nav="admin" onclick="showView('admin')">Admin Portal</button>
+    </nav>
+    <div class="top-actions">
+      <button class="btn sm install-btn" id="installBtn" onclick="promptInstall()">Install App</button>
+      <span id="syncPill" class="sync-pill">Demo Mode</span>
+      <button class="icon-btn" onclick="toggleCart(true)" aria-label="Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ══════════ STOREFRONT ══════════ -->
+<section id="view-store" class="view active">
+  <div class="hero">
+    <div>
+      <h1>Custom PCs, engineered<br>in <span>Coimbatore.</span></h1>
+      <p>Hand-assembled desktops, genuine components with full GST billing, and a configurator that checks compatibility before you pay. No grey imports. No inflated MRPs.</p>
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn primary" onclick="showView('builder')">Start a Custom Build →</button>
+        <button class="btn" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Browse Components</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><b>2,400+</b><span>Builds Delivered</span></div>
+      <div class="hstat"><b>48 hr</b><span>Stress-Tested</span></div>
+      <div class="hstat"><b>3 Year</b><span>Warranty Support</span></div>
+      <div class="hstat"><b>4.9★</b><span>Google Rating</span></div>
+    </div>
+  </div>
+
+  <div class="toolbar" id="catalog">
+    <div class="toolbar-row">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" placeholder="Search by name or SKU…  e.g. 7800X3D, BYOS-CPU-001" oninput="onFilterChange()">
+      </div>
+      <select class="select" id="brandFilter" onchange="onFilterChange()"><option value="">All Brands</option></select>
+      <select class="select" id="priceFilter" onchange="onFilterChange()">
+        <option value="">Any Price</option>
+        <option value="0-10000">Under ₹10,000</option>
+        <option value="10000-30000">₹10k – ₹30k</option>
+        <option value="30000-75000">₹30k – ₹75k</option>
+        <option value="75000-150000">₹75k – ₹1.5L</option>
+        <option value="150000-9999999">Above ₹1.5L</option>
+      </select>
+      <label class="toggle-wrap">In Stock Only <button class="switch" id="stockToggle" onclick="toggleStockFilter(this)"></button></label>
+      <label class="toggle-wrap">Prices incl. GST <button class="switch on" id="gstToggle" onclick="toggleGstDisplay(this)"></button></label>
+    </div>
+    <div class="cat-pills" id="catPills"></div>
+    <div class="small" style="margin-top:10px" id="resultCount"></div>
+  </div>
+
+  <div class="grid" id="productGrid"></div>
+  <div class="empty" id="storeEmpty" style="display:none"><b>No products match your filters</b>Try clearing search or choosing a different category.</div>
+</section>
+
+<!-- ══════════ PC BUILDER ══════════ -->
+<section id="view-builder" class="view">
+  <div class="builder-head">
+    <div>
+      <h2>Custom PC Configurator</h2>
+      <p>Pick each component. The engine checks socket, RAM type, form factor and PSU headroom in real time — so your build boots first time, every time.</p>
+    </div>
+    <div class="preset-row">
+      <button class="btn sm" onclick="loadPreset('esports')">1080p Esports</button>
+      <button class="btn sm" onclick="loadPreset('workstation')">1440p Workstation</button>
+      <button class="btn sm" onclick="loadPreset('ai')">AI / ML Rig</button>
+      <button class="btn sm danger" onclick="resetBuild()">Reset</button>
+    </div>
+  </div>
+  <div class="builder-layout">
+    <div>
+      <div id="builderSlots"></div>
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-head"><h3>Build Notes</h3><span class="small">Saved to your share link</span></div>
+        <textarea id="buildNotes" rows="3" style="width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px" placeholder="e.g. Customer wants white build, extra case fans, Windows 11 Pro licence…"></textarea>
+      </div>
+    </div>
+    <aside class="summary">
+      <div class="summary-head">
+        <h3>Live Build Summary</h3>
+        <span class="mono-sm" id="buildIdLabel">BYOS-BUILD-—</span>
+      </div>
+      <div class="summary-body">
+        <div id="compatBox"></div>
+        <div id="summaryItems"></div>
+        <div class="divider"></div>
+        <div id="wattBox"></div>
+        <div class="divider"></div>
+        <label class="toggle-wrap" style="margin-bottom:10px">Assembly &amp; 48-hr Stress Test <span class="mono" style="color:var(--ink)">₹1,500</span>
+          <button class="switch on" id="assemblyToggle" onclick="toggleAssembly(this)"></button>
+        </label>
+        <div id="summaryTotals"></div>
+        <div style="display:grid;gap:8px;margin-top:14px">
+          <button class="btn primary block" id="orderBuildBtn" onclick="orderBuild()">Order Complete Build</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <button class="btn" onclick="downloadQuote()">Download Quote</button>
+            <button class="btn" onclick="shareBuild()">Share Build Link</button>
+          </div>
+        </div>
+        <p class="small" style="margin-top:10px;text-align:center">Quote valid 15 days · Free delivery in Coimbatore · GST invoice provided</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ══════════ TRACK ORDER ══════════ -->
+<section id="view-track" class="view">
+  <div style="max-width:760px;margin:24px auto">
+    <h2 style="font-size:26px;text-align:center">Track Your Order</h2>
+    <p class="small" style="text-align:center;margin:8px 0 20px">Enter your Order ID (e.g. BYOS-2026-1042) or registered phone number.</p>
+    <div class="panel">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="trackInput" placeholder="Order ID or Phone" style="flex:1;min-width:200px;height:42px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px" onkeydown="if(event.key==='Enter')trackOrder()">
+        <button class="btn dark" onclick="trackOrder()">Track</button>
+      </div>
+      <div id="trackResult" style="margin-top:16px"></div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:8px">Demo Order IDs</h3>
+      <p class="small">Try <span class="mono">BYOS-2026-1042</span> (Assembling) · <span class="mono">BYOS-2026-1038</span> (Testing) · <span class="mono">BYOS-2026-1031</span> (Completed)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQs ══════════ -->
+<section id="view-faq" class="view">
+  <div style="max-width:820px;margin:12px auto">
+    <h2 style="font-size:26px;margin-bottom:6px">Frequently Asked Questions</h2>
+    <p class="small" style="margin-bottom:18px">Everything about ordering, assembly, warranty and GST billing at BYOS Coimbatore.</p>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- ══════════ PRIVACY ══════════ -->
+<section id="view-privacy" class="view">
+  <div class="doc-body">
+    <h2>Privacy Policy</h2>
+    <p><b>Last updated:</b> 24 November 2026 · <b>BYOS Computer Systems Pvt. Ltd.</b>, 42, 3rd Cross Street, RS Puram, Coimbatore, Tamil Nadu 641002 · GSTIN: <span class="mono">33AABCB1234F1Z5</span></p>
+    <h3>1. What we collect</h3>
+    <p>When you order or request a quote, we collect your name, phone, email, delivery address and — for B2B orders — your GSTIN. Payment details are processed by Razorpay and are never stored on our servers. This website stores your cart and build locally in your browser (localStorage) so it works offline; no tracking cookies are used for advertising.</p>
+    <h3>2. How we use it</h3>
+    <ul><li>To assemble, test and deliver your PC or component order.</li><li>To issue GST tax invoices and provide warranty support.</li><li>To send order status updates via SMS, WhatsApp or email.</li></ul>
+    <p>We never sell or rent your personal data. Order data may be synced to our Google Sheets backend solely for fulfilment and accounting.</p>
+    <h3>3. Your rights</h3>
+    <p>You may request access, correction or deletion of your personal data at any time by writing to <b>privacy@byos.in</b> or calling <b>+91 422 400 1234</b>. We respond within 7 working days as per the Information Technology Act, 2000 and applicable Tamil Nadu regulations.</p>
+    <h3>4. Data retention</h3>
+    <p>Tax invoices and GST records are retained for 8 years as required under the CGST Act. Other order data is retained for 3 years for warranty purposes, then anonymised.</p>
+  </div>
+</section>
+
+<!-- ══════════ TERMS ══════════ -->
+<section id="view-terms" class="view">
+  <div class="doc-body">
+    <h2>Terms &amp; Conditions</h2>
+    <p><b>Last updated:</b> 24 November 2026 · BYOS Computer Systems Pvt. Ltd., Coimbatore, Tamil Nadu.</p>
+    <h3>1. Orders &amp; pricing</h3>
+    <p>All prices are in INR and include GST (CGST 9% + SGST 9% within Tamil Nadu; IGST 18% inter-state) unless marked exclusive. Custom build quotations are valid for 15 days. An order is confirmed only after payment or store-pickup confirmation.</p>
+    <h3>2. Assembly &amp; delivery</h3>
+    <p>Custom PCs are assembled and stress-tested for 48 hours before dispatch. Standard build time is 3–5 working days. Delivery is free within Coimbatore city limits; insured courier elsewhere is charged at actuals. Risk of loss transfers on delivery acknowledgement.</p>
+    <h3>3. Warranty</h3>
+    <p>Components carry the respective manufacturer's warranty (AMD, Intel, NVIDIA, etc.). BYOS provides a 3-year service warranty on assembly and cabling. Physical damage, liquid damage, unauthorised opening and overclocking beyond manufacturer limits void warranty.</p>
+    <h3>4. Returns &amp; DOA</h3>
+    <p>Dead-on-arrival components are replaced within 7 days of delivery on presentation of the GST invoice and original packaging. Sealed accessories may be returned within 7 days if unused. Custom-assembled PCs are covered under warranty, not return.</p>
+    <h3>5. Liability</h3>
+    <p>Our liability is limited to the invoice value of the goods supplied. We are not liable for data loss — customers are advised to maintain backups before submitting systems for service.</p>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="view-contact" class="view">
+  <div style="max-width:1100px;margin:12px auto">
+    <h2 style="font-size:26px;margin-bottom:6px">Contact Us</h2>
+    <p class="small" style="margin-bottom:18px">Visit our Coimbatore store, call us, or send a message — we usually reply within a few hours on working days.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" id="contactGrid">
+      <div>
+        <div class="panel" style="margin-bottom:12px">
+          <h3 style="margin-bottom:10px">Store Details</h3>
+          <p class="small" id="contactAddress" style="font-size:13px;line-height:1.7"></p>
+          <p style="font-size:13px;margin-top:10px;line-height:1.8">
+            Phone: <a href="tel:+914224001234" id="contactPhone" style="font-weight:600"></a><br>
+            Email: <a href="mailto:hello@byos.in" id="contactEmail" style="font-weight:600">hello@byos.in</a><br>
+            Hours: Mon–Sat 10 AM – 8 PM · Sun 11 AM – 5 PM
+          </p>
+          <div style="margin-top:12px"><b style="font-size:12px">Follow BYOS</b><div class="social-row" id="contactSocials" style="margin-top:8px"></div></div>
+        </div>
+        <div class="panel">
+          <h3 style="margin-bottom:10px">Send a Message</h3>
+          <div class="form-grid">
+            <div class="field"><label>Your Name</label><input id="msgName" placeholder="Full name"></div>
+            <div class="field"><label>Phone</label><input id="msgPhone" placeholder="98765 43210"></div>
+            <div class="field" style="grid-column:1/-1"><label>Message</label><textarea id="msgText" rows="4" placeholder="Tell us about your build or question…"></textarea></div>
+          </div>
+          <button class="btn primary block" style="margin-top:12px" onclick="sendContactMessage()">Send Message</button>
+          <p class="small" style="margin-top:8px;text-align:center">Or chat on WhatsApp: <a id="contactWa" href="#" target="_blank" rel="noopener" style="font-weight:600;color:var(--green)">Start Chat</a></p>
+        </div>
+      </div>
+      <div>
+        <iframe class="map-frame" title="BYOS Store Location — RS Puram, Coimbatore" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=RS%20Puram%2C%20Coimbatore%2C%20Tamil%20Nadu&output=embed"></iframe>
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin-bottom:8px">Getting Here</h3>
+          <p class="small" style="font-size:13px;line-height:1.7">2 min from RS Puram bus stop · 10 min from Coimbatore Junction railway station · Free 2-wheeler parking at the store. Landmark: Opposite Sri Ayyappan Temple, 3rd Cross Street.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CUSTOM PAGE (admin-created) ══════════ -->
+<section id="view-custom" class="view">
+  <div class="doc-body custom-page-body" id="customPageBody"></div>
+</section>
+
+<!-- ══════════ ADMIN ══════════ -->
+<section id="view-admin" class="view">
+  <div id="adminGate" class="gate">
+    <div class="logo-mark" style="margin:0 auto 12px;width:44px;height:44px;font-size:20px">B</div>
+    <h2 style="font-size:20px">Admin Portal</h2>
+    <p class="small" style="margin:8px 0 16px">Restricted to BYOS staff. Enter your PIN to continue.</p>
+    <input id="adminPin" type="password" maxlength="6" placeholder="••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="btn dark block" style="margin-top:12px" onclick="adminLogin()">Unlock Dashboard</button>
+    <p class="small" style="margin-top:12px">Demo PIN: <span class="mono" style="font-weight:700;color:var(--ink)">1234</span> · In production, replace with Google Workspace SSO / Firebase Auth.</p>
+  </div>
+
+  <div id="adminApp" style="display:none">
+    <div class="admin-layout">
+      <aside class="admin-side">
+        <button class="active" data-apane="overview" onclick="showAdminPane('overview',this)">Overview &amp; Sales</button>
+        <button data-apane="products" onclick="showAdminPane('products',this)">Products &amp; Inventory</button>
+        <button data-apane="orders" onclick="showAdminPane('orders',this)">Orders &amp; Customers</button>
+        <button data-apane="settings" onclick="showAdminPane('settings',this)">Settings &amp; Integrations</button>
+        <div class="divider"></div>
+        <button onclick="adminLogout()">Lock Portal</button>
+        <p class="small" style="padding:8px 12px">Signed in as <b>Store Manager</b><br><span class="mono-sm">admin@byos.in</span></p>
+      </aside>
+
+      <div>
+        <!-- OVERVIEW -->
+        <div class="admin-pane active" id="pane-overview">
+          <div class="kpi-grid" id="kpiGrid"></div>
+          <div class="panel">
+            <div class="panel-head"><h3>Revenue — Last 6 Months</h3><span class="small">Gross sales incl. GST (₹)</span></div>
+            <div id="revChart"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Low-Stock Alerts</h3><button class="btn sm" onclick="showAdminPaneById('products')">Manage Inventory</button></div>
+            <div id="lowStockList"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Recent Orders</h3><button class="btn sm" onclick="showAdminPaneById('orders')">View All Orders</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div>
+          </div>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="admin-pane" id="pane-products">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Product &amp; Inventory Manager</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input id="adminProdSearch" placeholder="Search SKU / name…" style="height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;min-width:200px" oninput="renderAdminProducts()">
+                <button class="btn primary sm" onclick="openProductModal()">+ Add Product</button>
+              </div>
+            </div>
+            <p class="small" style="margin-bottom:10px">Edits here update the Storefront and PC Builder instantly (Demo Mode: localStorage · Sync Mode: Google Sheets).</p>
+            <div class="table-wrap"><table>
+              <thead><tr><th>Img</th><th>SKU</th><th>Product</th><th>Category</th><th>Stock</th><th>Cost ₹</th><th>Selling ₹</th><th>HSN</th><th>GST</th><th>Actions</th></tr></thead>
+              <tbody id="adminProdBody"></tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- ORDERS -->
+        <div class="admin-pane" id="pane-orders">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Orders &amp; Customers</h3>
+              <input id="orderSearch" placeholder="Search order / customer / phone…" style="height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;min-width:220px" oninput="renderAdminOrders()">
+            </div>
+            <div class="table-wrap"><table>
+              <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Items</th><th>Total ₹</th><th>Status</th><th>Invoice</th></tr></thead>
+              <tbody id="adminOrderBody"></tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="admin-pane" id="pane-settings">
+          <div class="panel">
+            <div class="panel-head"><h3>Data Sync — Google Sheets + Apps Script</h3><span id="settingsSyncPill" class="sync-pill">Demo Mode</span></div>
+            <div class="form-grid">
+              <div class="field"><label>Mode</label>
+                <select id="setMode" onchange="onModeChange()">
+                  <option value="demo">Live Demo Mode (localStorage — works offline)</option>
+                  <option value="sync">Google Sheets Sync (Apps Script Web App)</option>
+                </select>
+                <div class="hint">Demo Mode seeds rich hardware data locally so every feature works on load.</div>
+              </div>
+              <div class="field"><label>Google Apps Script Web App URL</label>
+                <input id="setGasUrl" placeholder="https://script.google.com/macros/s/AKfyc…/exec">
+                <div class="hint">Deploy Code.gs (below) as Web App → Execute as: Me → Access: Anyone.</div>
+              </div>
+              <div class="field"><label>Razorpay Key ID</label><input id="setRazorpay" placeholder="rzp_test_xxxxxxxxxxxxxx"></div>
+              <div class="field"><label>Store UPI ID (VPA)</label><input id="setUpi" placeholder="byos@okhdfcbank"></div>
+              <div class="field"><label>Store GSTIN</label><input id="setGstin" placeholder="33AABCB1234F1Z5"></div>
+              <div class="field"><label>Store Phone</label><input id="setPhone" placeholder="+91 422 400 1234"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+              <button class="btn dark" onclick="saveSettings()">Save Settings</button>
+              <button class="btn" onclick="openSchemaModal()">View Google Sheets Schema &amp; Code.gs</button>
+              <button class="btn" onclick="pushToSheets()">Push Local Data to Sheets</button>
+              <button class="btn" onclick="pullFromSheets()">Pull Rows from Sheets</button>
+              <button class="btn danger" onclick="resetDemoData()">Reset Demo Data</button>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Branding &amp; Store Identity</h3><span class="small">Applies instantly across store, invoices &amp; quotes</span></div>
+            <div class="form-grid">
+              <div class="field"><label>Store Name</label><input id="bName" placeholder="BYOS"></div>
+              <div class="field"><label>Store Email</label><input id="bEmail" placeholder="hello@byos.in"></div>
+              <div class="field" style="grid-column:1/-1"><label>Store Address</label><textarea id="bAddress" rows="2" placeholder="42, 3rd Cross Street, RS Puram, Coimbatore, TN 641002"></textarea></div>
+              <div class="field"><label>Logo Image</label><input type="file" id="bLogoFile" accept="image/*" onchange="handleLogoUpload(this)"><div class="hint" id="bLogoPreview"></div><div class="hint"><button class="btn sm" type="button" onclick="clearBrandingImage('logo')">Remove logo</button></div></div>
+              <div class="field"><label>Favicon Image</label><input type="file" id="bFaviconFile" accept="image/*" onchange="handleFaviconUpload(this)"><div class="hint">PNG/SVG, square. Shown in browser tab &amp; PWA.</div><div class="hint"><button class="btn sm" type="button" onclick="clearBrandingImage('favicon')">Remove favicon</button></div></div>
+              <div class="field"><label>Accent Colour (CTAs)</label><input type="color" id="bAccent" value="#EA580C" style="height:38px;padding:2px"></div>
+              <div class="field"><label>Heading Font</label><select id="bFont"><option value="'Space Grotesk','Inter',sans-serif">Space Grotesk (default)</option><option value="'Plus Jakarta Sans','Inter',sans-serif">Plus Jakarta Sans</option><option value="'Poppins','Inter',sans-serif">Poppins</option><option value="'Inter',sans-serif">Inter</option></select></div>
+              <div class="field"><label>Template</label><select id="bTheme"><option value="light">Light (default)</option><option value="dark">Dark</option></select></div>
+              <div class="field"><label>WhatsApp Number (for quote sharing)</label><input id="bWhatsapp" placeholder="919843022110"></div>
+              <div class="field"><label>Instagram URL</label><input id="bInstagram" placeholder="https://instagram.com/byos.coimbatore"></div>
+              <div class="field"><label>Facebook URL</label><input id="bFacebook" placeholder="https://facebook.com/byoscoimbatore"></div>
+              <div class="field"><label>YouTube URL</label><input id="bYoutube" placeholder="https://youtube.com/@byoscoimbatore"></div>
+              <div class="field"><label>X (Twitter) URL</label><input id="bTwitter" placeholder="https://x.com/byos_in"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button class="btn dark" onclick="saveBranding()">Save Branding</button>
+              <button class="btn" onclick="resetBranding()">Reset to Defaults</button>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Custom Pages</h3><button class="btn primary sm" onclick="openCustomPageModal()">+ Add Page</button></div>
+            <p class="small" style="margin-bottom:10px">Create extra pages (e.g. Offers, Warranty, Bulk Orders) — they appear in the top nav and footer automatically.</p>
+            <div id="customPagesList"></div>
+          </div>
+          <div class="panel">
+            <h3 style="margin-bottom:8px">POS Integration Readiness</h3>
+            <p class="small">Every product carries <span class="mono">sku · barcode_ean · hsn_code · gst_rate · stock_qty · cost_price · selling_price · serial_tracking_required</span> — ready to sync with Tally / Zoho Inventory / any POS via the same Apps Script endpoints. Serial-tracked items (GPUs, CPUs, laptops) are flagged automatically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ CART DRAWER ══════════ -->
+<div class="overlay" id="overlay" onclick="toggleCart(false);closeAllModals()"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3 style="font-size:16px">Your Cart <span class="small" id="cartDrawerCount"></span></h3>
+    <button class="x-btn" onclick="toggleCart(false)">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- ══════════ COMPONENT PICKER MODAL ══════════ -->
+<div class="modal" id="pickerModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg">
+    <div class="modal-head">
+      <div><h3 id="pickerTitle">Select Component</h3><p class="small" id="pickerSub"></p></div>
+      <button class="x-btn" onclick="closeAllModals()">✕</button>
+    </div>
+    <div style="padding:14px 20px 0;display:flex;gap:8px;flex-wrap:wrap">
+      <div class="search-box" style="flex:1;min-width:180px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="pickerSearch" placeholder="Filter components…" oninput="renderPickerList()">
+      </div>
+      <select class="select" id="pickerSort" onchange="renderPickerList()">
+        <option value="pop">Recommended</option><option value="low">Price: Low → High</option><option value="high">Price: High → Low</option>
+      </select>
+      <label class="toggle-wrap">In Stock <button class="switch" id="pickerStock" onclick="togglePickerStock(this)"></button></label>
+    </div>
+    <div class="modal-body" id="pickerList"></div>
+  </div>
+</div>
+
+<!-- ══════════ PRODUCT EDIT MODAL ══════════ -->
+<div class="modal" id="productModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg">
+    <div class="modal-head"><h3 id="productModalTitle">Add Product</h3><button class="x-btn" onclick="closeAllModals()">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="pId">
+      <div class="form-grid">
+        <div class="field"><label>Product Name *</label><input id="pName" placeholder="e.g. AMD Ryzen 7 7800X3D"></div>
+        <div class="field"><label>SKU *</label><input id="pSku" placeholder="BYOS-CPU-001"></div>
+        <div class="field"><label>Category</label><select id="pCategory"></select></div>
+        <div class="field"><label>Brand</label><input id="pBrand" placeholder="AMD"></div>
+        <div class="field"><label>Stock Qty</label><input id="pStock" type="number" min="0"></div>
+        <div class="field"><label>Cost Price (₹)</label><input id="pCost" type="number" min="0"></div>
+        <div class="field"><label>Selling Price (₹, incl. GST)</label><input id="pPrice" type="number" min="0"></div>
+        <div class="field"><label>HSN Code</label><input id="pHsn" placeholder="8471"></div>
+        <div class="field"><label>GST Rate %</label><input id="pGst" type="number" value="18"></div>
+        <div class="field"><label>Barcode (EAN)</label><input id="pBarcode" placeholder="8901234567890"></div>
+        <div class="field"><label>Socket (CPU / Mobo)</label><input id="pSocket" placeholder="AM5 / LGA1700"></div>
+        <div class="field"><label>RAM Type</label><select id="pRamType"><option value="">—</option><option>DDR5</option><option>DDR4</option></select></div>
+        <div class="field"><label>Form Factor</label><input id="pForm" placeholder="ATX / mATX / ITX"></div>
+        <div class="field"><label>Wattage / TDP (W)</label><input id="pWatt" type="number" placeholder="120"></div>
+        <div class="field" style="grid-column:1/-1"><label>Product Image URL</label><input id="pImage" placeholder="https://…/image.jpg"><div class="hint">Paste an image URL, or upload below. Leave blank for the default icon.</div></div>
+        <div class="field"><label>Upload Image</label><input type="file" id="pImageFile" accept="image/*" onchange="handleProductImageUpload(this)"><div class="hint" id="pImagePreview"></div></div>
+        <div class="field" style="grid-column:1/-1"><label>Spec Pills (comma separated)</label><input id="pSpecs" placeholder="AM5, 8C/16T, 120W"></div>
+        <div class="field" style="grid-column:1/-1"><label>Description</label><textarea id="pDesc" rows="2"></textarea></div>
+        <label class="toggle-wrap">Serial Tracking Required <button class="switch" id="pSerial" onclick="this.classList.toggle('on')"></button></label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeAllModals()">Cancel</button>
+      <button class="btn primary" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CHECKOUT MODAL ══════════ -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg">
+    <div class="modal-head"><h3>Checkout</h3><button class="x-btn" onclick="closeAllModals()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field"><label>Full Name *</label><input id="cName" placeholder="Your name"></div>
+        <div class="field"><label>Phone *</label><input id="cPhone" placeholder="98765 43210" maxlength="13"></div>
+        <div class="field"><label>Email</label><input id="cEmail" placeholder="you@email.com"></div>
+        <div class="field"><label>Customer GSTIN (optional, B2B)</label><input id="cGstin" placeholder="33ABCDE1234F1Z5"></div>
+        <div class="field" style="grid-column:1/-1"><label>Billing Address</label><textarea id="cAddress" rows="2" placeholder="Flat, Street, City, PIN"></textarea></div>
+        <div class="field"><label>Delivery State</label>
+          <select id="cState" onchange="renderCart()">
+            <option value="TN">Tamil Nadu (CGST 9% + SGST 9%)</option>
+            <option value="OTHER">Other State (IGST 18%)</option>
+          </select>
+        </div>
+        <div class="field"><label>Delivery</label>
+          <select id="cDelivery"><option>Home Delivery (Free in Coimbatore)</option><option>Store Pickup — BYOS, RS Puram, Coimbatore</option><option>Insured Courier (₹499)</option></select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <label style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Payment Method</label>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px" id="payMethods">
+        <div class="radio-card sel" data-pay="razorpay" onclick="selectPay(this)"><input type="radio" checked><div><b>Card / NetBanking</b><div class="small">Razorpay Gateway</div></div></div>
+        <div class="radio-card" data-pay="upi" onclick="selectPay(this)"><input type="radio"><div><b>UPI</b><div class="small">GPay / PhonePe / Paytm</div></div></div>
+        <div class="radio-card" data-pay="bank" onclick="selectPay(this)"><input type="radio"><div><b>Bank Transfer</b><div class="small">NEFT / RTGS</div></div></div>
+        <div class="radio-card" data-pay="pickup" onclick="selectPay(this)"><input type="radio"><div><b>Pay at Store</b><div class="small">Coimbatore Pickup</div></div></div>
+      </div>
+      <div id="upiQrBox" style="display:none;margin-top:14px"></div>
+      <div id="checkoutTotals" style="margin-top:16px"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeAllModals()">Back to Cart</button>
+      <button class="btn primary" id="placeOrderBtn" onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ INVOICE MODAL ══════════ -->
+<div class="modal" id="invoiceModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg" style="background:transparent;border:none;box-shadow:none">
+    <div class="modal-head no-print" style="background:#fff;border-radius:8px 8px 0 0"><h3>Tax Invoice</h3>
+      <div style="display:flex;gap:8px"><button class="btn sm" onclick="printDoc($('invoicePrintArea').innerHTML)">Print / Save PDF</button><button class="x-btn" onclick="closeAllModals()">✕</button></div>
+    </div>
+    <div class="modal-body" style="background:#E2E8F0;padding:16px"><div id="invoicePrintArea"></div></div>
+  </div>
+</div>
+
+<!-- ══════════ CUSTOM PAGE MODAL ══════════ -->
+<div class="modal" id="customPageModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box md">
+    <div class="modal-head"><h3 id="customPageTitle">Add Custom Page</h3><button class="x-btn" onclick="closeAllModals()">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="cpId">
+      <div class="field" style="margin-bottom:12px"><label>Page Title *</label><input id="cpName" placeholder="e.g. Bulk / Corporate Orders"></div>
+      <div class="field"><label>Page Content (plain text, line breaks supported)</label><textarea id="cpContent" rows="8" placeholder="Write your page content here…"></textarea></div>
+    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeAllModals()">Cancel</button><button class="btn primary" onclick="saveCustomPage()">Save Page</button></div>
+  </div>
+</div>
+
+<!-- ══════════ QUOTE MODAL (preview + share) ══════════ -->
+<div class="modal" id="quoteModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg" style="background:transparent;border:none;box-shadow:none">
+    <div class="modal-head no-print" style="background:#fff;border-radius:8px 8px 0 0">
+      <h3>Build Quotation — Preview</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm dark" onclick="printQuote()">Print / Save PDF</button>
+        <button class="btn sm" onclick="downloadQuoteDoc()">Download DOC</button>
+        <button class="x-btn" onclick="closeAllModals()">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" style="background:#E2E8F0;padding:16px">
+      <div id="quotePreviewArea"></div>
+      <div class="no-print" style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;margin-top:12px;max-width:820px;margin-left:auto;margin-right:auto">
+        <b style="font-size:13px">Share this quote</b>
+        <div class="quote-actions" style="margin-top:10px">
+          <button class="share-btn" onclick="shareQuote('whatsapp')">WhatsApp</button>
+          <button class="share-btn" onclick="shareQuote('telegram')">Telegram</button>
+          <button class="share-btn" onclick="shareQuote('email')">Email</button>
+          <button class="share-btn" onclick="copyQuoteText()">Copy Text</button>
+        </div>
+        <p class="small" style="margin-top:8px">WhatsApp/Telegram open the app with the quote summary pre-filled. For a full PDF, use Print / Save PDF above.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SCHEMA MODAL ══════════ -->
+<div class="modal" id="schemaModal">
+  <div class="modal-bg" onclick="closeAllModals()"></div>
+  <div class="modal-box lg">
+    <div class="modal-head"><h3>Google Sheets Schema &amp; Apps Script (Code.gs)</h3><button class="x-btn" onclick="closeAllModals()">✕</button></div>
+    <div class="modal-body">
+      <p class="small" style="margin-bottom:12px">Create a Google Sheet with these 4 tabs (first row = headers), paste the code below into Extensions → Apps Script, deploy as Web App, then paste the URL in Settings.</p>
+      <div class="table-wrap" style="margin-bottom:16px"><table style="min-width:0">
+        <thead><tr><th>Tab</th><th>Columns (headers, row 1)</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">Products</td><td class="mono-sm">id, sku, barcode_ean, name, brand, category, description, specs, socket, ram_type, form_factor, wattage, stock_qty, cost_price, selling_price, hsn_code, gst_rate, serial_tracking_required</td></tr>
+          <tr><td class="mono">Orders</td><td class="mono-sm">order_id, date, customer_name, phone, email, address, gstin, state, items_json, subtotal, gst_amount, total, payment_method, status, invoice_no, order_type, delivery</td></tr>
+          <tr><td class="mono">Customers</td><td class="mono-sm">id, name, phone, email, address, gstin, total_orders, total_spent</td></tr>
+          <tr><td class="mono">Settings</td><td class="mono-sm">key, value (razorpay_key, upi_id, gstin, store_phone, store_address)</td></tr>
+        </tbody>
+      </table></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b class="mono-sm">Code.gs — copy &amp; paste into Apps Script</b><button class="btn sm" onclick="copyCodeGs()">Copy Code</button></div>
+      <code class="block" id="codeGsBlock"></code>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ QUOTE PRINT AREA (hidden) ══════════ -->
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="logo" style="margin-bottom:8px"><span id="footerLogoSlot"><div class="logo-mark">B</div></span><div class="logo-text" id="footerLogoText">BYOS</div></div>
+      <p id="footerAddress">Build Your Own System<br>42, 3rd Cross Street, RS Puram,<br>Coimbatore, Tamil Nadu 641002</p>
+      <div class="social-row" id="footerSocials" style="margin-top:10px"></div>
+    </div>
+    <div><h4>Store</h4><p id="footerContact">Mon–Sat: 10 AM – 8 PM<br>Sunday: 11 AM – 5 PM<br>+91 422 400 1234<br>hello@byos.in</p>
+      <p style="margin-top:10px"><button class="btn sm install-btn" id="installBtnFooter" onclick="promptInstall()">Install App (PWA)</button></p></div>
+    <div><h4>Quick Links</h4><p><a href="#" onclick="showView('faq');return false">FAQs</a><br><a href="#" onclick="showView('contact');return false">Contact Us</a><br><a href="#" onclick="showView('privacy');return false">Privacy Policy</a><br><a href="#" onclick="showView('terms');return false">Terms &amp; Conditions</a><br><span id="footerCustomLinks"></span></p></div>
+    <div><h4>Compliance</h4><p>GSTIN: <span class="mono" id="footerGstin">33AABCB1234F1Z5</span><br>State Code: 33 (Tamil Nadu)<br>All prices include GST unless<br>marked exclusive. GST invoice<br>provided on every order.</p></div>
+    <div><h4>Support</h4><p>3-year assembly warranty<br>Component manufacturer warranty<br>7-day replacement on DOA<br>Free diagnostics at store</p></div>
+  </div>
+  <p class="small" style="text-align:center;margin-top:20px">© 2026 BYOS Computer Systems Pvt. Ltd. · Coimbatore, Tamil Nadu · Demo build — connect Google Sheets in Admin → Settings for live sync.</p>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   BYOS — Single-file SPA (Vanilla JS, no build step)
+   Data layer: ApiService → Demo Mode (localStorage) | Sync Mode (GAS)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ---------- Seed Data (real hardware, INR) ---------- */
+const CATEGORIES = ['Pre-Built PCs','CPUs','GPUs','Motherboards','RAM','Storage','PSUs','Cabinets','Coolers','Monitors','Peripherals'];
+const SLOT_DEFS = [
+  {slot:'cpu',      label:'Processor (CPU)',        category:'CPUs',        required:true},
+  {slot:'motherboard',label:'Motherboard',          category:'Motherboards',required:true},
+  {slot:'gpu',      label:'Graphics Card (GPU)',    category:'GPUs',        required:true},
+  {slot:'ram',      label:'Memory (RAM)',           category:'RAM',         required:true},
+  {slot:'storage',  label:'Primary Storage (NVMe)', category:'Storage',     required:true},
+  {slot:'psu',      label:'Power Supply (PSU)',     category:'PSUs',        required:true},
+  {slot:'cabinet',  label:'Cabinet / Case',         category:'Cabinets',    required:true},
+  {slot:'cooler',   label:'CPU Cooler',             category:'Coolers',     required:false},
+  {slot:'monitor',  label:'Monitor (Optional)',     category:'Monitors',    required:false},
+  {slot:'keyboard', label:'Keyboard (Optional)',    category:'Peripherals', required:false, match:'keyboard'},
+  {slot:'mouse',    label:'Mouse (Optional)',       category:'Peripherals', required:false, match:'mouse'},
+];
+
+/* ---------- Product artwork: deterministic SVG catalogue plates ----------
+   Each product renders a technical line plate for its category with its own
+   brand + model caption, so imagery is always on-brand, never broken, and
+   works fully offline. An admin-entered image URL overrides the plate. */
+const PLATE_W=640, PLATE_H=400;
+function plateGeom(p){
+  const cat=p.category, price=p.selling_price||0, nm=p.name||'';
+  const r=(x,y,w,h,fill,rx,sw)=>{let t=`<rect x="${x}" y="${y}" width="${w}" height="${h}"`;if(rx)t+=` rx="${rx}"`;t+=` fill="${fill||'none'}"`;if(sw)t+=` stroke-width="${sw}"`;return t+'/>';};
+  const ln=(x1,y1,x2,y2,sw)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"${sw?` stroke-width="${sw}"`:''}/>`;
+  const ci=(x,y,rad,fill)=>`<circle cx="${x}" cy="${y}" r="${rad}" fill="${fill||'none'}"/>`;
+  const blades=(x,y,ri,ro,n,sw)=>{let o='';for(let i=0;i<n;i++){const a=i*(360/n);const a2=(a+20)*Math.PI/180,a1=a*Math.PI/180;o+=ln((x+ri*Math.cos(a1)).toFixed(1),(y+ri*Math.sin(a1)).toFixed(1),(x+ro*Math.cos(a2)).toFixed(1),(y+ro*Math.sin(a2)).toFixed(1),sw);}return o;};
+  const MID='#DDE3EA', SOFT='#EDF1F5', g=[];
+  switch(cat){
+    case 'CPUs': {
+      const lga=/LGA1700|LGA1200|LGA1851/.test(p.socket||'');
+      const cores=parseInt((nm.match(/(\d+)C\/(\d+)T/)||[])[1]||'')||(lga?14:8);
+      const iw=lga?212:192, ih=lga?168:192, ix=Math.round(320-iw/2), iy=Math.round(200-ih/2);
+      g.push(r(200,104,240,192,SOFT,10),r(ix,iy,iw,ih,MID,4));
+      const cols=Math.max(3,Math.round(cores/2)), rows=Math.max(3,Math.round(cores/2.6));
+      for(let i=1;i<cols;i++)g.push(ln(ix+i*(iw/cols),iy,ix+i*(iw/cols),iy+ih,.8));
+      for(let i=1;i<rows;i++)g.push(ln(ix,iy+i*(ih/rows),ix+iw,iy+i*(ih/rows),.8));
+      g.push(r(ix+18,iy+Math.round(ih*0.28),iw-36,Math.round(ih*0.44),'none',3));
+      if(lga){for(let i=0;i<11;i++)g.push(ln(214+i*21,296,214+i*21,308,1.2));}
+      else {for(let i=0;i<11;i++)g.push(ln(214+i*21,92,214+i*21,104,1.2),ln(214+i*21,296,214+i*21,308,1.2));}
+      g.push(r(440,146,12,94,MID,2),r(188,146,12,94,MID,2));
+      break;}
+    case 'GPUs': {
+      const fans=price>60000?3:2, len=fans===3?440:360, x0=Math.round(320-len/2);
+      const back=price>60000?176:152, y0=Math.round(210-back/2), round=v=>Math.round(v);
+      g.push(r(x0,y0,len,back,SOFT,8),r(x0,y0,len,round(back*0.17),MID));
+      const fy=y0+back*0.63;
+      for(let f=0;f<fans;f++){
+        const fx=x0+len*((f+0.5)/fans), fr=round(back*0.32);
+        g.push(ci(round(fx),round(fy),fr),ci(round(fx),round(fy),round(fr*0.35),MID),blades(round(fx),round(fy),round(fr*0.42),round(fr*0.9),11,.9));
+      }
+      g.push(r(x0,y0+back,110,10,MID,2),ln(x0+30,y0+back+14,x0+len-10,y0+back+14,1.1),r(x0+len,y0+back+18,20,34,MID,2));
+      for(let i=0;i<fans+1;i++)g.push(r(round(x0+len*0.22+i*46),y0+round(back*0.1),34,8,MID,1));
+      break;}
+    case 'Motherboards': {
+      const ff=p.form_factor||'ATX', W2=ff==='ITX'?190:ff==='mATX'?252:320, x0=Math.round(320-W2/2), slots=ff==='ITX'?2:4;
+      g.push(r(x0,80,W2,240,SOFT,4),r(x0+46,112,74,74,MID,2),ln(x0+46,149,x0+120,149,.8),ln(x0+83,112,x0+83,186,.8));
+      g.push(r(x0+146,112,44,120,MID,2));
+      for(let i=0;i<7;i++)g.push(ln(x0+146,124+i*15,x0+190,124+i*15,.8));
+      for(let i=0;i<slots;i++)g.push(r(x0+W2-52,112+i*30,38,20,MID,2));
+      g.push(r(x0+46,244,110,20,MID,2),r(x0+46,272,110,20,MID,2));
+      if(ff!=='ITX')g.push(r(x0+192,244,104,16,MID,2),r(x0+192,268,104,16,MID,2));
+      g.push(ci(x0+W2-52,204,14,MID),r(x0,300,W2,20,MID));
+      break;}
+    case 'RAM': {
+      const four=/4x|64GB|32GB x4/.test(nm+' '+(p.specs||[]).join(' '));
+      const rows=four?[52,110,168,226]:[80,168];
+      rows.forEach(y=>{
+        g.push(r(138,y,364,46,MID,3),r(150,y+8,152,30,'none',1),r(312,y+8,152,30,'none',1),r(472,y+8,20,30,'none',1));
+        for(let i=0;i<13;i++)g.push(ln(156+i*28,y+46,156+i*28,y+38,.8));
+      });
+      break;}
+    case 'Storage': {
+      const m2=/SN850|SN770|990|980|NVMe|M\.2|Gen4|Gen5|WD_BLACK|Fury|Corsair MP|HDD|BarraCuda/i.test(nm);
+      if(m2){
+        g.push(r(110,146,420,62,SOFT,4),r(110,146,30,62,MID),r(486,160,44,34,MID,1));
+        for(let i=0;i<12;i++)g.push(ln(152+i*30,146,152+i*30,208,.8));
+        g.push(r(110,214,420,14,MID,2));
+      } else {
+        g.push(r(150,120,340,180,SOFT,6),ln(150,196,490,196,.9));
+        for(let i=0;i<4;i++)g.push(r(176+(i%2)*160,140+(i>1?70:0),138,44,MID,2));
+      }
+      break;}
+    case 'PSUs': {
+      const watts=parseInt(nm.replace(/\D/g,''))||p.wattage||750, tall=watts>=1000?206:180, y0=Math.round(210-tall/2);
+      g.push(r(150,y0,340,tall,SOFT,6),ci(258,Math.round(y0+tall*0.5),62,MID),ci(258,Math.round(y0+tall*0.5),44),blades(258,Math.round(y0+tall*0.5),46,60,8,1.1),ci(258,Math.round(y0+tall*0.5),10,MID));
+      g.push(r(392,y0+30,80,54,MID,2),r(392,y0+104,80,30,'none',2),ln(150,y0+tall-18,490,y0+tall-18,1));
+      break;}
+    case 'Cabinets': {
+      const mesh=/Lancool|Mesh|C-HF|HAF|Torrent|Meshify/i.test(nm);
+      g.push(r(230,58,180,258,SOFT,6),r(244,72,152,106,MID,2),r(244,190,152,112,'none',2));
+      if(mesh){for(let y=0;y<7;y++)for(let x=0;x<9;x++)g.push(ci(258+x*16,202+y*14,3.2,'none'));}
+      else {for(let i=0;i<8;i++)g.push(ln(252,200+i*12,388,200+i*12,.9));g.push(r(244,88,60,54,'none',2));}
+      g.push(r(410,58,64,258,MID,6));
+      for(let i=0;i<13;i++)g.push(ln(418,76+i*19,466,76+i*19,.8));
+      break;}
+    case 'Coolers': {
+      const aio=/AIO|Liquid|240|280|360|120|Kraken|H100|ML240/i.test(nm);
+      if(aio){
+        const rw=/360/.test(nm)?380:/280/.test(nm)?320:260, rx=Math.round(320-rw/2);
+        g.push(r(rx,110,rw,74,MID,6));
+        for(let i=0;i<3;i++){const fx=rx+rw*(0.2+i*0.3);g.push(ci(Math.round(fx),147,30),blades(Math.round(fx),147,10,27,9,.9));}
+        g.push(r(250,214,140,74,SOFT,6),ci(320,251,26,MID),ln(300,184,290,214,1.2),ln(340,184,350,214,1.2));
+      } else {
+        g.push(r(210,90,220,180,MID,4));
+        for(let i=0;i<16;i++)g.push(ln(218+i*13.4,90,218+i*13.4,270,1));
+        g.push(ci(320,180,54),ci(320,180,14,MID),blades(320,180,22,50,9,1));
+        g.push(ln(238,270,238,300,1.4),ln(402,270,402,300,1.4),r(230,300,180,20,SOFT,3));
+      }
+      break;}
+    case 'Monitors': {
+      const ultrawide=/21:9|34|49|G9/i.test(nm), curved=/Curved|C34|G9|Odyssey/i.test(nm);
+      const W2=ultrawide?430:380, x0=Math.round(320-W2/2);
+      g.push(r(x0,64,W2,200,MID,ultrawide?12:6),r(x0+16,80,W2-32,168,'none',3),ln(x0+16,250,x0+W2-16,250,.8));
+      if(curved)g.push(ln(x0+6,86,x0+6,242,1.6),ln(x0+W2-6,86,x0+W2-6,242,1.6));
+      g.push(r(286,264,68,30,SOFT),r(238,294,164,14,SOFT,4));
+      break;}
+    case 'Peripherals':
+      g.push(r(104,150,296,122,SOFT,6));
+      for(let row=0;row<4;row++)for(let col=0;col<12;col++)g.push(r(116+col*24,162+row*26,18,20,MID,2));
+      g.push(r(432,150,92,132,MID,46),ln(478,160,478,212,1.2));
+      break;
+    case 'Pre-Built PCs':
+      g.push(r(200,48,240,268,SOFT,8),r(214,62,212,240,MID,4),r(226,74,120,104,'none',3));
+      g.push(ci(286,126,34,MID),blades(286,126,14,30,8,.9),r(226,192,192,40,MID,2),r(226,244,192,48,MID,2));
+      for(let i=0;i<5;i++)g.push(ln(236,252+i*7,408,252+i*7,.8));
+      g.push(r(448,48,54,268,MID,8));
+      for(let i=0;i<13;i++)g.push(ln(455,66+i*19,495,66+i*19,.8));
+      break;
+    default:
+      g.push(r(180,120,280,180,SOFT,6),r(210,150,220,120,MID,3));
+  }
+  return g.join('');
+}
+function plateSvg(p){
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${PLATE_W} ${PLATE_H}" width="${PLATE_W}" height="${PLATE_H}">`
+    +`<rect width="${PLATE_W}" height="${PLATE_H}" fill="#F7F8FA"/>`
+    +`<g fill="none" stroke="#334155" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" transform="translate(320 200) scale(1.34) translate(-320 -200)">`
+    +plateGeom(p)
+    +`</g></svg>`;
+}
+function plateUri(p){ return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(plateSvg(p)); }
+function productSrc(p){ return (p.image&&p.image.trim())?p.image.trim():plateUri(p); }
+function seedProducts(){
+  const P=(id,sku,name,brand,category,price,cost,stock,hsn,specs,extra={})=>Object.assign({
+    id,sku,barcode_ean:'890'+String(100000000000+id*7919).slice(0,10),name,brand,category,
+    description:'',specs,socket:'',ram_type:'',form_factor:'',wattage:0,image:'',
+    stock_qty:stock,cost_price:cost,selling_price:price,hsn_code:hsn,gst_rate:18,
+    serial_tracking_required:['CPUs','GPUs','Motherboards','Pre-Built PCs'].includes(category)
+  },extra);
+  return [
+    P(1,'BYOS-CPU-001','AMD Ryzen 7 7800X3D','AMD','CPUs',38990,34200,14,'8471',['AM5','8C/16T','120W','3D V-Cache'],{socket:'AM5',wattage:120,description:'Best gaming CPU. 8 cores, 3D V-Cache, AM5 platform.'}),
+    P(2,'BYOS-CPU-002','Intel Core i5-14600K','Intel','CPUs',29499,25800,22,'8471',['LGA1700','14C/20T','181W'],{socket:'LGA1700',wattage:181,description:'14-core Raptor Lake Refresh, unlocked for overclocking.'}),
+    P(3,'BYOS-CPU-003','AMD Ryzen 5 7600','AMD','CPUs',18499,16100,30,'8471',['AM5','6C/12T','65W'],{socket:'AM5',wattage:65}),
+    P(4,'BYOS-CPU-004','Intel Core i9-14900K','Intel','CPUs',52999,46900,8,'8471',['LGA1700','24C/32T','253W'],{socket:'LGA1700',wattage:253}),
+    P(5,'BYOS-CPU-005','AMD Ryzen 9 7950X','AMD','CPUs',49999,43800,6,'8471',['AM5','16C/32T','170W'],{socket:'AM5',wattage:170}),
+    P(6,'BYOS-CPU-006','Intel Core i3-12100F','Intel','CPUs',8999,7600,40,'8471',['LGA1700','4C/8T','58W'],{socket:'LGA1700',wattage:58}),
+    P(7,'BYOS-GPU-001','NVIDIA RTX 4070 Super 12GB','NVIDIA','GPUs',62499,55200,11,'8471',['12GB GDDR6X','220W','DLSS 3.5'],{wattage:220,description:'1440p ultra gaming. 12GB GDDR6X, DLSS 3.5 Frame Generation.'}),
+    P(8,'BYOS-GPU-002','NVIDIA RTX 4060 8GB','NVIDIA','GPUs',29999,26100,25,'8471',['8GB GDDR6','115W','DLSS 3'],{wattage:115}),
+    P(9,'BYOS-GPU-003','NVIDIA RTX 4090 24GB','NVIDIA','GPUs',185000,164000,3,'8471',['24GB GDDR6X','450W','DLSS 3.5'],{wattage:450}),
+    P(10,'BYOS-GPU-004','AMD Radeon RX 7800 XT 16GB','AMD','GPUs',52999,46500,9,'8471',['16GB GDDR6','263W'],{wattage:263}),
+    P(11,'BYOS-GPU-005','NVIDIA RTX 4070 Ti Super 16GB','NVIDIA','GPUs',79999,70500,7,'8471',['16GB GDDR6X','285W'],{wattage:285}),
+    P(12,'BYOS-GPU-006','NVIDIA RTX 4060 Ti 16GB','NVIDIA','GPUs',42999,37800,13,'8471',['16GB GDDR6','165W'],{wattage:165}),
+    P(13,'BYOS-MOB-001','MSI B650M Gaming Plus WiFi','MSI','Motherboards',18499,16200,18,'8471',['AM5','DDR5','mATX','WiFi 6E'],{socket:'AM5',ram_type:'DDR5',form_factor:'mATX'}),
+    P(14,'BYOS-MOB-002','ASUS ROG Strix B650E-F Gaming','ASUS','Motherboards',24999,21900,10,'8471',['AM5','DDR5','ATX','PCIe 5.0'],{socket:'AM5',ram_type:'DDR5',form_factor:'ATX'}),
+    P(15,'BYOS-MOB-003','MSI MAG B760 Tomahawk WiFi','MSI','Motherboards',19999,17500,15,'8471',['LGA1700','DDR5','ATX'],{socket:'LGA1700',ram_type:'DDR5',form_factor:'ATX'}),
+    P(16,'BYOS-MOB-004','Gigabyte B650 Aorus Elite AX','Gigabyte','Motherboards',21499,18800,12,'8471',['AM5','DDR5','ATX'],{socket:'AM5',ram_type:'DDR5',form_factor:'ATX'}),
+    P(17,'BYOS-MOB-005','ASUS Prime B660M-A D4','ASUS','Motherboards',11999,10200,20,'8471',['LGA1700','DDR4','mATX'],{socket:'LGA1700',ram_type:'DDR4',form_factor:'mATX'}),
+    P(18,'BYOS-RAM-001','G.Skill Trident Z5 RGB 32GB (2×16) DDR5 6000','G.Skill','RAM',12499,10900,28,'8471',['DDR5','6000MHz','CL30'],{ram_type:'DDR5'}),
+    P(19,'BYOS-RAM-002','Corsair Vengeance 16GB DDR5 5200','Corsair','RAM',5999,5100,45,'8471',['DDR5','5200MHz'],{ram_type:'DDR5'}),
+    P(20,'BYOS-RAM-003','Crucial 16GB DDR4 3200 Desktop','Crucial','RAM',3499,2900,60,'8471',['DDR4','3200MHz'],{ram_type:'DDR4'}),
+    P(21,'BYOS-RAM-004','G.Skill Ripjaws S5 64GB (2×32) DDR5 6000','G.Skill','RAM',24999,21900,8,'8471',['DDR5','6000MHz','64GB'],{ram_type:'DDR5'}),
+    P(22,'BYOS-SSD-001','WD Black SN850X 1TB NVMe Gen4','Western Digital','Storage',8999,7800,35,'8523',['1TB','Gen4','7300MB/s'],{description:'PCIe Gen4 NVMe, 7300 MB/s sequential read.'}),
+    P(23,'BYOS-SSD-002','Samsung 990 Pro 2TB NVMe Gen4','Samsung','Storage',18499,16200,16,'8523',['2TB','Gen4','7450MB/s']),
+    P(24,'BYOS-SSD-003','WD Blue SN580 500GB NVMe','Western Digital','Storage',4299,3600,50,'8523',['500GB','Gen4']),
+    P(25,'BYOS-SSD-004','Seagate Barracuda 2TB HDD','Seagate','Storage',5499,4600,24,'8523',['2TB','7200RPM']),
+    P(26,'BYOS-PSU-001','Corsair RM750e 750W 80+ Gold','Corsair','PSUs',9499,8300,20,'8504',['750W','80+ Gold','Fully Modular'],{wattage:750,form_factor:'ATX'}),
+    P(27,'BYOS-PSU-002','Corsair RM1000x 1000W 80+ Gold','Corsair','PSUs',15999,14100,12,'8504',['1000W','80+ Gold'],{wattage:1000,form_factor:'ATX'}),
+    P(28,'BYOS-PSU-003','Cooler Master MWE 650W Bronze','Cooler Master','PSUs',5499,4700,30,'8504',['650W','80+ Bronze'],{wattage:650,form_factor:'ATX'}),
+    P(29,'BYOS-PSU-004','Antec Atom B550 550W','Antec','PSUs',3999,3300,0,'8504',['550W','Non-Modular'],{wattage:550,form_factor:'ATX'}),
+    P(30,'BYOS-CAB-001','Lian Li Lancool 216 RGB','Lian Li','Cabinets',9999,8700,15,'8471',['ATX/mATX/ITX','Mesh Front','3×140mm RGB'],{form_factor:'ATX'}),
+    P(31,'BYOS-CAB-002','NZXT H5 Flow','NZXT','Cabinets',8499,7400,18,'8471',['ATX/mATX','Mesh'],{form_factor:'ATX'}),
+    P(32,'BYOS-CAB-003','DeepCool Matrexx 55 Mesh','DeepCool','Cabinets',5999,5100,22,'8471',['ATX/mATX'],{form_factor:'ATX'}),
+    P(33,'BYOS-CAB-004','Fractal Design Pop Air','Fractal Design','Cabinets',7499,6500,11,'8471',['ATX/mATX/ITX'],{form_factor:'ATX'}),
+    P(34,'BYOS-CLR-001','DeepCool AK620 Dual Tower','DeepCool','Coolers',5999,5100,19,'8415',['Dual Tower','6 Heatpipes']),
+    P(35,'BYOS-CLR-002','Cooler Master Hyper 212 Spectrum','Cooler Master','Coolers',2999,2500,40,'8415',['120mm','RGB']),
+    P(36,'BYOS-CLR-003','Arctic Liquid Freezer III 360','Arctic','Coolers',11499,10100,9,'8415',['360mm AIO','VRM Fan']),
+    P(37,'BYOS-MON-001','LG UltraGear 27" QHD 165Hz','LG','Monitors',24999,21900,14,'8528',['27"','QHD','165Hz','1ms']),
+    P(38,'BYOS-MON-002','Dell 24" FHD 75Hz','Dell','Monitors',11499,9900,26,'8528',['24"','FHD','75Hz']),
+    P(39,'BYOS-MON-003','Samsung Odyssey G5 32" QHD 165Hz','Samsung','Monitors',28999,25400,10,'8528',['32"','QHD','165Hz']),
+    P(40,'BYOS-PER-001','Logitech G304 Lightspeed Mouse','Logitech','Peripherals',3499,2900,55,'8471',['Wireless','HERO Sensor'],{description:'Wireless gaming mouse, HERO sensor, 250h battery.'}),
+    P(41,'BYOS-PER-002','Keychron K8 Pro Mechanical Keyboard','Keychron','Peripherals',9999,8700,17,'8471',['Hot-Swap','Bluetooth','Gateron']),
+    P(42,'BYOS-PER-003','HyperX Cloud II Gaming Headset','HyperX','Peripherals',7999,6900,21,'8518',['7.1 Surround','Detachable Mic']),
+    P(43,'BYOS-PC-001','BYOS Valor — 1080p Gaming PC','BYOS','Pre-Built PCs',72999,64500,5,'8471',['Ryzen 5 7600','RTX 4060','16GB DDR5','1TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:650,form_factor:'ATX',description:'1080p high-refresh gaming. Assembled & stress-tested in Coimbatore.'}),
+    P(44,'BYOS-PC-002','BYOS Titan — 1440p Workstation','BYOS','Pre-Built PCs',142500,126000,3,'8471',['7800X3D','RTX 4070 Super','32GB DDR5','2TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:850,form_factor:'ATX',description:'1440p ultra + creator workstation. 3-year BYOS warranty.'}),
+    P(45,'BYOS-PC-003','BYOS Creator — AI/ML Rig','BYOS','Pre-Built PCs',245000,218000,2,'8471',['7950X','RTX 4090','64GB DDR5','4TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:1200,form_factor:'ATX',description:'Local LLM inference & CUDA training rig. 24GB VRAM.'}),
+  ];
+}
+function seedOrders(){
+  return [
+    {order_id:'BYOS-2026-1042',date:'2026-11-22',customer_name:'Arun Kumar',phone:'98430 22110',email:'arun.k@gmail.com',address:'12, Race Course Road, Coimbatore 641018',gstin:'',state:'TN',items:[{sku:'BYOS-PC-002',name:'BYOS Titan — 1440p Workstation',qty:1,price:142500}],subtotal:120763,gst_amount:21737,total:142500,payment_method:'UPI',status:'Assembling',invoice_no:'BYOS/26-27/0042'},
+    {order_id:'BYOS-2026-1038',date:'2026-11-20',customer_name:'Priya Sharma',phone:'98430 22110',email:'priya.s@outlook.com',address:'88, Avinashi Road, Coimbatore 641014',gstin:'33AAKCS2210M1Z8',state:'TN',items:[{sku:'BYOS-GPU-001',name:'NVIDIA RTX 4070 Super 12GB',qty:1,price:62499},{sku:'BYOS-RAM-001',name:'G.Skill Trident Z5 RGB 32GB DDR5',qty:1,price:12499}],subtotal:63473,gst_amount:11425,total:74898,payment_method:'Razorpay',status:'Testing',invoice_no:'BYOS/26-27/0038'},
+    {order_id:'BYOS-2026-1031',date:'2026-11-15',customer_name:'Vikram Rao',phone:'98430 22110',email:'vikram.rao@yahoo.in',address:'5, Peelamedu, Coimbatore 641004',gstin:'',state:'TN',items:[{sku:'BYOS-PC-001',name:'BYOS Valor — 1080p Gaming PC',qty:1,price:72999}],subtotal:61864,gst_amount:11136,total:72999,payment_method:'Bank Transfer',status:'Completed',invoice_no:'BYOS/26-27/0031'},
+    {order_id:'BYOS-2026-1027',date:'2026-11-10',customer_name:'Sneha Iyer',phone:'98430 22110',email:'sneha.iyer@gmail.com',address:'21, Gandhipuram, Coimbatore 641012',gstin:'',state:'TN',items:[{sku:'BYOS-MON-001',name:'LG UltraGear 27" QHD 165Hz',qty:1,price:24999},{sku:'BYOS-PER-001',name:'Logitech G304 Mouse',qty:1,price:3499}],subtotal:24152,gst_amount:4347,total:28498,payment_method:'UPI',status:'Dispatched',invoice_no:'BYOS/26-27/0027'},
+    {order_id:'BYOS-2026-1019',date:'2026-11-05',customer_name:'Karthik Menon',phone:'98430 22110',email:'karthik.m@gmail.com',address:'9, Saibaba Colony, Coimbatore 641011',gstin:'',state:'TN',items:[{sku:'BYOS-CPU-001',name:'AMD Ryzen 7 7800X3D',qty:1,price:38990}],subtotal:33042,gst_amount:5948,total:38990,payment_method:'Razorpay',status:'Parts Sourced',invoice_no:'BYOS/26-27/0019'},
+  ];
+}
+const ORDER_STATUSES = ['Pending','Parts Sourced','Assembling','Testing','Dispatched','Completed'];
+const CODE_GS = `/* BYOS — Google Apps Script backend (Code.gs)
+   Setup: Create sheet with tabs: Products, Orders, Customers, Settings
+   Deploy: Deploy > New deployment > Web app (Execute as: Me, Access: Anyone) */
+const SHEET_ID = 'PASTE_YOUR_GOOGLE_SHEET_ID_HERE';
+function sheet(name){ return SpreadsheetApp.openById(SHEET_ID).getSheetByName(name); }
+function rowsToJson(sh){
+  const v = sh.getDataRange().getValues();
+  const h = v[0].map(x=>String(x).trim());
+  return v.slice(1).filter(r=>r[0]!=='').map(r=>{
+    const o={}; h.forEach((k,i)=>o[k]=r[i]); return o;
+  });
+}
+function jsonOut(obj){
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+function doGet(e){
+  const action = (e.parameter.action || 'getProducts');
+  if(action==='getProducts') return jsonOut({status:'ok', data: rowsToJson(sheet('Products'))});
+  if(action==='getOrders')   return jsonOut({status:'ok', data: rowsToJson(sheet('Orders'))});
+  if(action==='getSettings') return jsonOut({status:'ok', data: rowsToJson(sheet('Settings'))});
+  return jsonOut({status:'error', message:'Unknown action'});
+}
+function doPost(e){
+  const body = JSON.parse(e.postData.contents || '{}');
+  if(body.action==='saveProduct'){
+    const sh = sheet('Products'); const rows = sh.getDataRange().getValues();
+    const headers = rows[0].map(x=>String(x).trim());
+    const idx = rows.findIndex((r,i)=> i>0 && String(r[0])===String(body.product.id));
+    const vals = headers.map(h=> body.product[h]!==undefined ? body.product[h] : '');
+    if(idx>0) sh.getRange(idx+1,1,1,vals.length).setValues([vals]);
+    else sh.appendRow(vals);
+    return jsonOut({status:'ok'});
+  }
+  if(body.action==='createOrder'){
+    sheet('Orders').appendRow([body.order.order_id, body.order.date, body.order.customer_name,
+      body.order.phone, body.order.email, body.order.address, body.order.gstin, body.order.state,
+      JSON.stringify(body.order.items), body.order.subtotal, body.order.gst_amount,
+      body.order.total, body.order.payment_method, body.order.status, body.order.invoice_no,
+      body.order.order_type || 'Accessories', body.order.delivery || 'Standard courier']);
+    return jsonOut({status:'ok', order_id: body.order.order_id});
+  }
+  if(body.action==='updateOrderStatus'){
+    const sh = sheet('Orders'); const rows = sh.getDataRange().getValues();
+    const idx = rows.findIndex((r,i)=> i>0 && String(r[0])===String(body.order_id));
+    if(idx>0){ sh.getRange(idx+1,14).setValue(body.status); return jsonOut({status:'ok'}); }
+    return jsonOut({status:'error', message:'Order not found'});
+  }
+  // One-time (or deliberate) bulk load from the app into the sheet.
+  // Rewrites the tab with a header row + one row per object.
+  if(body.action==='seed'){
+    Object.keys(body.data||{}).forEach(function(name){
+      const sh = sheet(name); const list = body.data[name] || [];
+      sh.clear();
+      if(!list.length) return;
+      const headers = Object.keys(list[0]);
+      const out = [headers].concat(list.map(function(obj){
+        return headers.map(function(h){
+          const v = obj[h];
+          return (v!==null && typeof v==='object') ? JSON.stringify(v) : (v===undefined?'':v);
+        });
+      }));
+      sh.getRange(1,1,out.length,out[0].length).setValues(out);
+    });
+    return jsonOut({status:'ok', rows:Object.keys(body.data).map(function(k){return k+': '+(body.data[k]||[]).length}).join(', ')});
+  }
+  return jsonOut({status:'error', message:'Unknown action'});
+}`;
+
+/* ---------- ApiService (Demo ⇄ Google Sheets) ---------- */
+const ApiService = {
+  get settings(){ return State.settings; },
+  get GAS_URL(){ return State.settings.gasUrl || ''; },
+  async _fetch(action, payload){
+    // Sync Mode: real Google Apps Script Web App call.
+    // Demo Mode never reaches here (localStorage path is used instead).
+    const url = this.GAS_URL;
+    if(!url) throw new Error('No Apps Script URL configured');
+    if(payload){
+      const res = await fetch(url, {method:'POST', body: JSON.stringify({action, ...payload})});
+      return res.json();
+    }
+    const res = await fetch(url + '?action=' + encodeURIComponent(action));
+    return res.json();
+  },
+  async getProducts(){
+    if(State.settings.mode==='sync' && this.GAS_URL){
+      try{ const r = await this._fetch('getProducts'); if(r.status==='ok') return r.data.map(normalizeSheetProduct); }catch(e){ console.warn('Sheets sync failed, falling back to local data', e); }
+    }
+    return State.products;
+  },
+  async saveProduct(p){
+    if(State.settings.mode==='sync' && this.GAS_URL){ try{ await this._fetch('saveProduct',{product:p}); }catch(e){} }
+    const i = State.products.findIndex(x=>x.id===p.id);
+    if(i>=0) State.products[i]=p; else State.products.push(p);
+    persist();
+  },
+  async deleteProduct(id){
+    State.products = State.products.filter(x=>x.id!==id);
+    persist();
+  },
+  async getOrders(){
+    if(State.settings.mode==='sync' && this.GAS_URL){
+      try{ const r = await this._fetch('getOrders'); if(r.status==='ok') return r.data; }catch(e){}
+    }
+    return State.orders;
+  },
+  async createOrder(order){
+    if(State.settings.mode==='sync' && this.GAS_URL){ try{ await this._fetch('createOrder',{order}); }catch(e){} }
+    State.orders.unshift(order);
+    persist();
+  },
+  async updateOrderStatus(orderId, status){
+    const o = State.orders.find(x=>x.order_id===orderId);
+    if(o) o.status = status;
+    if(State.settings.mode==='sync' && this.GAS_URL){ try{ await this._fetch('updateOrderStatus',{order_id:orderId,status}); }catch(e){} }
+    persist();
+  },
+  // Bulk load the local dataset into the sheet (rewrites Products / Orders / Settings tabs).
+  async pushAll(){
+    const data={
+      Products: State.products.map(p=>({...p, specs:(p.specs||[]).join(', '), serial_tracking_required:String(!!p.serial_tracking_required)})),
+      Orders: State.orders.map(o=>({...o, items_json:JSON.stringify(o.items||[]), subtotal:o.subtotal, order_type:o.order_type||'Accessories', delivery:o.delivery||'Standard courier', items:undefined})),
+      Settings: Object.keys(State.settings).filter(k=>!Array.isArray(State.settings[k])&&typeof State.settings[k]!=='object').map(k=>({key:k,value:String(State.settings[k])}))
+    };
+    return this._fetch('seed',{data});
+  },
+  async pullAll(){
+    const out={};
+    for(const a of ['getProducts','getOrders']){
+      const r=await this._fetch(a);
+      if(r.status==='ok') out[a]=r.data;
+    }
+    if(out.getProducts&&out.getProducts.length) State.products=out.getProducts.map(normalizeSheetProduct);
+    if(out.getOrders&&out.getOrders.length) State.orders=out.getOrders.map(normalizeSheetOrder);
+    persist();
+    return {status:'ok', products:State.products.length, orders:State.orders.length};
+  }
+};
+function normalizeSheetOrder(r){
+  let items=[]; try{ items=JSON.parse(r.items_json||r.items||'[]'); }catch(e){}
+  return {order_id:r.order_id, date:r.date, customer_name:r.customer_name, phone:r.phone, email:r.email||'',
+    address:r.address||'', gstin:r.gstin||'', state:r.state||'TN', items,
+    subtotal:Number(r.subtotal)||0, gst_amount:Number(r.gst_amount)||0, total:Number(r.total)||0,
+    payment_method:r.payment_method||'UPI', status:r.status||'Pending', invoice_no:r.invoice_no||'',
+    order_type:r.order_type||'Accessories', delivery:r.delivery||'Standard courier'};
+}
+async function pushToSheets(){
+  if(!(State.settings.gasUrl||'').trim()){ toast('Add your Apps Script Web App URL first','error'); return; }
+  toast('Pushing local data to Google Sheets…');
+  try{
+    const r=await ApiService.pushAll();
+    if(r&&r.status==='ok') toast('Sheets updated ('+ (r.rows||'') +')','success');
+    else toast('Sheets rejected the push: '+((r&&r.message)||'check the Web App deployment'),'error');
+  }catch(e){ toast('Push failed — '+(e.message||'network/CORS error')+'. Check the URL and deployment access.','error'); }
+}
+async function pullFromSheets(){
+  if(!(State.settings.gasUrl||'').trim()){ toast('Add your Apps Script Web App URL first','error'); return; }
+  toast('Loading rows from Google Sheets…');
+  try{
+    const r=await ApiService.pullAll();
+    toast('Loaded '+r.products+' products and '+r.orders+' orders from Sheets','success');
+    renderProducts(); renderAdminAll();
+  }catch(e){ toast('Pull failed — '+(e.message||'network/CORS error'),'error'); }
+}
+function normalizeSheetProduct(r){
+  return {id:Number(r.id)||r.id, sku:r.sku, barcode_ean:r.barcode_ean, name:r.name, brand:r.brand, category:r.category,
+    description:r.description||'', specs:parseSpecs(r.specs), socket:r.socket||'', ram_type:r.ram_type||'',
+    form_factor:r.form_factor||'', wattage:Number(r.wattage)||0, stock_qty:Number(r.stock_qty)||0,
+    cost_price:Number(r.cost_price)||0, selling_price:Number(r.selling_price)||0, hsn_code:r.hsn_code||'8471',
+    gst_rate:Number(r.gst_rate)||18, serial_tracking_required:String(r.serial_tracking_required)==='TRUE'};
+}
+function parseSpecs(s){ if(Array.isArray(s)) return s; try{ return JSON.parse(s); }catch(e){ return String(s||'').split(',').map(x=>x.trim()).filter(Boolean); } }
+
+/* ---------- State + Persistence ---------- */
+const LS_KEY = 'byos_state_v1';
+const State = {
+  products:[], orders:[], cart:[], build:{}, assembly:true,
+  settings:{mode:'demo', gasUrl:'', razorpayKey:'rzp_test_BYOSdemo123456', upiId:'byos@okhdfcbank', gstin:'33AABCB1234F1Z5', phone:'+91 422 400 1234',
+    storeName:'BYOS', storeEmail:'hello@byos.in', storeAddress:'42, 3rd Cross Street, RS Puram, Coimbatore, Tamil Nadu 641002',
+    logo:'', favicon:'', accent:'#EA580C', font:"'Space Grotesk','Inter',sans-serif", theme:'light',
+    whatsapp:'919843022110', instagram:'', facebook:'', youtube:'', twitter:'', customPages:[]},
+  filters:{search:'', category:'', brand:'', price:'', inStock:false},
+  gstInclusive:true, admin:false, pickerSlot:null, pickerStockOnly:false, payMethod:'razorpay', checkoutSource:'cart',
+};
+function persist(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify({products:State.products, orders:State.orders, cart:State.cart, build:State.build, settings:State.settings})); }catch(e){}
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(raw){ const d = JSON.parse(raw); State.products=d.products||seedProducts(); State.orders=d.orders||seedOrders(); State.cart=d.cart||[]; State.build=d.build||{}; State.settings=Object.assign(State.settings, d.settings||{}); }
+    else { State.products=seedProducts(); State.orders=seedOrders(); persist(); }
+  }catch(e){ State.products=seedProducts(); State.orders=seedOrders(); }
+  // Migration: backfill images + branding defaults for older saved data
+  if(!Array.isArray(State.settings.customPages)) State.settings.customPages=[];
+  State.orders.forEach(o=>{ if(!o.order_type) o.order_type=o.items.some(i=>String(i.sku).startsWith('BYOS-PC'))?'Custom Build':'Accessories'; });
+}
+
+/* ---------- Utils ---------- */
+const $ = id => document.getElementById(id);
+const fmtINR = n => '₹' + Math.round(Number(n)||0).toLocaleString('en-IN');
+const fmtNum = n => (Number(n)||0).toLocaleString('en-IN');
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const findP = id => State.products.find(p=>String(p.id)===String(id));
+function toast(msg, type=''){
+  const t=document.createElement('div'); t.className='toast '+type; t.textContent=msg;
+  $('toastWrap').appendChild(t); setTimeout(()=>{ t.style.opacity='0'; t.style.transition='.3s'; setTimeout(()=>t.remove(),300); }, 3200);
+}
+function stockInfo(p){
+  if(p.stock_qty<=0) return {cls:'red', label:'Out of Stock'};
+  if(p.stock_qty<=5) return {cls:'amber', label:'Only '+p.stock_qty+' left'};
+  return {cls:'green', label:'In Stock · '+p.stock_qty};
+}
+function displayPrice(p){ return State.gstInclusive ? p.selling_price : Math.round(p.selling_price/1.18); }
+function taxableOf(totalIncl){ return Math.round(totalIncl/1.18); }
+function amountInWords(num){
+  const ones=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const tens=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  const two=n=> n<20?ones[n]:tens[Math.floor(n/10)]+(n%10?' '+ones[n%10]:'');
+  const three=n=> (n>=100?ones[Math.floor(n/100)]+' Hundred'+(n%100?' ':''):'')+two(n%100);
+  const inr=n=>{
+    if(n===0) return 'Zero';
+    let s='';
+    const cr=Math.floor(n/10000000), lk=Math.floor(n%10000000/100000), th=Math.floor(n%100000/1000), rest=n%1000;
+    if(cr) s+=two(cr)+' Crore ';
+    if(lk) s+=two(lk)+' Lakh ';
+    if(th) s+=two(th)+' Thousand ';
+    if(rest) s+=three(rest);
+    return s.trim();
+  };
+  return 'Rupees ' + inr(Math.floor(num)) + ' Only';
+}
+const CAT_ICONS = {
+  'Pre-Built PCs':'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  'CPUs':'<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>',
+  'GPUs':'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2.5"/><path d="M14 9h5M14 15h5"/>',
+  'Motherboards':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h6M7 11h10M7 15h4"/><circle cx="17" cy="17" r="1.5"/>',
+  'RAM':'<rect x="2" y="8" width="20" height="8" rx="1"/><path d="M6 8v8M10 8v8M14 8v8M18 8v8M6 16v3M10 16v3M14 16v3M18 16v3"/>',
+  'Storage':'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  'PSUs':'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M12 8v2M12 14v2M8 12h2M14 12h2"/>',
+  'Cabinets':'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 10h6M15 18h.01"/>',
+  'Coolers':'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
+  'Monitors':'<rect x="2" y="4" width="20" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+  'Peripherals':'<rect x="2" y="6" width="20" height="12" rx="6"/><path d="M6 10h.01M10 10h.01M15 9v4M13 11h4"/>',
+};
+function catIcon(cat){ return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">'+(CAT_ICONS[cat]||CAT_ICONS['Peripherals'])+'</svg>'; }
+
+/* ---------- Router ---------- */
+const VIEWS=['store','builder','track','faq','contact','privacy','terms','custom','admin'];
+function showView(name,updateHash=true){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=$('view-'+name);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active', b.dataset.nav===name));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(name==='admin' && State.admin) renderAdminAll();
+  if(name==='builder') renderBuilder();
+  if(name==='contact') renderContact();
+  if(name==='faq') renderFaqs();
+  if(updateHash && VIEWS.includes(name) && name!=='custom' && location.hash.slice(1)!==name){
+    history.pushState(null,'','#'+name);
+  }
+}
+function showCustomPage(id,updateHash=true){
+  const page=(State.settings.customPages||[]).find(p=>String(p.id)===String(id));
+  if(!page) return;
+  $('customPageBody').innerHTML='<h2>'+esc(page.title)+'</h2>'+esc(page.content).split('\n').map(l=>l.trim()?'<p>'+esc(l)+'</p>':'').join('');
+  showView('custom',false);
+  document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active','page-'+page.id===b.dataset.nav));
+  if(updateHash) history.pushState(null,'','#page-'+page.id);
+}
+function routeFromHash(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(h.startsWith('build=')){ loadFromHash(); return; }
+  if(h.startsWith('page-')||h.startsWith('page=')){
+    const id=h.split(/[-=]/)[1];
+    if((State.settings.customPages||[]).some(p=>String(p.id)===String(id))){ showCustomPage(id,false); return; }
+  }
+  if(VIEWS.includes(h)) showView(h,false);
+}
+window.addEventListener('hashchange',routeFromHash);
+function showAdminPane(id, btn){
+  document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));
+  $('pane-'+id).classList.add('active');
+  document.querySelectorAll('.admin-side button[data-apane]').forEach(b=>b.classList.toggle('active', b.dataset.apane===id));
+}
+function showAdminPaneById(id){ showAdminPane(id); showView('admin'); }
+
+/* ---------- Storefront ---------- */
+function initFilters(){
+  const brands=[...new Set(State.products.map(p=>p.brand))].sort();
+  $('brandFilter').innerHTML='<option value="">All Brands</option>'+brands.map(b=>'<option>'+esc(b)+'</option>').join('');
+  $('catPills').innerHTML=['',...CATEGORIES].map(c=>'<button class="pill'+(State.filters.category===c?' active':'')+'" data-cat="'+esc(c)+'" onclick="setCategory(\''+esc(c)+'\')">'+(c||'All')+'</button>').join('');
+}
+function setCategory(c){ State.filters.category=c; initFilters(); renderProducts(); }
+function onFilterChange(){
+  State.filters.search=$('searchInput').value.trim().toLowerCase();
+  State.filters.brand=$('brandFilter').value;
+  State.filters.price=$('priceFilter').value;
+  renderProducts();
+}
+function toggleStockFilter(btn){ btn.classList.toggle('on'); State.filters.inStock=btn.classList.contains('on'); renderProducts(); }
+function toggleGstDisplay(btn){ btn.classList.toggle('on'); State.gstInclusive=btn.classList.contains('on'); renderProducts(); renderCart(); }
+function filteredProducts(){
+  return State.products.filter(p=>{
+    if(State.filters.category && p.category!==State.filters.category) return false;
+    if(State.filters.brand && p.brand!==State.filters.brand) return false;
+    if(State.filters.inStock && p.stock_qty<=0) return false;
+    if(State.filters.price){ const [lo,hi]=State.filters.price.split('-').map(Number); if(p.selling_price<lo||p.selling_price>hi) return false; }
+    if(State.filters.search){
+      const hay=(p.name+' '+p.sku+' '+p.brand+' '+p.category).toLowerCase();
+      if(!hay.includes(State.filters.search)) return false;
+    }
+    return true;
+  });
+}
+function renderProducts(){
+  const list=filteredProducts();
+  $('resultCount').textContent=list.length+' product'+(list.length===1?'':'s')+' found'+(State.gstInclusive?' · prices include GST':' · prices exclude GST');
+  $('storeEmpty').style.display=list.length?'none':'block';
+  $('productGrid').innerHTML=list.map(p=>{
+    const s=stockInfo(p);
+    const imgHtml='<div class="prod-img-wrap"><img class="prod-img" src="'+esc(productSrc(p))+'" alt="'+esc(p.name)+'" loading="lazy" onerror="imgFail(this)"></div>';
+    return '<article class="card">'
+      +imgHtml
+      +'<div class="card-top"><div><div class="cat-label">'+esc(p.category)+'</div><div class="brand-label">'+esc(p.brand)+'</div></div></div>'
+      +'<h3>'+esc(p.name)+'</h3>'
+      +'<div class="sku mono">SKU: '+esc(p.sku)+'</div>'
+      +'<div class="spec-pills">'+(p.specs||[]).map(x=>'<span class="spec">'+esc(x)+'</span>').join('')+'</div>'
+      +'<div class="stock '+s.cls+'"><span class="dot '+s.cls+'"></span>'+s.label+'</div>'
+      +'<div class="price-row"><div><div class="price">'+fmtINR(displayPrice(p))+'</div><div class="price-note">'+(State.gstInclusive?'incl. GST':'excl. GST')+' · HSN '+esc(p.hsn_code)+'</div></div>'
+      +'<button class="btn primary sm" style="margin-left:auto" '+(p.stock_qty<=0?'disabled':'onclick="addToCart(\''+p.id+'\')"')+'>Add to Cart</button></div>'
+      +'</article>';
+  }).join('');
+}
+
+/* ---------- Cart ---------- */
+function addToCart(id, qty=1, silent=false){
+  const p=findP(id); if(!p) return;
+  if(p.stock_qty<=0){ toast('Out of stock: '+p.name,'error'); return; }
+  const ex=State.cart.find(c=>String(c.id)===String(id));
+  if(ex) ex.qty=Math.min(ex.qty+qty, p.stock_qty); else State.cart.push({id:p.id, qty});
+  persist(); renderCart();
+  if(!silent) toast('Added to cart: '+p.name,'success');
+}
+function cartDetailed(){
+  return State.cart.map(c=>{ const p=findP(c.id); return p?{p, qty:c.qty, line:p.selling_price*c.qty}:null; }).filter(Boolean);
+}
+function cartTotals(){
+  const items=cartDetailed();
+  const total=items.reduce((s,i)=>s+i.line,0);
+  const taxable=taxableOf(total), gst=total-taxable;
+  const state=($('cState')?$('cState').value:'TN');
+  return {items, total, taxable, gst, cgst: state==='TN'?Math.round(gst/2):0, sgst: state==='TN'?Math.round(gst/2):0, igst: state==='TN'?0:gst, state};
+}
+function renderCart(){
+  const t=cartTotals();
+  const count=State.cart.reduce((s,c)=>s+c.qty,0);
+  $('cartCount').textContent=count;
+  $('cartDrawerCount').textContent=count?('· '+count+' item'+(count>1?'s':'')):'';
+  if(!t.items.length){
+    $('cartBody').innerHTML='<div class="empty"><b>Your cart is empty</b>Add components from the store or order a complete custom build.</div>';
+    $('cartFoot').innerHTML='<button class="btn block" onclick="toggleCart(false);showView(\'store\')">Browse Store</button>';
+    return;
+  }
+  $('cartBody').innerHTML=t.items.map(i=>'<div class="cart-item">'
+    +'<img class="thumb" style="width:52px;height:40px" src="'+esc(productSrc(i.p))+'" alt="" onerror="this.style.display=\'none\'">'
+    +'<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">'+esc(i.p.name)+'</div>'
+    +'<div class="mono-sm" style="color:var(--muted2)">'+esc(i.p.sku)+' · '+fmtINR(i.p.selling_price)+'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="qty"><button onclick="changeQty(\''+i.p.id+'\',-1)">−</button><span>'+i.qty+'</span><button onclick="changeQty(\''+i.p.id+'\',1)">+</button></div>'
+    +'<button class="btn sm danger" onclick="removeFromCart(\''+i.p.id+'\')">Remove</button></div></div>'
+    +'<div class="mono" style="font-weight:700">'+fmtINR(i.line)+'</div></div>').join('');
+  $('cartFoot').innerHTML='<div class="sum-row"><span>Taxable Value</span><span class="mono">'+fmtINR(t.taxable)+'</span></div>'
+    +(t.state==='TN'
+      ? '<div class="sum-row"><span>CGST @ 9%</span><span class="mono">'+fmtINR(t.cgst)+'</span></div><div class="sum-row"><span>SGST @ 9%</span><span class="mono">'+fmtINR(t.sgst)+'</span></div>'
+      : '<div class="sum-row"><span>IGST @ 18%</span><span class="mono">'+fmtINR(t.igst)+'</span></div>')
+    +'<div class="sum-row total"><span>Grand Total</span><b>'+fmtINR(t.total)+'</b></div>'
+    +'<button class="btn primary block" style="margin-top:10px" onclick="openCheckout()">Proceed to Checkout →</button>';
+}
+function changeQty(id, d){
+  const c=State.cart.find(x=>String(x.id)===String(id)); if(!c) return;
+  const p=findP(id);
+  c.qty+=d;
+  if(c.qty<=0) State.cart=State.cart.filter(x=>String(x.id)!==String(id));
+  if(p && c.qty>p.stock_qty){ c.qty=p.stock_qty; toast('Only '+p.stock_qty+' in stock','error'); }
+  persist(); renderCart();
+}
+function removeFromCart(id){ State.cart=State.cart.filter(x=>String(x.id)!==String(id)); persist(); renderCart(); }
+function toggleCart(open){
+  $('cartDrawer').classList.toggle('show', open);
+  $('overlay').classList.toggle('show', open);
+  if(open) renderCart();
+}
+function closeAllModals(){ document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show')); $('overlay').classList.remove('show'); }
+
+/* ---------- Checkout ---------- */
+function openCheckout(source){
+  if(!State.cart.length){ toast('Your cart is empty','error'); return; }
+  State.checkoutSource=source||'cart';
+  toggleCart(false);
+  $('checkoutModal').classList.add('show');
+  renderCheckoutTotals();
+}
+function selectPay(el){
+  document.querySelectorAll('#payMethods .radio-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  State.payMethod=el.dataset.pay;
+  renderCheckoutTotals();
+}
+function renderCheckoutTotals(){
+  const t=cartTotals();
+  const upiId=State.settings.upiId||'byos@okhdfcbank';
+  if(State.payMethod==='upi'){
+    $('upiQrBox').style.display='block';
+    $('upiQrBox').innerHTML='<div class="qr-box"><div style="font-weight:700;margin-bottom:6px">Scan to Pay via UPI</div>'
+      +'<svg width="140" height="140" viewBox="0 0 140 140" style="background:#fff;border:1px solid var(--border);border-radius:6px"><rect x="10" y="10" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="18" y="18" width="20" height="20" fill="#0F172A"/><rect x="94" y="10" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="102" y="18" width="20" height="20" fill="#0F172A"/><rect x="10" y="94" width="36" height="36" fill="none" stroke="#0F172A" stroke-width="3"/><rect x="18" y="102" width="20" height="20" fill="#0F172A"/><rect x="60" y="14" width="8" height="8" fill="#0F172A"/><rect x="76" y="22" width="8" height="8" fill="#0F172A"/><rect x="58" y="58" width="24" height="24" fill="#EA580C"/><rect x="62" y="62" width="16" height="16" fill="#fff"/><text x="70" y="74" font-size="11" font-weight="700" text-anchor="middle" fill="#0F172A">B</text><rect x="60" y="94" width="8" height="8" fill="#0F172A"/><rect x="78" y="102" width="8" height="8" fill="#0F172A"/><rect x="94" y="60" width="8" height="8" fill="#0F172A"/><rect x="110" y="78" width="8" height="8" fill="#0F172A"/><rect x="94" y="110" width="8" height="8" fill="#0F172A"/><rect x="112" y="112" width="8" height="8" fill="#0F172A"/></svg>'
+      +'<div class="mono" style="margin-top:8px;font-weight:700">'+esc(upiId)+'</div>'
+      +'<div class="small">Amount: <b class="mono">'+fmtINR(t.total)+'</b> · UPI ID verified by BYOS</div></div>';
+  } else if(State.payMethod==='razorpay'){
+    $('upiQrBox').style.display='block';
+    $('upiQrBox').innerHTML='<div class="qr-box"><b>Razorpay Secure Checkout</b><div class="small" style="margin-top:4px">Key ID: <span class="mono">'+esc(State.settings.razorpayKey)+'</span><br>Cards, NetBanking, Wallets &amp; UPI accepted. You will be redirected to Razorpay after placing the order.</div></div>';
+  } else if(State.payMethod==='bank'){
+    $('upiQrBox').style.display='block';
+    $('upiQrBox').innerHTML='<div class="qr-box" style="text-align:left"><b>Bank Transfer Details</b><div class="small mono" style="margin-top:6px">BYOS Computer Systems Pvt. Ltd.<br>A/C: 50200012345678 · HDFC Bank, RS Puram<br>IFSC: HDFC0001234 · UTR required for dispatch</div></div>';
+  } else {
+    $('upiQrBox').style.display='block';
+    $('upiQrBox').innerHTML='<div class="qr-box"><b>Pay at Store Pickup</b><div class="small" style="margin-top:4px">42, 3rd Cross Street, RS Puram, Coimbatore.<br>Please carry a valid ID. Order will be held for 7 days.</div></div>';
+  }
+  $('checkoutTotals').innerHTML='<div class="panel" style="margin:0;padding:14px">'
+    +'<div class="sum-row"><span>Taxable Value</span><span class="mono">'+fmtINR(t.taxable)+'</span></div>'
+    +(t.state==='TN'
+      ? '<div class="sum-row"><span>CGST @ 9%</span><span class="mono">'+fmtINR(t.cgst)+'</span></div><div class="sum-row"><span>SGST @ 9%</span><span class="mono">'+fmtINR(t.sgst)+'</span></div>'
+      : '<div class="sum-row"><span>IGST @ 18%</span><span class="mono">'+fmtINR(t.igst)+'</span></div>')
+    +'<div class="sum-row total"><span>Amount Payable</span><b>'+fmtINR(t.total)+'</b></div></div>';
+}
+async function placeOrder(){
+  const name=$('cName').value.trim(), phone=$('cPhone').value.trim();
+  if(!name||!phone){ toast('Please enter your name and phone','error'); return; }
+  const t=cartTotals();
+  const num=1000+State.orders.length+Math.floor(Math.random()*40);
+  const order={
+    order_id:'BYOS-2026-'+num, date:new Date().toISOString().slice(0,10),
+    customer_name:name, phone, email:$('cEmail').value.trim(), address:$('cAddress').value.trim(),
+    gstin:$('cGstin').value.trim(), state:$('cState').value,
+    items:t.items.map(i=>({sku:i.p.sku, name:i.p.name, qty:i.qty, price:i.p.selling_price})),
+    subtotal:t.taxable, gst_amount:t.gst, total:t.total,
+    payment_method:State.payMethod==='razorpay'?'Razorpay':State.payMethod==='upi'?'UPI':State.payMethod==='bank'?'Bank Transfer':'Store Pickup',
+    status:'Pending', invoice_no:'BYOS/26-27/'+String(num).padStart(4,'0'),
+    order_type:State.checkoutSource==='build'?'Custom Build':'Accessories',
+    delivery:$('cDelivery').value
+  };
+  await ApiService.createOrder(order);
+  State.cart=[]; persist(); renderCart();
+  closeAllModals();
+  toast('Order placed! ID: '+order.order_id+' — Track it from the Track Order page.','success');
+  showView('track');
+  $('trackInput').value=order.order_id;
+  setTimeout(trackOrder, 300);
+}
+
+/* ---------- PC Builder ---------- */
+function renderBuilder(){
+  $('builderSlots').innerHTML=SLOT_DEFS.map((s,i)=>{
+    const p=State.build[s.slot]?findP(State.build[s.slot]):null;
+    const issue=slotIssue(s.slot);
+    return '<div class="slot'+(p?' filled':'')+(issue?' has-issue':'')+'" onclick="openPicker(\''+s.slot+'\')">'
+      +'<div class="slot-num">'+String(i+1).padStart(2,'0')+'</div>'
+      +'<div class="slot-info"><div class="slot-label">'+esc(s.label)+(s.required?'':' · Optional')+'</div>'
+      +(p? '<div class="slot-name">'+esc(p.name)+'</div><div class="spec-pills" style="margin-top:4px">'+(p.specs||[]).slice(0,3).map(x=>'<span class="spec">'+esc(x)+'</span>').join('')+'</div>'
+          : '<div class="slot-empty">Click to select component →</div>')
+      +(issue?'<div class="small" style="color:var(--red);margin-top:4px">⚠ '+esc(issue)+'</div>':'')
+      +'</div>'
+      +(p?'<div class="slot-price">'+fmtINR(p.selling_price)+'</div>':'')
+      +'<div class="slot-action">'+(p?'Change':'Select')+'</div>'
+      +(p?'<button class="x-btn" style="width:28px;height:28px" onclick="event.stopPropagation();clearSlot(\''+s.slot+'\')" title="Remove">✕</button>':'')
+      +'</div>';
+  }).join('');
+  renderSummary();
+}
+function clearSlot(slot){ delete State.build[slot]; persist(); renderBuilder(); }
+function resetBuild(){ State.build={}; $('buildNotes').value=''; persist(); renderBuilder(); toast('Build reset'); }
+function toggleAssembly(btn){ btn.classList.toggle('on'); State.assembly=btn.classList.contains('on'); renderSummary(); }
+
+function buildItems(){
+  return SLOT_DEFS.map(s=>({slot:s.slot, label:s.label, p: State.build[s.slot]?findP(State.build[s.slot]):null})).filter(x=>x.p);
+}
+function checkCompatibility(){
+  const issues=[], warnings=[];
+  const cpu=findP(State.build.cpu), mobo=findP(State.build.motherboard), ram=findP(State.build.ram), psu=findP(State.build.psu), cab=findP(State.build.cabinet);
+  if(cpu && mobo && cpu.socket && mobo.socket && cpu.socket!==mobo.socket)
+    issues.push('CPU socket '+cpu.socket+' ≠ Motherboard socket '+mobo.socket);
+  if(mobo && ram && mobo.ram_type && ram.ram_type && mobo.ram_type!==ram.ram_type)
+    issues.push('Motherboard supports '+mobo.ram_type+' but RAM is '+ram.ram_type);
+  if(mobo && cab && mobo.form_factor && cab.form_factor && mobo.form_factor!==cab.form_factor){
+    // Allow ATX case to host mATX/ITX boards; flag only if board larger than case
+    const size={ITX:1,mATX:2,ATX:3};
+    if((size[mobo.form_factor]||0)>(size[cab.form_factor]||0)) issues.push('Motherboard '+mobo.form_factor+' does not fit in '+cab.form_factor+' case');
+    else warnings.push('Motherboard '+mobo.form_factor+' in '+cab.form_factor+' case — check GPU length clearance');
+  }
+  const w=estimateWattage();
+  if(psu && w.total>0){
+    const need=Math.ceil(w.total*1.2);
+    if(psu.wattage<w.total) issues.push('PSU '+psu.wattage+'W is below estimated draw '+w.total+'W');
+    else if(psu.wattage<need) warnings.push('PSU headroom below 20% — recommended ≥ '+need+'W (you have '+psu.wattage+'W)');
+  }
+  return {issues, warnings, watt:w};
+}
+function estimateWattage(){
+  const cpu=findP(State.build.cpu), gpu=findP(State.build.gpu);
+  const cpuW=cpu?cpu.wattage||120:0, gpuW=gpu?gpu.wattage||0:0;
+  const base=180; // motherboard, RAM, storage, fans, peripherals
+  const total=(cpu||gpu)?cpuW+gpuW+base:0;
+  return {cpuW, gpuW, base, total};
+}
+function slotIssue(slot){
+  const {issues}=checkCompatibility();
+  if(slot==='motherboard' && issues.some(i=>i.includes('socket')||i.includes('RAM')||i.includes('fit'))) return issues.find(i=>i.includes('socket')||i.includes('RAM')||i.includes('fit'));
+  if(slot==='ram' && issues.some(i=>i.includes('RAM'))) return issues.find(i=>i.includes('RAM'));
+  if(slot==='psu' && issues.some(i=>i.includes('PSU'))) return issues.find(i=>i.includes('PSU'));
+  if(slot==='cabinet' && issues.some(i=>i.includes('fit'))) return issues.find(i=>i.includes('fit'));
+  return '';
+}
+function renderSummary(){
+  const items=buildItems();
+  const {issues, warnings, watt}=checkCompatibility();
+  const subtotal=items.reduce((s,i)=>s+i.p.selling_price,0);
+  const assembly=State.assembly?1500:0;
+  const grand=subtotal+assembly;
+  const taxable=taxableOf(grand), gst=grand-taxable;
+  const missing=SLOT_DEFS.filter(s=>s.required && !State.build[s.slot]).length;
+
+  // Compatibility box
+  if(!items.length){
+    $('compatBox').innerHTML='<div class="compat-box warn">Start by selecting a Processor — compatibility checks appear here in real time.</div>';
+  } else if(issues.length){
+    $('compatBox').innerHTML='<div class="compat-box err"><b>⚠ Compatibility issues</b><ul>'+issues.map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></div>';
+  } else if(warnings.length){
+    $('compatBox').innerHTML='<div class="compat-box warn"><b>Compatible — with warnings</b><ul>'+warnings.map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></div>';
+  } else {
+    $('compatBox').innerHTML='<div class="compat-box ok"><b>✓ Fully compatible</b> — socket, RAM type, form factor and PSU headroom all check out.</div>';
+  }
+
+  $('summaryItems').innerHTML=items.length? items.map(i=>'<div class="sum-item"><div class="sname"><b>'+esc(i.p.name)+'</b><span class="mono-sm">'+esc(i.p.sku)+'</span></div><div class="sprice">'+fmtINR(i.p.selling_price)+'</div></div>').join('')
+    : '<p class="small" style="padding:8px 0">No components selected yet.</p>';
+
+  // Wattage
+  const psu=findP(State.build.psu);
+  const pct=psu&&watt.total?Math.min(100, Math.round(watt.total/psu.wattage*100)):0;
+  const fillCls=psu&&watt.total&&psu.wattage<watt.total?'over':(psu&&watt.total&&psu.wattage<watt.total*1.2?'tight':'');
+  $('wattBox').innerHTML='<div style="display:flex;justify-content:space-between;font-size:12px"><b>Estimated Power Draw</b><span class="mono">'+(watt.total?watt.total+' W':'—')+'</span></div>'
+    +'<div class="watt-bar"><div class="watt-fill '+fillCls+'" style="width:'+(watt.total?pct:0)+'%"></div></div>'
+    +'<div class="small">CPU '+watt.cpuW+'W + GPU '+watt.gpuW+'W + System '+watt.base+'W'+(psu?' · PSU '+psu.wattage+'W ('+pct+'% load)':' · Select a PSU to check headroom')+'</div>';
+
+  $('summaryTotals').innerHTML='<div class="sum-row"><span>Components Subtotal</span><span class="mono">'+fmtINR(subtotal)+'</span></div>'
+    +'<div class="sum-row"><span>Assembly &amp; 48-hr Stress Test</span><span class="mono">'+(assembly?fmtINR(assembly):'FREE')+'</span></div>'
+    +'<div class="sum-row"><span>Taxable Value</span><span class="mono">'+fmtINR(taxable)+'</span></div>'
+    +'<div class="sum-row"><span>CGST @ 9%</span><span class="mono">'+fmtINR(Math.round(gst/2))+'</span></div>'
+    +'<div class="sum-row"><span>SGST @ 9%</span><span class="mono">'+fmtINR(gst-Math.round(gst/2))+'</span></div>'
+    +'<div class="sum-row total"><span>Grand Total (incl. GST)</span><b>'+fmtINR(grand)+'</b></div>';
+
+  $('orderBuildBtn').disabled = !items.length || issues.length>0;
+  $('orderBuildBtn').textContent = issues.length? 'Fix Compatibility to Order' : (missing? 'Order Complete Build ('+missing+' required slot'+(missing>1?'s':'')+' empty)' : 'Order Complete Build');
+  const _bid=Object.values(State.build).filter(Boolean).join('-').slice(0,18).toUpperCase();
+  $('buildIdLabel').textContent=_bid?('BYOS-BUILD-'+_bid):'BYOS-BUILD-—';
+}
+function orderBuild(){
+  const items=buildItems();
+  if(!items.length) return;
+  const {issues}=checkCompatibility();
+  if(issues.length){ toast('Resolve compatibility issues first','error'); return; }
+  items.forEach(i=>addToCart(i.p.id,1,true));
+  toast('Complete build ready for checkout ('+items.length+' components)','success');
+  openCheckout('build');
+}
+
+/* Presets */
+const PRESETS={
+  esports:{cpu:3, motherboard:13, gpu:8, ram:19, storage:22, psu:28, cabinet:30, cooler:35, monitor:38, keyboard:41, mouse:40},
+  workstation:{cpu:1, motherboard:14, gpu:7, ram:18, storage:23, psu:26, cabinet:30, cooler:36, monitor:37},
+  ai:{cpu:5, motherboard:14, gpu:9, ram:21, storage:23, psu:27, cabinet:30, cooler:36, monitor:39},
+};
+function loadPreset(name){
+  State.build={...PRESETS[name]};
+  persist(); renderBuilder();
+  toast('Preset loaded: '+({esports:'1080p Esports',workstation:'1440p Workstation',ai:'AI / ML Rig'})[name],'success');
+}
+
+/* Share / Quote */
+function shareBuild(){
+  const url=buildShareUrl();
+  history.replaceState(null,'',url.slice(url.indexOf('#')));
+  if(navigator.clipboard) navigator.clipboard.writeText(url).then(()=>toast('Build link copied to clipboard','success')).catch(()=>toast('Link: '+url));
+  else toast('Build link ready in address bar','success');
+}
+function loadFromHash(){
+  if(!location.hash.startsWith('#build=')) return;
+  const params=new URLSearchParams(location.hash.slice(1));
+  const b={};
+  params.forEach((v,k)=>{ if(findP(v)) b[k]=Number(v); });
+  if(Object.keys(b).length){ State.build=b; persist(); showView('builder'); toast('Shared build loaded','success'); }
+}
+let _lastQuoteHtml='';
+function buildQuoteHtml(){
+  const items=buildItems();
+  const subtotal=items.reduce((s,i)=>s+i.p.selling_price,0);
+  const assembly=State.assembly?1500:0, grand=subtotal+assembly;
+  const taxable=taxableOf(grand), gst=grand-taxable;
+  const date=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const valid=new Date(Date.now()+15*864e5).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const qno='BYOS/Q/26-27/'+Math.floor(1000+Math.random()*9000);
+  const td=(l,v,cls)=>'<td data-label="'+l+'"'+(cls?' class="'+cls+'"':'')+'>'+v+'</td>';
+  const rows=items.map((i,n)=>'<tr>'+td('#',n+1)+td('SKU',esc(i.p.sku),'mono')+td('Item','<span>'+esc(i.p.name)+'<br><span style="color:#64748B;font-size:11px">'+esc(i.label)+'</span></span>')+td('HSN',esc(i.p.hsn_code),'mono')+td('Qty','1')+td('Rate',fmtINR(i.p.selling_price),'mono')+td('Taxable',fmtINR(taxableOf(i.p.selling_price)),'mono')+td('CGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'mono')+td('SGST 9%',fmtINR(Math.round(taxableOf(i.p.selling_price)*0.09)),'mono')+td('Total',fmtINR(i.p.selling_price),'mono')+'</tr>').join('');
+  const logoHtml=State.settings.logo?'<img src="'+esc(State.settings.logo)+'" style="height:44px;object-fit:contain" alt="logo">':'<div style="font-family:Space Grotesk;font-size:26px;font-weight:700">'+esc(State.settings.storeName||'BYOS')+'</div>';
+  return '<div class="quote-paper">'
+    +'<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid #18181B;padding-bottom:14px;margin-bottom:14px"><div>'+logoHtml+'<div style="font-size:11px;color:#475569">BUILD YOUR OWN SYSTEM · COIMBATORE</div></div><div style="text-align:right;font-size:12px;color:#475569">'+esc(State.settings.storeAddress||'')+'<br>State Code: 33<br>GSTIN: <span class="mono">'+esc(State.settings.gstin)+'</span><br>'+esc(State.settings.phone)+'</div></div>'
+    +'<h2 style="font-size:20px;margin-bottom:4px">Custom PC Quotation</h2><p style="font-size:12px;color:#475569">Date: '+date+' · Valid until: '+valid+' · Quote No: '+qno+'</p>'
+    +($('buildNotes').value?'<p style="font-size:12px;margin-top:8px"><b>Notes:</b> '+esc($('buildNotes').value)+'</p>':'')
+    +'<table class="doc-table" style="width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;min-width:0"><thead><tr style="background:#F8FAFC"><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">#</th><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">SKU</th><th style="text-align:left;padding:8px;border:1px solid #E2E8F0">Description</th><th style="padding:8px;border:1px solid #E2E8F0">HSN</th><th style="padding:8px;border:1px solid #E2E8F0">Qty</th><th style="padding:8px;border:1px solid #E2E8F0">Rate</th><th style="padding:8px;border:1px solid #E2E8F0">Taxable</th><th style="padding:8px;border:1px solid #E2E8F0">CGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">SGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">Total</th></tr></thead><tbody>'+rows
+    +(assembly?'<tr>'+td('#','')+td('SKU','BYOS-SVC-001','mono')+td('Item','Assembly &amp; 48-hr Stress Test')+td('HSN','9983','mono')+td('Qty','1')+td('Rate',fmtINR(assembly),'mono')+td('Taxable',fmtINR(taxableOf(assembly)),'mono')+td('CGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'mono')+td('SGST 9%',fmtINR(Math.round(taxableOf(assembly)*0.09)),'mono')+td('Total',fmtINR(assembly),'mono')+'</tr>':'')
+    +'</tbody></table>'
+    +'<div style="text-align:right;margin-top:14px;font-size:13px"><div>Taxable Value: <span class="mono">'+fmtINR(taxable)+'</span></div><div>CGST @ 9%: <span class="mono">'+fmtINR(Math.round(gst/2))+'</span> · SGST @ 9%: <span class="mono">'+fmtINR(gst-Math.round(gst/2))+'</span></div><div style="font-size:18px;font-weight:700;margin-top:6px">Grand Total: <span class="mono">'+fmtINR(grand)+'</span></div><div style="font-size:11px;color:#475569">Amount in words: '+amountInWords(grand)+'</div></div>'
+    +'<p style="font-size:11px;color:#64748B;margin-top:18px">Terms: Prices include GST. Components carry manufacturer warranty; assembly covered by BYOS 3-year service warranty. Free delivery within Coimbatore city limits. This is a quotation, not a tax invoice.</p>'
+    +'</div>';
+}
+function downloadQuote(){
+  const items=buildItems();
+  if(!items.length){ toast('Select at least one component first','error'); return; }
+  _lastQuoteHtml=buildQuoteHtml();
+  $('quotePreviewArea').innerHTML=_lastQuoteHtml;
+  $('quoteModal').classList.add('show');
+}
+function printDoc(html){
+  $('printRoot').innerHTML=html||_lastQuoteHtml||'';
+  window.print();
+}
+function printQuote(){ printDoc(_lastQuoteHtml||buildQuoteHtml()); }
+function buildShareUrl(){
+  const ids=Object.entries(State.build).filter(([,v])=>v).map(([k,v])=>k+'='+v).join('&');
+  return location.origin+location.pathname+(ids?'#build='+ids:'');
+}
+function quoteShareText(){
+  const items=buildItems();
+  const subtotal=items.reduce((s,i)=>s+i.p.selling_price,0);
+  const assembly=State.assembly?1500:0, grand=subtotal+assembly;
+  const lines=items.map(i=>'• '+i.p.name+' — '+fmtINR(i.p.selling_price));
+  return (State.settings.storeName||'BYOS')+' Custom PC Quote\n'+lines.join('\n')
+    +(assembly?'\n• Assembly & 48-hr Stress Test — '+fmtINR(assembly):'')
+    +'\n\nGrand Total (incl. GST): '+fmtINR(grand)
+    +'\nValid 15 days · '+(State.settings.storeAddress||'Coimbatore')+' · '+State.settings.phone
+    +'\nOpen this build: '+buildShareUrl();
+}
+function shareQuote(channel){
+  const text=quoteShareText();
+  if(channel==='whatsapp'){
+    const num=(State.settings.whatsapp||'').replace(/\D/g,'');
+    const url='https://wa.me/'+(num||'')+'?text='+encodeURIComponent(text);
+    window.open(url,'_blank');
+  } else if(channel==='telegram'){
+    window.open('https://t.me/share/url?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(text),'_blank');
+  } else if(channel==='email'){
+    location.href='mailto:'+encodeURIComponent(State.settings.storeEmail||'hello@byos.in')+'?subject='+encodeURIComponent('BYOS Custom PC Quote — '+fmtINR(buildItems().reduce((s,i)=>s+i.p.selling_price,0)+(State.assembly?1500:0)))+'&body='+encodeURIComponent(text);
+  }
+}
+function copyQuoteText(){
+  const t=quoteShareText();
+  if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast('Quote text copied','success'));
+  else toast('Copy not available in this browser');
+}
+function downloadQuoteDoc(){
+  if(!_lastQuoteHtml) _lastQuoteHtml=buildQuoteHtml();
+  const docHtml='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>BYOS Quotation</title><style>body{font-family:Arial,sans-serif;font-size:12px;color:#0F172A}table{border-collapse:collapse;width:100%}th,td{border:1px solid #CBD5E1;padding:6px;text-align:left}.mono{font-family:Consolas,monospace}</style></head><body>'+_lastQuoteHtml+'</body></html>';
+  const blob=new Blob(['\ufeff'+docHtml],{type:'application/msword'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='BYOS-Quotation.doc';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast('DOC downloaded — opens in Word / Google Docs','success');
+}
+
+/* ---------- Component Picker ---------- */
+function openPicker(slot){
+  State.pickerSlot=slot;
+  const def=SLOT_DEFS.find(s=>s.slot===slot);
+  $('pickerTitle').textContent='Select — '+def.label;
+  $('pickerSub').textContent='Category: '+def.category+(def.match?' · '+def.match:'');
+  $('pickerSearch').value='';
+  $('pickerModal').classList.add('show');
+  renderPickerList();
+}
+function togglePickerStock(btn){ btn.classList.toggle('on'); State.pickerStockOnly=btn.classList.contains('on'); renderPickerList(); }
+function renderPickerList(){
+  const def=SLOT_DEFS.find(s=>s.slot===State.pickerSlot);
+  const q=$('pickerSearch').value.trim().toLowerCase();
+  const sort=$('pickerSort').value;
+  let list=State.products.filter(p=>p.category===def.category);
+  if(def.match) list=list.filter(p=>p.name.toLowerCase().includes(def.match)||(p.specs||[]).join(' ').toLowerCase().includes(def.match));
+  if(State.pickerStockOnly) list=list.filter(p=>p.stock_qty>0);
+  if(q) list=list.filter(p=>(p.name+' '+p.sku+' '+p.brand).toLowerCase().includes(q));
+  if(sort==='low') list=[...list].sort((a,b)=>a.selling_price-b.selling_price);
+  if(sort==='high') list=[...list].sort((a,b)=>b.selling_price-a.selling_price);
+  const current=State.build[State.pickerSlot];
+  $('pickerList').innerHTML=list.length? list.map(p=>{
+    const s=stockInfo(p);
+    const sel=String(current)===String(p.id);
+    return '<div class="picker-item'+(sel?' selected':'')+'" onclick="selectComponent(\''+p.id+'\')">'
+      +'<img class="thumb" src="'+esc(productSrc(p))+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+      +'<div style="flex:1;min-width:0"><div style="font-weight:600">'+esc(p.name)+'</div>'
+      +'<div class="mono-sm" style="color:var(--muted2)">'+esc(p.sku)+' · '+esc(p.brand)+'</div>'
+      +'<div class="spec-pills" style="margin-top:4px">'+(p.specs||[]).map(x=>'<span class="spec">'+esc(x)+'</span>').join('')+(p.wattage?'<span class="spec">'+p.wattage+'W</span>':'')+'</div></div>'
+      +'<div style="text-align:right;flex-shrink:0"><div class="mono" style="font-weight:700">'+fmtINR(p.selling_price)+'</div><div class="stock '+s.cls+'" style="justify-content:flex-end"><span class="dot '+s.cls+'"></span>'+s.label+'</div>'
+      +'<button class="btn sm '+(sel?'dark':'primary')+'" style="margin-top:6px" '+(p.stock_qty<=0?'disabled':'')+'>'+(sel?'✓ Selected':'Select')+'</button></div></div>';
+  }).join('') : '<div class="empty"><b>No components found</b>Try a different search.</div>';
+}
+function selectComponent(id){
+  State.build[State.pickerSlot]=Number(id);
+  persist(); closeAllModals(); renderBuilder();
+  const p=findP(id);
+  toast('Selected: '+(p?p.name:''),'success');
+}
+
+/* ---------- Track Order ---------- */
+function trackOrder(){
+  const q=$('trackInput').value.trim().toLowerCase();
+  if(!q){ $('trackResult').innerHTML=''; return; }
+  const o=State.orders.find(x=>x.order_id.toLowerCase()===q || x.phone.replace(/\s/g,'').includes(q.replace(/\s/g,'')));
+  if(!o){ $('trackResult').innerHTML='<div class="compat-box err">Order not found. Check the ID and try again — demo IDs are listed below.</div>'; return; }
+  const idx=ORDER_STATUSES.indexOf(o.status);
+  $('trackResult').innerHTML='<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><div><b class="mono">'+esc(o.order_id)+'</b><div class="small">'+esc(o.customer_name)+' · '+esc(o.date)+'</div></div><div class="mono" style="font-weight:700">'+fmtINR(o.total)+'</div></div>'
+    +'<div class="timeline">'+ORDER_STATUSES.map((s,i)=>'<div class="tstep'+(i<idx?' done':i===idx?' current':'')+'">'+s+'</div>').join('')+'</div>'
+    +'<div class="small">Items: '+o.items.map(i=>esc(i.name)+' × '+i.qty).join(', ')+'</div>';
+}
+
+/* ---------- Admin ---------- */
+function adminLogin(){
+  if($('adminPin').value==='1234'){
+    State.admin=true;
+    $('adminGate').style.display='none';
+    $('adminApp').style.display='block';
+    renderAdminAll();
+    toast('Welcome back, Store Manager','success');
+  } else toast('Incorrect PIN. Demo PIN is 1234','error');
+}
+function adminLogout(){ State.admin=false; $('adminGate').style.display='block'; $('adminApp').style.display='none'; $('adminPin').value=''; }
+function renderAdminAll(){ renderKPIs(); renderAdminProducts(); renderAdminOrders(); renderSettings(); renderBrandingForm(); renderCustomPagesList(); updateSyncPill(); }
+function updateSyncPill(){
+  const live=State.settings.mode==='sync' && State.settings.gasUrl;
+  $('syncPill').textContent=live?'Sheets Live':'Demo Mode';
+  $('syncPill').classList.toggle('live', !!live);
+  const sp=$('settingsSyncPill'); if(sp){ sp.textContent=live?'Sheets Live':'Demo Mode'; sp.classList.toggle('live', !!live); }
+}
+function renderKPIs(){
+  const revenue=State.orders.reduce((s,o)=>s+o.total,0);
+  const thisMonth=State.orders.filter(o=>o.date.startsWith('2026-11')).length;
+  const builds=State.orders.filter(o=>o.order_type==='Custom Build'||o.items.some(i=>i.sku.startsWith('BYOS-PC'))).length;
+  const low=State.products.filter(p=>p.stock_qty>0&&p.stock_qty<=5).length;
+  const out=State.products.filter(p=>p.stock_qty<=0).length;
+  $('kpiGrid').innerHTML=[
+    ['Total Revenue', fmtINR(revenue), State.orders.length+' orders on record'],
+    ['Orders This Month', thisMonth, 'November 2026'],
+    ['Custom Builds vs Accessories', builds+' builds', (State.orders.length-builds)+' accessory orders'],
+    ['Low-Stock Alerts', low+' low · '+out+' out', 'Restock before the weekend rush'],
+  ].map(k=>'<div class="kpi"><div class="kpi-label">'+k[0]+'</div><div class="kpi-value">'+k[1]+'</div><div class="kpi-sub">'+k[2]+'</div></div>').join('');
+  // Revenue chart (SVG bars)
+  const months=[['Jun',182000],['Jul',214000],['Aug',198000],['Sep',256000],['Oct',289000],['Nov',revenue]];
+  const max=Math.max(...months.map(m=>m[1]));
+  const W=640,H=180,bw=72,gap=(W-months.length*bw)/(months.length+1);
+  $('revChart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Revenue chart">'
+    +months.map((m,i)=>{
+      const h=Math.round((m[1]/max)*(H-50));
+      const x=gap+i*(bw+gap), y=H-30-h;
+      return '<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="4" fill="'+(i===months.length-1?'#EA580C':'#18181B')+'"/>'
+        +'<text x="'+(x+bw/2)+'" y="'+(y-6)+'" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#0F172A">'+(m[1]/1000).toFixed(0)+'k</text>'
+        +'<text x="'+(x+bw/2)+'" y="'+(H-10)+'" text-anchor="middle" font-size="11" fill="#475569">'+m[0]+'</text>';
+    }).join('')+'</svg>';
+  const lowList=State.products.filter(p=>p.stock_qty<=5);
+  $('lowStockList').innerHTML=lowList.length? lowList.map(p=>'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border)"><span>'+esc(p.name)+' <span class="mono-sm" style="color:var(--muted2)">'+esc(p.sku)+'</span></span><span class="stock '+(p.stock_qty<=0?'red':'amber')+'"><span class="dot '+(p.stock_qty<=0?'red':'amber')+'"></span>'+(p.stock_qty<=0?'Out of stock':'Only '+p.stock_qty+' left')+'</span></div>').join('')
+    : '<p class="small">All products are well stocked.</p>';
+  $('recentOrdersBody').innerHTML=State.orders.slice(0,5).map(o=>'<tr><td class="mono">'+esc(o.order_id)+'</td><td>'+esc(o.customer_name)+'</td><td class="mono">'+fmtINR(o.total)+'</td><td>'+statusBadge(o.status)+'</td></tr>').join('');
+}
+function statusBadge(s){
+  const cls=s==='Completed'||s==='Dispatched'?'done':(s==='Pending'?'pending':'progress');
+  return '<span class="status-badge '+cls+'">'+esc(s)+'</span>';
+}
+function renderAdminProducts(){
+  const q=($('adminProdSearch').value||'').toLowerCase();
+  const list=State.products.filter(p=>!q||(p.name+' '+p.sku+' '+p.brand).toLowerCase().includes(q));
+  $('adminProdBody').innerHTML=list.map(p=>'<tr>'
+    +'<td><img class="thumb" style="width:52px;height:38px" src="'+esc(productSrc(p))+'" alt="" onerror="this.style.display=\'none\'"></td>'
+    +'<td class="mono-sm">'+esc(p.sku)+'</td>'
+    +'<td><b>'+esc(p.name)+'</b><div class="mono-sm" style="color:var(--muted2)">'+esc(p.brand)+'</div></td>'
+    +'<td>'+esc(p.category)+'</td>'
+    +'<td class="mono">'+p.stock_qty+'</td>'
+    +'<td class="mono">'+fmtNum(p.cost_price)+'</td>'
+    +'<td class="mono" style="font-weight:700">'+fmtNum(p.selling_price)+'</td>'
+    +'<td class="mono">'+esc(p.hsn_code)+'</td>'
+    +'<td class="mono">'+p.gst_rate+'%</td>'
+    +'<td style="white-space:nowrap"><button class="btn sm" onclick="openProductModal(\''+p.id+'\')">Edit</button> <button class="btn sm danger" onclick="deleteProduct(\''+p.id+'\')">Delete</button></td></tr>').join('')
+    || '<tr><td colspan="10" class="empty">No products found.</td></tr>';
+}
+function openProductModal(id){
+  const p=id?findP(id):null;
+  $('productModalTitle').textContent=p?'Edit Product — '+p.sku:'Add Product';
+  $('pId').value=p?p.id:'';
+  $('pName').value=p?p.name:''; $('pSku').value=p?p.sku:''; $('pBrand').value=p?p.brand:'';
+  $('pCategory').innerHTML=CATEGORIES.map(c=>'<option'+(p&&p.category===c?' selected':'')+'>'+c+'</option>').join('');
+  $('pStock').value=p?p.stock_qty:10; $('pCost').value=p?p.cost_price:''; $('pPrice').value=p?p.selling_price:'';
+  $('pHsn').value=p?p.hsn_code:'8471'; $('pGst').value=p?p.gst_rate:18; $('pBarcode').value=p?p.barcode_ean:'';
+  $('pSocket').value=p?p.socket:''; $('pRamType').value=p?p.ram_type:''; $('pForm').value=p?p.form_factor:'';
+  $('pWatt').value=p?p.wattage:''; $('pSpecs').value=p?(p.specs||[]).join(', '):''; $('pDesc').value=p?p.description:'';
+  $('pImage').value=p?(p.image||''):''; $('pImagePreview').innerHTML=p?'<img class="thumb" src="'+esc(productSrc(p))+'" alt=""> <span class="small">current artwork</span>':'';
+  $('pSerial').classList.toggle('on', !!(p&&p.serial_tracking_required));
+  $('productModal').classList.add('show');
+}
+async function saveProduct(){
+  const name=$('pName').value.trim(), sku=$('pSku').value.trim();
+  if(!name||!sku){ toast('Name and SKU are required','error'); return; }
+  const id=$('pId').value?Number($('pId').value):Date.now();
+  const cat=$('pCategory').value;
+  const p={
+    id, sku, name, brand:$('pBrand').value.trim()||'BYOS', category:cat,
+    description:$('pDesc').value.trim(),
+    specs:$('pSpecs').value.split(',').map(x=>x.trim()).filter(Boolean),
+    socket:$('pSocket').value.trim(), ram_type:$('pRamType').value, form_factor:$('pForm').value.trim(),
+    wattage:Number($('pWatt').value)||0,
+    stock_qty:Number($('pStock').value)||0, cost_price:Number($('pCost').value)||0, selling_price:Number($('pPrice').value)||0,
+    image:$('pImage').value.trim(),
+    hsn_code:$('pHsn').value.trim()||'8471', gst_rate:Number($('pGst').value)||18,
+    barcode_ean:$('pBarcode').value.trim()||('890'+String(id).padStart(10,'0')),
+    serial_tracking_required:$('pSerial').classList.contains('on')
+  };
+  await ApiService.saveProduct(p);
+  closeAllModals(); initFilters(); renderProducts(); renderAdminProducts(); renderKPIs();
+  toast('Product saved: '+name,'success');
+}
+async function deleteProduct(id){
+  const p=findP(id);
+  if(!confirm('Delete "'+(p?p.name:'')+'"? This removes it from the store and builder.')) return;
+  await ApiService.deleteProduct(id);
+  State.cart=State.cart.filter(c=>String(c.id)!==String(id));
+  Object.keys(State.build).forEach(k=>{ if(String(State.build[k])===String(id)) delete State.build[k]; });
+  persist(); initFilters(); renderProducts(); renderAdminProducts(); renderKPIs(); renderCart();
+  toast('Product deleted','success');
+}
+function renderAdminOrders(){
+  const q=($('orderSearch').value||'').toLowerCase();
+  const list=State.orders.filter(o=>!q||(o.order_id+' '+o.customer_name+' '+o.phone).toLowerCase().includes(q));
+  $('adminOrderBody').innerHTML=list.map(o=>'<tr>'
+    +'<td class="mono-sm">'+esc(o.order_id)+'<div style="color:var(--muted2)">'+esc(o.invoice_no||'')+' · '+(o.order_type==='Custom Build'?'Custom build':'Accessories')+'</div></td>'
+    +'<td class="mono-sm">'+esc(o.date)+'</td>'
+    +'<td><b>'+esc(o.customer_name)+'</b>'+(o.gstin?'<div class="mono-sm" style="color:var(--muted2)">GSTIN: '+esc(o.gstin)+'</div>':'')+'</td>'
+    +'<td class="mono-sm">'+esc(o.phone)+'</td>'
+    +'<td>'+o.items.reduce((s,i)=>s+i.qty,0)+' item(s)</td>'
+    +'<td class="mono" style="font-weight:700">'+fmtNum(o.total)+'</td>'
+    +'<td><select class="status-select" onchange="updateOrderStatus(\''+esc(o.order_id)+'\',this.value)">'+ORDER_STATUSES.map(s=>'<option'+(o.status===s?' selected':'')+'>'+s+'</option>').join('')+'</select></td>'
+    +'<td><button class="btn sm" onclick="generateInvoice(\''+esc(o.order_id)+'\')">GST Invoice</button></td></tr>').join('')
+    || '<tr><td colspan="8" class="empty">No orders found.</td></tr>';
+}
+async function updateOrderStatus(orderId, status){
+  await ApiService.updateOrderStatus(orderId, status);
+  renderAdminOrders(); renderKPIs();
+  toast(orderId+' → '+status,'success');
+}
+function generateInvoice(orderId){
+  const o=State.orders.find(x=>x.order_id===orderId);
+  if(!o) return;
+  const isTN=o.state==='TN';
+  const rows=o.items.map((i,n)=>{
+    const taxable=taxableOf(i.price*i.qty);
+    const cgst=isTN?Math.round(taxable*0.09):0, sgst=isTN?Math.round(taxable*0.09):0, igst=isTN?0:Math.round(taxable*0.18);
+    const td=(l,v,cls)=>'<td data-label="'+l+'"'+(cls?' class="'+cls+'"':'')+'>'+v+'</td>';
+    return '<tr>'+td('#',n+1)+td('SKU',esc(i.sku),'mono')+td('Description',esc(i.name))+td('HSN',esc(findPBySku(i.sku)?.hsn_code||'8471'),'mono')+td('Qty',i.qty)+td('Rate',fmtINR(i.price),'mono')+td('Taxable',fmtINR(taxable),'mono')+td(isTN?'CGST 9%':'CGST',isTN?fmtINR(cgst):'—','mono')+td(isTN?'SGST 9%':'SGST',isTN?fmtINR(sgst):'—','mono')+td(isTN?'IGST 18%':'IGST',isTN?'—':fmtINR(igst),'mono')+td('Total',fmtINR(i.price*i.qty),'mono')+'</tr>';
+  }).join('');
+  const taxable=taxableOf(o.total), gst=o.total-taxable;
+  $('invoicePrintArea').innerHTML='<div class="invoice-paper">'
+    +'<div class="inv-head"><div>'+(State.settings.logo?'<img src="'+esc(State.settings.logo)+'" style="height:40px;object-fit:contain;margin-bottom:6px" alt="logo">':'<div style="font-family:Space Grotesk;font-size:28px;font-weight:700">'+esc(State.settings.storeName||'BYOS')+'</div>')+'<div style="font-size:11px;color:#475569;letter-spacing:.06em">BUILD YOUR OWN SYSTEM · COIMBATORE</div><div style="font-size:12px;margin-top:8px">'+esc(State.settings.storeName||'BYOS')+' Computer Systems Pvt. Ltd.<br>'+esc(State.settings.storeAddress||'').replace(/\n/g,'<br>')+'<br>State Code: 33 · GSTIN: <span class="mono">'+esc(State.settings.gstin)+'</span><br>Phone: '+esc(State.settings.phone)+'</div></div>'
+    +'<div style="text-align:right"><div style="font-family:Space Grotesk;font-size:20px;font-weight:700">TAX INVOICE</div><div class="mono" style="font-size:13px;margin-top:6px">Invoice No: '+esc(o.invoice_no)+'<br>Date: '+esc(o.date)+'<br>Order ID: '+esc(o.order_id)+'</div><div style="margin-top:8px">'+statusBadge(o.status)+'</div></div></div>'
+    +'<div class="inv-meta"><div><b>Bill To:</b><br>'+esc(o.customer_name)+'<br>'+esc(o.address)+'<br>Phone: '+esc(o.phone)+(o.email?'<br>Email: '+esc(o.email):'')+'</div>'
+    +'<div><b>Customer GSTIN:</b> '+(o.gstin?'<span class="mono">'+esc(o.gstin)+'</span>':'— (consumer sale)')+'<br><b>Place of Supply:</b> '+(isTN?'Tamil Nadu (33)':'Inter-state')+'<br><b>Payment:</b> '+esc(o.payment_method)+'</div></div>'
+    +'<table class="doc-table" style="width:100%;border-collapse:collapse;font-size:12px;min-width:0"><thead><tr style="background:#F8FAFC"><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">#</th><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">SKU</th><th style="padding:8px;border:1px solid #E2E8F0;text-align:left">Description</th><th style="padding:8px;border:1px solid #E2E8F0">HSN</th><th style="padding:8px;border:1px solid #E2E8F0">Qty</th><th style="padding:8px;border:1px solid #E2E8F0">Rate</th><th style="padding:8px;border:1px solid #E2E8F0">Taxable</th><th style="padding:8px;border:1px solid #E2E8F0">CGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">SGST 9%</th><th style="padding:8px;border:1px solid #E2E8F0">IGST 18%</th><th style="padding:8px;border:1px solid #E2E8F0">Total</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:16px"><div style="font-size:12px;max-width:380px"><b>Amount in Words:</b><br>'+amountInWords(o.total)+'<br><br><span style="color:#64748B">E&OE. Goods once sold will not be taken back. Warranty as per manufacturer terms. Please quote invoice number for all correspondence.</span></div>'
+    +'<div style="font-size:13px;min-width:240px"><div style="display:flex;justify-content:space-between;padding:4px 0"><span>Taxable Value</span><span class="mono">'+fmtINR(taxable)+'</span></div>'
+    +(isTN?'<div style="display:flex;justify-content:space-between;padding:4px 0"><span>CGST @ 9%</span><span class="mono">'+fmtINR(Math.round(gst/2))+'</span></div><div style="display:flex;justify-content:space-between;padding:4px 0"><span>SGST @ 9%</span><span class="mono">'+fmtINR(gst-Math.round(gst/2))+'</span></div>'
+        :'<div style="display:flex;justify-content:space-between;padding:4px 0"><span>IGST @ 18%</span><span class="mono">'+fmtINR(gst)+'</span></div>')
+    +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px solid #18181B;font-weight:700;font-size:16px"><span>Grand Total</span><span class="mono">'+fmtINR(o.total)+'</span></div>'
+    +'<div style="margin-top:24px;font-size:11px;color:#64748B">For BYOS Computer Systems Pvt. Ltd.<br><br>_________________________<br>Authorised Signatory</div></div></div></div>';
+  $('invoiceModal').classList.add('show');
+}
+function findPBySku(sku){ return State.products.find(p=>p.sku===sku); }
+
+/* ---------- Settings ---------- */
+function renderSettings(){
+  $('setMode').value=State.settings.mode;
+  $('setGasUrl').value=State.settings.gasUrl||'';
+  $('setRazorpay').value=State.settings.razorpayKey||'';
+  $('setUpi').value=State.settings.upiId||'';
+  $('setGstin').value=State.settings.gstin||'';
+  $('setPhone').value=State.settings.phone||'';
+}
+function onModeChange(){ updateSyncPill(); toast($('setMode').value==='sync'?'Sync Mode selected — save settings to connect Google Sheets':'Demo Mode — data stored locally'); }
+function saveSettings(){
+  State.settings.mode=$('setMode').value;
+  State.settings.gasUrl=$('setGasUrl').value.trim();
+  State.settings.razorpayKey=$('setRazorpay').value.trim();
+  State.settings.upiId=$('setUpi').value.trim();
+  State.settings.gstin=$('setGstin').value.trim()||'33AABCB1234F1Z5';
+  State.settings.phone=$('setPhone').value.trim();
+  persist(); updateSyncPill();
+  toast('Settings saved','success');
+}
+function resetDemoData(){
+  if(!confirm('Reset all demo data (products, orders, cart, build) to factory seed?')) return;
+  localStorage.removeItem(LS_KEY);
+  State.products=seedProducts(); State.orders=seedOrders(); State.cart=[]; State.build={};
+  persist(); initFilters(); renderProducts(); renderCart(); renderBuilder(); renderAdminAll();
+  toast('Demo data reset','success');
+}
+function openSchemaModal(){ $('codeGsBlock').textContent=CODE_GS; $('schemaModal').classList.add('show'); }
+function copyCodeGs(){
+  if(navigator.clipboard) navigator.clipboard.writeText(CODE_GS).then(()=>toast('Code.gs copied','success'));
+  else toast('Select the code and copy manually');
+}
+
+/* ---------- Branding ---------- */
+const FALLBACK_FAVICON=document.querySelector('#faviconLink').getAttribute('href');
+function imgFail(img){
+  const d=document.createElement('div');
+  d.className='prod-img-fallback';
+  d.innerHTML='<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 15 5-4 4 3 3-3 6 5"/><circle cx="15.5" cy="7.5" r="1.5"/></svg>';
+  img.replaceWith(d);
+}
+function shade(hex,amt){
+  const m=/^#?([0-9a-f]{6})$/i.exec(hex||'');
+  if(!m) return hex;
+  const n=parseInt(m[1],16);
+  const c=[(n>>16)&255,(n>>8)&255,n&255].map(v=>Math.max(0,Math.min(255,v+amt)));
+  return '#'+c.map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function applyBranding(){
+  const s=State.settings;
+  const name=s.storeName||'BYOS';
+  document.title=name+' — Custom PCs & Components | Coimbatore, Tamil Nadu';
+  $('logoText').textContent=name;
+  $('footerLogoText').textContent=name;
+  const logoHtml=s.logo?'<img class="logo-img" src="'+esc(s.logo)+'" alt="'+esc(name)+' logo">':'<div class="logo-mark">'+esc(name.charAt(0)||'B')+'</div>';
+  $('logoSlot').innerHTML=logoHtml;
+  $('footerLogoSlot').innerHTML=logoHtml;
+  if(s.favicon) $('faviconLink').href=s.favicon;
+  document.documentElement.style.setProperty('--orange', s.accent||'#EA580C');
+  document.documentElement.style.setProperty('--orange-dark', shade(s.accent||'#EA580C', -18));
+  document.documentElement.style.setProperty('--font-head', s.font||"'Space Grotesk','Inter',sans-serif");
+  document.body.classList.toggle('dark-theme', s.theme==='dark');
+  $('footerAddress').innerHTML=esc(name)+'<br>'+esc(s.storeAddress||'').replace(/\n/g,'<br>');
+  $('footerContact').innerHTML='Mon–Sat: 10 AM – 8 PM<br>Sunday: 11 AM – 5 PM<br>'+esc(s.phone||'')+'<br>'+esc(s.storeEmail||'');
+  $('footerGstin').textContent=s.gstin||'';
+  renderSocials();
+  renderCustomNav();
+}
+function socialSvg(kind){
+  const paths={
+    instagram:'<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>',
+    facebook:'<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+    youtube:'<path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49 49 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49 49 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
+    twitter:'<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>',
+    whatsapp:'<path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.4A8.5 8.5 0 1 1 21 11.5z"/>',
+  };
+  return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+(paths[kind]||'')+'</svg>';
+}
+function renderSocials(){
+  const s=State.settings;
+  const links=[];
+  if(s.instagram) links.push(['instagram',s.instagram,'Instagram']);
+  if(s.facebook) links.push(['facebook',s.facebook,'Facebook']);
+  if(s.youtube) links.push(['youtube',s.youtube,'YouTube']);
+  if(s.twitter) links.push(['twitter',s.twitter,'X (Twitter)']);
+  if(s.whatsapp) links.push(['whatsapp','https://wa.me/'+s.whatsapp.replace(/\D/g,''),'WhatsApp']);
+  const html=links.length?links.map(l=>'<a class="social-btn" href="'+esc(l[1])+'" target="_blank" rel="noopener" title="'+l[2]+'" aria-label="'+l[2]+'">'+socialSvg(l[0])+'</a>').join(''):'<span class="small">Add social links in Admin → Branding.</span>';
+  $('footerSocials').innerHTML=html;
+  $('contactSocials').innerHTML=html;
+}
+function fileToDataUrl(file, cb, maxDim=900){
+  if(!file) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    // Downscale through a canvas so a phone photo doesn't blow the localStorage quota.
+    const img=new Image();
+    img.onload=()=>{
+      const scale=Math.min(1,maxDim/Math.max(img.width,img.height));
+      if(scale>=1&&r.result.length<180000){ cb(r.result); return; }
+      const cv=document.createElement('canvas');
+      cv.width=Math.round(img.width*scale); cv.height=Math.round(img.height*scale);
+      const ctx=cv.getContext('2d');
+      ctx.fillStyle='#fff'; ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.drawImage(img,0,0,cv.width,cv.height);
+      try{ cb(cv.toDataURL('image/jpeg',0.85)); }catch(e){ cb(r.result); }
+    };
+    img.onerror=()=>cb(r.result);
+    img.src=r.result;
+  };
+  r.readAsDataURL(file);
+}
+function clearBrandingImage(which){
+  if(which==='logo'){ State.settings.logo=''; } else { State.settings.favicon=''; $('faviconLink').setAttribute('href',FALLBACK_FAVICON); }
+  persist(); applyBranding(); renderBrandingForm();
+  toast(which+' removed — falling back to the monogram','success');
+}
+function handleLogoUpload(input){ fileToDataUrl(input.files[0], url=>{ State.settings.logo=url; persist(); applyBranding(); $('bLogoPreview').innerHTML='<img class="thumb" src="'+url+'" alt="">'; toast('Logo updated','success'); }); }
+function handleFaviconUpload(input){ fileToDataUrl(input.files[0], url=>{ State.settings.favicon=url; persist(); applyBranding(); toast('Favicon updated','success'); }); }
+function handleProductImageUpload(input){
+  fileToDataUrl(input.files[0], url=>{ $('pImage').value=url; $('pImagePreview').innerHTML='<img class="thumb" src="'+url+'" alt="">'; });
+}
+function renderBrandingForm(){
+  const s=State.settings;
+  $('bName').value=s.storeName||''; $('bEmail').value=s.storeEmail||''; $('bAddress').value=s.storeAddress||'';
+  $('bAccent').value=s.accent||'#EA580C'; $('bFont').value=s.font||"'Space Grotesk','Inter',sans-serif"; $('bTheme').value=s.theme||'light';
+  $('bWhatsapp').value=s.whatsapp||''; $('bInstagram').value=s.instagram||''; $('bFacebook').value=s.facebook||''; $('bYoutube').value=s.youtube||''; $('bTwitter').value=s.twitter||'';
+  $('bLogoPreview').innerHTML=s.logo?'<img class="thumb" src="'+esc(s.logo)+'" alt="">':'';
+}
+function saveBranding(){
+  const s=State.settings;
+  s.storeName=$('bName').value.trim()||'BYOS'; s.storeEmail=$('bEmail').value.trim(); s.storeAddress=$('bAddress').value.trim();
+  s.accent=$('bAccent').value; s.font=$('bFont').value; s.theme=$('bTheme').value;
+  s.whatsapp=$('bWhatsapp').value.trim(); s.instagram=$('bInstagram').value.trim(); s.facebook=$('bFacebook').value.trim(); s.youtube=$('bYoutube').value.trim(); s.twitter=$('bTwitter').value.trim();
+  persist(); applyBranding(); renderContact();
+  toast('Branding saved','success');
+}
+function resetBranding(){
+  Object.assign(State.settings,{storeName:'BYOS',storeEmail:'hello@byos.in',storeAddress:'42, 3rd Cross Street, RS Puram, Coimbatore, Tamil Nadu 641002',logo:'',favicon:'',accent:'#EA580C',font:"'Space Grotesk','Inter',sans-serif",theme:'light',whatsapp:'919843022110',instagram:'',facebook:'',youtube:'',twitter:''});
+  persist(); applyBranding(); renderBrandingForm(); renderContact();
+  toast('Branding reset','success');
+}
+
+/* ---------- Custom Pages ---------- */
+function renderCustomNav(){
+  const pages=State.settings.customPages||[];
+  $('customNavLinks').innerHTML=pages.map(p=>'<button class="nav-btn" data-nav="page-'+p.id+'" onclick="showCustomPage(\''+p.id+'\')">'+esc(p.title)+'</button>').join('');
+  $('footerCustomLinks').innerHTML=pages.map(p=>'<a href="#" onclick="showCustomPage(\''+p.id+'\');return false">'+esc(p.title)+'</a><br>').join('');
+  renderCustomPagesList();
+}
+function renderCustomPagesList(){
+  const pages=State.settings.customPages||[];
+  $('customPagesList').innerHTML=pages.length?pages.map(p=>'<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--border)"><div><b>'+esc(p.title)+'</b><div class="small">'+esc(p.content.slice(0,80))+'…</div></div><div style="display:flex;gap:6px"><button class="btn sm" onclick="openCustomPageModal(\''+p.id+'\')">Edit</button><button class="btn sm danger" onclick="deleteCustomPage(\''+p.id+'\')">Delete</button></div></div>').join('')
+    : '<p class="small">No custom pages yet. Add your first page above.</p>';
+}
+function openCustomPageModal(id){
+  const p=id?(State.settings.customPages||[]).find(x=>String(x.id)===String(id)):null;
+  $('customPageTitle').textContent=p?'Edit Page':'Add Custom Page';
+  $('cpId').value=p?p.id:''; $('cpName').value=p?p.title:''; $('cpContent').value=p?p.content:'';
+  $('customPageModal').classList.add('show');
+}
+function saveCustomPage(){
+  const title=$('cpName').value.trim(), content=$('cpContent').value.trim();
+  if(!title){ toast('Page title is required','error'); return; }
+  const id=$('cpId').value?Number($('cpId').value):Date.now();
+  const pages=State.settings.customPages||[];
+  const ex=pages.findIndex(p=>String(p.id)===String(id));
+  if(ex>=0) pages[ex]={id,title,content}; else pages.push({id,title,content});
+  State.settings.customPages=pages;
+  persist(); closeAllModals(); renderCustomNav();
+  toast('Custom page saved','success');
+}
+function deleteCustomPage(id){
+  if(!confirm('Delete this custom page?')) return;
+  State.settings.customPages=(State.settings.customPages||[]).filter(p=>String(p.id)!==String(id));
+  persist(); renderCustomNav();
+  toast('Page deleted','success');
+}
+
+/* ---------- FAQs & Contact ---------- */
+const FAQS=[
+  ['How long does a custom build take?','Standard builds take 3–5 working days including 48-hour stress testing, cable management and quality checks. Urgent builds can be prioritised — call us at '+ ' +91 422 400 1234.'],
+  ['Do you provide GST invoices?','Yes. Every order includes a GST tax invoice (CGST + SGST within Tamil Nadu, IGST for inter-state). B2B customers can share their GSTIN at checkout to claim input tax credit.'],
+  ['What warranty do I get?','Components carry the manufacturer warranty (AMD, Intel, NVIDIA, etc.). BYOS adds a 3-year service warranty on assembly, cabling and testing. DOA components are replaced within 7 days.'],
+  ['Can I upgrade my existing PC?','Absolutely. Bring your system to our RS Puram store for a free compatibility check and upgrade quote — we will tell you exactly what is worth upgrading.'],
+  ['Do you deliver outside Coimbatore?','Yes, via insured courier across India. Delivery is free within Coimbatore city limits. Courier charges are shown at checkout for other locations.'],
+  ['Can I pay via UPI or card?','We accept UPI (GPay, PhonePe, Paytm), all major cards and netbanking via Razorpay, bank transfer (NEFT/RTGS), and pay-at-store for pickup orders.'],
+  ['What is your return policy?','Sealed accessories can be returned within 7 days if unused. Custom-assembled PCs are covered under warranty rather than returns. Faulty components are replaced under manufacturer warranty.'],
+  ['Do you offer bulk / corporate pricing?','Yes — for offices, gaming cafés and institutions. Share your requirement via the Contact page or email hello@byos.in for a bulk quotation with GST billing.'],
+];
+function renderFaqs(){
+  $('faqList').innerHTML=FAQS.map((f,i)=>'<div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle(\'open\')"><span>'+esc(f[0])+'</span><span>+</span></button><div class="faq-a">'+esc(f[1])+'</div></div>').join('');
+}
+function renderContact(){
+  const s=State.settings;
+  $('contactAddress').innerHTML=esc(s.storeAddress||'').replace(/\n/g,'<br>');
+  $('contactPhone').textContent=s.phone||'';
+  $('contactEmail').textContent=s.storeEmail||'hello@byos.in';
+  $('contactEmail').href='mailto:'+(s.storeEmail||'hello@byos.in');
+  $('contactWa').href='https://wa.me/'+(s.whatsapp||'').replace(/\D/g,'');
+}
+function sendContactMessage(){
+  const name=$('msgName').value.trim(), phone=$('msgPhone').value.trim(), text=$('msgText').value.trim();
+  if(!name||!text){ toast('Please enter your name and message','error'); return; }
+  const msgs=JSON.parse(localStorage.getItem('byos_messages')||'[]');
+  msgs.push({name,phone,text,date:new Date().toISOString()});
+  localStorage.setItem('byos_messages',JSON.stringify(msgs));
+  $('msgName').value=''; $('msgPhone').value=''; $('msgText').value='';
+  toast('Message sent! We will contact you shortly.','success');
+}
+
+/* ---------- PWA ---------- */
+let _deferredInstall=null;
+const _standalone=(typeof window.matchMedia==='function'&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+function setInstallUI(on){
+  $('installBtn').classList.toggle('show',on);
+  $('installBtnFooter').classList.toggle('show',on);
+}
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); _deferredInstall=e; setInstallUI(true); });
+window.addEventListener('appinstalled', ()=>{ setInstallUI(false); _deferredInstall=null; toast('BYOS installed — find it on your home screen','success'); });
+async function promptInstall(){
+  if(_deferredInstall){
+    _deferredInstall.prompt();
+    const choice=await _deferredInstall.userChoice;
+    if(choice.outcome==='accepted') toast('Installing BYOS…','success');
+    _deferredInstall=null; setInstallUI(false);
+  } else if(_standalone){
+    toast('Already running as an installed app');
+  } else {
+    toast('iPhone/Safari: Share → "Add to Home Screen". Android: browser menu → "Install app".');
+  }
+}
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      reg.addEventListener('updatefound',()=>{
+        const nw=reg.installing; if(!nw) return;
+        nw.onstatechange=()=>{ if(nw.state==='activated'&&navigator.serviceWorker.controller) toast('BYOS updated to the latest version','success'); };
+      });
+    }).catch(()=>{});
+  });
+}
+
+/* ---------- Init ---------- */
+loadState();
+initFilters();
+renderProducts();
+renderCart();
+renderBuilder();
+updateSyncPill();
+applyBranding();
+renderBrandingForm();
+renderContact();
+renderFaqs();
+routeFromHash();
+</script>
+<div id="printRoot" aria-hidden="true"></div>
+</body>
+</html>

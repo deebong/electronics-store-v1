@@ -1,0 +1,27 @@
+{
+  "name": "BYOS — Custom PCs & Components, Coimbatore",
+  "short_name": "BYOS",
+  "description": "Build your own desktop PC with live compatibility checks, GST invoicing and doorstep delivery from Coimbatore.",
+  "id": "byos-coimbatore",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#F8F9FA",
+  "theme_color": "#18181B",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["shopping", "business", "utilities"],
+  "shortcuts": [
+    { "name": "Custom PC Builder", "short_name": "PC Builder", "url": "./index.html#builder", "description": "Configure a compatible build with live wattage and price" },
+    { "name": "Track My Order", "short_name": "Track Order", "url": "./index.html#track", "description": "Check build, test and dispatch status" },
+    { "name": "Contact Store", "short_name": "Contact", "url": "./index.html#contact", "description": "RS Puram store, hours and directions" }
+  ],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
