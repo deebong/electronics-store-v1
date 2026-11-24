@@ -712,7 +712,7 @@ body.dark-theme tr:hover td{background:#1F2937}
     <ul><li>To assemble, test and deliver your PC or component order.</li><li>To issue GST tax invoices and provide warranty support.</li><li>To send order status updates via SMS, WhatsApp or email.</li></ul>
     <p>We never sell or rent your personal data. Order data may be synced to our Google Sheets backend solely for fulfilment and accounting.</p>
     <h3>3. Your rights</h3>
-    <p>You may request access, correction or deletion of your personal data at any time by writing to <b>privacy@byos.in</b> or calling <b>+91 422 400 1234</b>. We respond within 7 working days as per the Information Technology Act, 2000 and applicable Tamil Nadu regulations.</p>
+    <p>You may request access, correction or deletion of your personal data at any time by writing to <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f484869d8295978db4968d9b87da9d9a">[email&#160;protected]</a></b> or calling <b>+91 422 400 1234</b>. We respond within 7 working days as per the Information Technology Act, 2000 and applicable Tamil Nadu regulations.</p>
     <h3>4. Data retention</h3>
     <p>Tax invoices and GST records are retained for 8 years as required under the CGST Act. Other order data is retained for 3 years for warranty purposes, then anonymised.</p>
   </div>
@@ -748,7 +748,7 @@ body.dark-theme tr:hover td{background:#1F2937}
           <p class="small" id="contactAddress" style="font-size:13px;line-height:1.7"></p>
           <p style="font-size:13px;margin-top:10px;line-height:1.8" id="contactPhones"></p>
           <p style="font-size:13px;margin-top:6px;line-height:1.8">
-            Email: <a href="mailto:hello@byos.in" id="contactEmail" style="font-weight:600">hello@byos.in</a><br>
+            Email: <a href="/cdn-cgi/l/email-protection#0d65686161624d6f74627e236463" id="contactEmail" style="font-weight:600"><span class="__cf_email__" data-cfemail="09616c656566496b70667a276067">[email&#160;protected]</span></a><br>
             Hours: Mon–Sat 10 AM – 8 PM · Sun 11 AM – 5 PM
           </p>
           <div style="margin-top:12px"><b style="font-size:12px">Follow BYOS</b><div class="social-row" id="contactSocials" style="margin-top:8px"></div></div>
@@ -812,7 +812,7 @@ body.dark-theme tr:hover td{background:#1F2937}
         <button data-apane="settings" onclick="showAdminPane('settings',this)">Settings &amp; Integrations</button>
         <div class="divider"></div>
         <button onclick="adminLogout()">Lock Portal</button>
-        <p class="small" style="padding:8px 12px">Signed in as <b>Store Manager</b><br><span class="mono-sm">admin@byos.in</span></p>
+        <p class="small" style="padding:8px 12px">Signed in as <b>Store Manager</b><br><span class="mono-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2140454c484f6143584e520f484f">[email&#160;protected]</a></span></p>
       </aside>
 
       <div>
@@ -1181,7 +1181,7 @@ body.dark-theme tr:hover td{background:#1F2937}
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ════════════════════════════════════════════════════════════════════
    BYOS — Single-file SPA (Vanilla JS, no build step)
    Data layer: ApiService → Demo Mode (localStorage) | Sync Mode (GAS)
@@ -2245,6 +2245,7 @@ function openCheckout(source){
 function selectPay(el){
   document.querySelectorAll('#payMethods .radio-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
+  const r=el.querySelector('input[type=radio]'); if(r) r.checked=true;
   State.payMethod=el.dataset.pay;
   renderCheckoutTotals();
 }
@@ -3104,5 +3105,5 @@ renderPrebuilt();
 routeFromHash();
 </script>
 <div id="printRoot" aria-hidden="true"></div>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5f9a8038d5b7ef9',t:'MTc5NTUzNjMzOA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5f9a8038d5b7ef9',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
