@@ -1026,7 +1026,7 @@ body.dark-theme tr:hover td{background:#1F2937}
         <div class="field" style="grid-column:1/-1"><label>Product Images (gallery)</label>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <input id="pImage" placeholder="Paste an image URL and press Add…" style="flex:1;min-width:200px">
-            <button class="btn sm" type="button" onclick="addProductImageUrl()">Add URL</button>
+            <button class="btn sm" type="button" onclick="addProductImageUrl()">Add URL</button><button class="btn sm" type="button" id="fetchOneImgBtn" onclick="fetchSingleProductImage()">Fetch Image (Serper)</button>
           </div>
           <div class="hint">Add as many images as you like — they appear as a gallery on the product page. Leave empty for the default artwork.</div>
           <div class="gal-thumbs" id="pImagesList"></div>
@@ -3066,6 +3066,19 @@ function renderPImagesList(){
   $('pImagesList').innerHTML=_pImages.length?_pImages.map((src,i)=>'<span style="position:relative;display:inline-block"><img class="gal-th" src="'+esc(src)+'" alt="" onerror="imgFail(this)"><button class="btn sm danger" type="button" style="position:absolute;top:-6px;right:-6px;padding:0 6px;font-size:11px" onclick="removeProductImage('+i+')" title="Remove image">×</button></span>').join(''):'<span class="small">No uploaded images — default artwork will be used.</span>';
 }
 function removeProductImage(i){ _pImages.splice(i,1); renderPImagesList(); }
+async function fetchSingleProductImage(){
+  const q=($('pName')&&$('pName').value.trim())||'';
+  if(!q){ toast('Enter a product name first','error'); return; }
+  if(State.settings.mode!=='sync'||!ApiService.GAS_URL){ toast('Connect Google Sheets (Sync Mode) first','error'); return; }
+  const btn=$('fetchOneImgBtn'); if(btn){ btn.disabled=true; btn.textContent='Fetching…'; }
+  try{
+    const res=await fetch(ApiService.GAS_URL+'?action=fetchImage&q='+encodeURIComponent(q),{mode:'cors',credentials:'omit',redirect:'follow'});
+    const r=await res.json();
+    if(r.status==='ok'&&r.url){ $('pImage').value=r.url; addProductImageUrl(); toast('Image fetched!','success'); }
+    else toast('No image found: '+(r.message||''),'error');
+  }catch(e){ toast('Fetch failed: '+e.message,'error'); }
+  finally{ if(btn){ btn.disabled=false; btn.textContent='Fetch Image (Serper)'; } }
+}
 function addProductImageUrl(){
   const v=$('pImage').value.trim(); if(!v){ toast('Paste an image URL first','error'); return; }
   _pImages.push(v); $('pImage').value=''; renderPImagesList();
