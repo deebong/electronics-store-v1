@@ -1490,6 +1490,7 @@ function bulkFetchRealImages(force){
         payload: JSON.stringify({ q: q + ' product photo', num: 3 }),
         muteHttpExceptions: true
       });
+      if(r === 1) Logger.log('Serper status: ' + res.getResponseCode() + ' body: ' + res.getContentText().slice(0, 300));
       const data = JSON.parse(res.getContentText() || '{}');
       const results = (data.images || []).map(function(img){ return img.imageUrl; });
       let savedUrl = '';
@@ -1507,9 +1508,10 @@ function bulkFetchRealImages(force){
       }
       if(savedUrl){ sh.getRange(r+1, imgIdx+1).setValue(savedUrl); updated++; }
       else { failed++; }
-    }catch(e){ failed++; }
+    }catch(e){ if(r === 1) Logger.log('Fetch error: ' + e.message); failed++; }
     Utilities.sleep(250);
   }
+  Logger.log('bulkFetchRealImages: ' + JSON.stringify({updated:updated, skipped:skipped, failed:failed}));
   return {updated:updated, skipped:skipped, failed:failed};
 }
 function doPost(e){
@@ -1896,7 +1898,8 @@ function normalizeSheetProduct(r){
     description:r.description||'', specs:parseSpecs(r.specs), socket:r.socket||'', ram_type:r.ram_type||'',
     form_factor:r.form_factor||'', wattage:Number(r.wattage)||0, stock_qty:Number(r.stock_qty)||0,
     cost_price:Number(r.cost_price)||0, selling_price:Number(r.selling_price)||0, hsn_code:r.hsn_code||'8471',
-    gst_rate:Number(r.gst_rate)||18, serial_tracking_required:String(r.serial_tracking_required)==='TRUE'};
+    gst_rate:Number(r.gst_rate)||18, serial_tracking_required:String(r.serial_tracking_required)==='TRUE',
+    image:r.image||'', images:parseSpecs(r.images), subcat:r.subcat||'', purpose:r.purpose||''};
 }
 function parseSpecs(s){ if(Array.isArray(s)) return s; try{ return JSON.parse(s); }catch(e){ return String(s||'').split(',').map(x=>x.trim()).filter(Boolean); } }
 
@@ -2941,7 +2944,7 @@ async function bulkFetchImagesUI(){
     const msg=r.opaque?'Bulk fetch request sent to Google Sheets! Check your Products sheet in a few seconds.':'Done — Updated: '+(r.updated||0)+', Skipped: '+(r.skipped||0)+', Failed: '+(r.failed||0)+(r.error?' ('+r.error+')':'');
     if(st) st.textContent=msg;
     toast(msg,'success');
-    await pullFromSheets();
+    try{ await pullFromSheets(); }catch(e){}
   }catch(e){
     if(st) st.textContent='Fetch failed: '+e.message;
     toast('Bulk fetch failed: '+e.message,'error');
