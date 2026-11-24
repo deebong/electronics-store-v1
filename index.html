@@ -3085,7 +3085,7 @@ function addProductImageUrl(){
 }
 async function handleProductImagesUpload(input){
   const files=[...(input.files||[])]; if(!files.length) return;
-  for(const f of files){ await new Promise(res=>fileToDataUrl(f,url=>{ _pImages.push(url); res(); })); }
+  for(const f of files){ await new Promise(res=>{ try{ fileToDataUrl(f,url=>{ if(url) _pImages.push(url); res(); }, 600); }catch(e){ res(); } }); }
   input.value=''; renderPImagesList();
   toast(files.length+' image(s) added','success');
 }
