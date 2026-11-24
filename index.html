@@ -389,6 +389,14 @@ body.dark-theme tr:hover td{background:#1F2937}
 .tier h3{font-size:17px}
 .tier-flag{position:absolute;top:10px;left:10px;z-index:2;background:var(--charcoal);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:var(--radius-sm)}
 .tier-wrap{position:relative}
+.pb-layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+.pb-side{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;position:sticky;top:76px}
+.pb-side h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 8px}
+.pb-side h4:first-child{margin-top:0}
+.pb-fbtn{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:7px 10px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;border:1px solid transparent}
+.pb-fbtn:hover{background:#F1F5F9}
+.pb-fbtn.active{background:var(--charcoal);color:#fff;font-weight:600}
+@media(max-width:860px){.pb-layout{grid-template-columns:1fr}.pb-side{position:static}}
 .tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .cmp{width:100%;border-collapse:collapse;font-size:12px}
 .cmp th,.cmp td{border:1px solid var(--border);padding:8px 10px;text-align:left}
@@ -597,7 +605,12 @@ body.dark-theme tr:hover td{background:#1F2937}
       <div class="hstat"><b>4.8★</b><span>1,295 Google Reviews</span></div>
     </div>
   </div>
-  <div class="tier-grid" id="prebuiltGrid"></div>
+  <div class="pb-layout">
+    <aside class="pb-side" id="pbSidebar"></aside>
+    <div>
+      <div class="tier-grid" id="prebuiltGrid"></div>
+    </div>
+  </div>
   <div class="panel" style="margin-top:22px">
     <h3 style="margin-bottom:10px">Compare Pre-Built Tiers</h3>
     <div style="overflow-x:auto"><table class="cmp" id="prebuiltCmp"></table></div>
@@ -1372,9 +1385,13 @@ function seedProducts(){
     P(40,'BYOS-PER-001','Logitech G304 Lightspeed Mouse','Logitech','Peripherals',3499,2900,55,'8471',['Wireless','HERO Sensor'],{description:'Wireless gaming mouse, HERO sensor, 250h battery.'}),
     P(41,'BYOS-PER-002','Keychron K8 Pro Mechanical Keyboard','Keychron','Peripherals',9999,8700,17,'8471',['Hot-Swap','Bluetooth','Gateron']),
     P(42,'BYOS-PER-003','HyperX Cloud II Gaming Headset','HyperX','Peripherals',7999,6900,21,'8518',['7.1 Surround','Detachable Mic']),
-    P(43,'BYOS-PC-001','BYOS Valor — 1080p Gaming PC','BYOS','Pre-Built PCs',72999,64500,5,'8471',['Ryzen 5 7600','RTX 4060','16GB DDR5','1TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:650,form_factor:'ATX',description:'1080p high-refresh gaming. Assembled & stress-tested in Coimbatore.'}),
-    P(44,'BYOS-PC-002','BYOS Titan — 1440p Workstation','BYOS','Pre-Built PCs',142500,126000,3,'8471',['7800X3D','RTX 4070 Super','32GB DDR5','2TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:850,form_factor:'ATX',description:'1440p ultra + creator workstation. 3-year BYOS warranty.'}),
-    P(45,'BYOS-PC-003','BYOS Creator — AI/ML Rig','BYOS','Pre-Built PCs',245000,218000,2,'8471',['7950X','RTX 4090','64GB DDR5','4TB NVMe'],{socket:'AM5',ram_type:'DDR5',wattage:1200,form_factor:'ATX',description:'Local LLM inference & CUDA training rig. 24GB VRAM.'}),
+    P(43,'BYOS-PC-001','BYOS Valor — 1080p Gaming PC','BYOS','Pre-Built PCs',72999,64500,5,'8471',['CPU: Ryzen 5 7600 (6C/12T)','GPU: RTX 4060 8GB','RAM: 16GB DDR5-6000','SSD: 1TB Gen4 NVMe','PSU: 650W 80+ Bronze'],{socket:'AM5',ram_type:'DDR5',wattage:650,form_factor:'ATX',subcat:'Gaming PCs',purpose:'Gaming/Streaming',description:'1080p 144Hz+ esports & AAA gaming rig. Includes B650M Wi-Fi board, mesh airflow cabinet, and 48-hour Coimbatore burn-in test.'}),
+    P(44,'BYOS-PC-002','BYOS Titan — 1440p Video Editing PC','BYOS','Pre-Built PCs',142500,126000,3,'8471',['CPU: Ryzen 7 7800X3D','GPU: RTX 4070 Super 12GB','RAM: 32GB DDR5-6000','SSD: 2TB Gen4 NVMe','Cooler: 240mm AIO Liquid'],{socket:'AM5',ram_type:'DDR5',wattage:850,form_factor:'ATX',subcat:'Video Editing PCs',purpose:'Content Creation',description:'4K Premiere Pro, DaVinci Resolve & 1440p ultra gaming. Dual NVMe-ready B650 board, 850W 80+ Gold PSU, 3-year BYOS warranty.'}),
+    P(45,'BYOS-PC-003','BYOS Creator — AI Machine Learning PC','BYOS','Pre-Built PCs',245000,218000,2,'8471',['CPU: Ryzen 9 7950X (16C/32T)','GPU: RTX 4090 24GB VRAM','RAM: 64GB DDR5-6000','SSD: 4TB Gen4 NVMe','PSU: 1200W 80+ Platinum'],{socket:'AM5',ram_type:'DDR5',wattage:1200,form_factor:'ATX',subcat:'AI Machine Learning PCs',purpose:'Data Science',description:'Local LLM inference, PyTorch & CUDA training rig with 24GB VRAM, 360mm AIO cooling, and PCIe 5.0 ATX 3.0 power delivery.'}),
+    P(46,'BYOS-PC-004','BYOS Office — Compact Home & Office PC','BYOS','Pre-Built PCs',36999,32000,8,'8471',['CPU: Intel Core i5-12400','GPU: Intel UHD 730','RAM: 16GB DDR4-3200','SSD: 512GB NVMe','PSU: 450W 80+ Bronze'],{socket:'LGA1700',ram_type:'DDR4',wattage:450,form_factor:'mATX',subcat:'Home & Office PCs',purpose:'Others',description:'Whisper-quiet daily productivity, Tally, Office 365 & 4K dual-monitor office desktop with Wi-Fi + Bluetooth.'}),
+    P(47,'BYOS-PC-005','BYOS Sculpt — 3D Art & CAD Workstation','BYOS','Pre-Built PCs',168000,149000,3,'8471',['CPU: Intel Core i7-14700K (20C)','GPU: RTX 4070 Ti Super 16GB','RAM: 64GB DDR5-5600','SSD: 2TB Gen4 NVMe','Cooler: 360mm AIO Liquid'],{socket:'LGA1700',ram_type:'DDR5',wattage:850,form_factor:'ATX',subcat:'3D Art PCs',purpose:'Engineering Works',description:'Built for Blender Cycles, Unreal Engine 5, SolidWorks & AutoCAD. 16GB VRAM + 20-core hybrid CPU for fast viewport & renders.'}),
+    P(48,'BYOS-PC-006','BYOS Desk — Multi-Screen Trading PC','BYOS','Pre-Built PCs',58999,51500,4,'8471',['CPU: Ryzen 5 7600','GPU: Quad-Display 4x HDMI/DP','RAM: 32GB DDR5-5600','SSD: 1TB Gen4 NVMe','PSU: 550W 80+ Bronze'],{socket:'AM5',ram_type:'DDR5',wattage:550,form_factor:'mATX',subcat:'Trading PCs',purpose:'Others',description:'Zero-lag multi-charting rig supporting up to 4 simultaneous 4K displays for TradingView, Zerodha Kite & AmiBroker.'}),
+    P(49,'BYOS-PC-007','BYOS Studio — Graphic Designing PC','BYOS','Pre-Built PCs',89500,79000,4,'8471',['CPU: Intel Core i5-14600K (14C)','GPU: RTX 4060 Ti 8GB','RAM: 32GB DDR5-6000','SSD: 1TB Gen4 NVMe','PSU: 650W 80+ Gold'],{socket:'LGA1700',ram_type:'DDR5',wattage:650,form_factor:'ATX',subcat:'Graphic Designing PC',purpose:'Content Creation',description:'Tuned for Adobe Photoshop, Illustrator, Figma & Lightroom batch exports with fast scratch-disk NVMe and silent air cooling.'}),
   ];
 }
 function seedOrders(){
@@ -1683,14 +1700,14 @@ const QR = (function(){
 /* ---------- ApiService (Demo ⇄ Google Sheets) ---------- */
 const ApiService = {
   get settings(){ return State.settings; },
-  get GAS_URL(){ return State.settings.gasUrl || ''; },
+  get GAS_URL(){ return (State.settings.gasUrl || '').trim(); },
   async _fetch(action, payload){
     // Sync Mode: real Google Apps Script Web App call.
     // Demo Mode never reaches here (localStorage path is used instead).
     const url = this.GAS_URL;
     if(!url) throw new Error('No Apps Script URL configured');
     if(payload){
-      const res = await fetch(url, {method:'POST', body: JSON.stringify({action, ...payload})});
+      const res = await fetch(url, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, redirect:'follow', body: JSON.stringify({action, ...payload})});
       return res.json();
     }
     const res = await fetch(url + '?action=' + encodeURIComponent(action));
@@ -1725,7 +1742,7 @@ const ApiService = {
   },
   async saveSettings(settings){
     if(!this.isSync()) return;
-    try{ await this._post({action:'saveSettings',settings}); }catch(e){ console.warn('saveSettings sync failed',e); }
+    try{ await this._fetch('saveSettings', {settings}); }catch(e){ console.warn('saveSettings sync failed',e); }
   },
   async updateOrderStatus(orderId, status){
     const o = State.orders.find(x=>x.order_id===orderId);
@@ -2059,14 +2076,26 @@ function ppQty(){ const el=$('ppQty'); return Math.max(1,Number(el?el.value:1)||
 function buyNow(id){ addToCart(id,ppQty(),true); openCheckout(); }
 
 /* ---------- Pre-Built Desktops ---------- */
+const PB_PURPOSES=['All','Gaming/Streaming','Content Creation','Engineering Works','Data Science','Others'];
+const PB_CATS=['All','Gaming PCs','Home & Office PCs','AI Machine Learning PCs','Video Editing PCs','3D Art PCs','Trading PCs','Graphic Designing PC'];
+function setPbFilter(kind,val){ State[kind]=val; renderPrebuilt(); }
 function renderPrebuilt(){
-  const tiers=State.products.filter(p=>p.category==='Pre-Built PCs');
+  const all=State.products.filter(p=>p.category==='Pre-Built PCs');
+  const pur=State.pbPurpose||'All', cat=State.pbCat||'All';
+  if($('pbSidebar')){
+    $('pbSidebar').innerHTML='<h4>Purpose</h4>'
+      +PB_PURPOSES.map(x=>'<button type="button" class="pb-fbtn'+(pur===x?' active':'')+'" onclick="setPbFilter(\'pbPurpose\',\''+esc(x)+'\')"><span>'+esc(x)+'</span></button>').join('')
+      +'<h4>Category</h4>'
+      +PB_CATS.map(x=>'<button type="button" class="pb-fbtn'+(cat===x?' active':'')+'" onclick="setPbFilter(\'pbCat\',\''+esc(x)+'\')"><span>'+esc(x)+'</span></button>').join('')
+      +((pur!=='All'||cat!=='All')?'<button type="button" class="btn sm" style="width:100%;margin-top:10px" onclick="State.pbPurpose=\'All\';State.pbCat=\'All\';renderPrebuilt()">Reset Filters</button>':'');
+  }
+  const tiers=all.filter(p=>(pur==='All'||p.purpose===pur)&&(cat==='All'||p.subcat===cat));
   $('prebuiltGrid').innerHTML=tiers.length?tiers.map((p,i)=>{
-    const flag=['1080p Gaming','1440p Workstation','AI / ML Rig'][i]||'BYOS Build';
+    const flag=p.subcat||p.purpose||'BYOS Build';
     const s=stockInfo(p);
     return '<article class="tier"><div class="tier-wrap"><span class="tier-flag">'+esc(flag)+'</span>'
-      +'<img class="tier-img" src="'+esc(productSrc(p))+'" alt="'+esc(p.name)+'" onerror="imgFail(this)"></div>'
-      +'<div class="tier-body"><div><div class="cat-label">'+esc(p.sku)+'</div><h3>'+esc(p.name)+'</h3></div>'
+      +'<img class="tier-img" src="'+esc(productSrc(p))+'" alt="'+esc(p.name)+'" onclick="showProduct(\''+p.id+'\')" style="cursor:pointer" onerror="imgFail(this)"></div>'
+      +'<div class="tier-body"><div><div class="cat-label">'+esc(p.sku)+(p.purpose?' · '+esc(p.purpose):'')+'</div><h3 style="cursor:pointer" onclick="showProduct(\''+p.id+'\')">'+esc(p.name)+'</h3></div>'
       +'<div class="spec-pills">'+(p.specs||[]).map(x=>'<span class="spec">'+esc(x)+'</span>').join('')+'</div>'
       +(p.description?'<p class="small" style="line-height:1.6">'+esc(p.description)+'</p>':'')
       +'<div class="stock '+s.cls+'"><span class="dot '+s.cls+'"></span>'+s.label+'</div>'
@@ -2076,13 +2105,27 @@ function renderPrebuilt(){
       +'<button class="btn sm" onclick="showProduct(\''+p.id+'\')">View Details</button></div>'
       +'<button class="btn sm" onclick="showView(\'builder\')">Customise in PC Builder</button>'
       +'</div></article>';
-  }).join(''):'<div class="empty"><b>No pre-built PCs right now</b>Add products under the "Pre-Built PCs" category in Admin → Products.</div>';
+  }).join(''):'<div class="empty"><b>No pre-built PCs match this filter</b>Try selecting "All" in Purpose or Category.</div>';
   if(tiers.length){
-    const keys=[...new Set(tiers.flatMap(p=>p.specs||[]))];
+    const rows=[
+      ['Category',p=>esc(p.subcat||'Pre-Built')],
+      ['Purpose',p=>esc(p.purpose||'General')],
+      ['Processor',p=>esc((p.specs&&p.specs[0])||'—')],
+      ['Graphics',p=>esc((p.specs&&p.specs[1])||'—')],
+      ['Memory',p=>esc((p.specs&&p.specs[2])||'—')],
+      ['Storage',p=>esc((p.specs&&p.specs[3])||'—')],
+      ['PSU / Cooler',p=>esc((p.specs&&p.specs[4])||(p.wattage?p.wattage+'W':'—'))],
+      ['Platform',p=>esc([p.socket,p.ram_type].filter(Boolean).join(' · ')||'—')],
+      ['Price (incl. GST)',p=>'<b>'+fmtINR(displayPrice(p))+'</b>']
+    ];
     $('prebuiltCmp').innerHTML='<thead><tr><th>Specification</th>'+tiers.map(p=>'<th class="num">'+esc(p.name.split('—')[0].trim())+'</th>').join('')+'</tr></thead><tbody>'
-      +keys.map(k=>'<tr><td><b>'+esc(k)+'</b></td>'+tiers.map(p=>'<td class="num">'+((p.specs||[]).includes(k)?'✓':'—')+'</td>').join('')+'</tr>').join('')
-      +'<tr><td><b>Price (incl. GST)</b></td>'+tiers.map(p=>'<td class="num"><b>'+fmtINR(displayPrice(p))+'</b></td>').join('')+'</tr></tbody>';
+      +rows.map(r=>'<tr><td><b>'+r[0]+'</b></td>'+tiers.map(p=>'<td class="num">'+r[1](p)+'</td>').join('')+'</tr>').join('')
+      +'</tbody>';
   } else $('prebuiltCmp').innerHTML='';
+}
+function scrollYtRail(dir){
+  const el=$('ytRail'); if(!el) return;
+  el.scrollLeft += dir * 520;
 }
 
 /* ---------- YouTube feed ---------- */
