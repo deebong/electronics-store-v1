@@ -896,7 +896,22 @@ body.dark-theme tr:hover td{background:#1F2937}
             </div>
           </div>
           <div class="panel">
-            <div class="panel-head"><h3>Contact Numbers</h3><span class="small">Shown in footer, contact page &amp; invoices</span></div>
+            <h3 style="margin-bottom:4px">Image Display Settings</h3>
+          <p class="small" style="margin-bottom:12px">Switch between offline auto-generated SVG plates and real product photos fetched via Serper.dev Images API.</p>
+          <div class="form-grid">
+            <div class="field"><label>Global Image Mode</label><select id="imgMode" onchange="saveImageConfig(true)"><option value="svg">Auto-Generated SVG Placeholders</option><option value="real">Real Product Photos (Serper.dev API)</option></select></div>
+            <div class="field"><label>Serper.dev API Key</label><input id="imgApiKey" type="password" placeholder="Paste your Serper.dev API key"></div>
+            <div class="field"><label>Google Drive Folder ID (optional)</label><input id="imgDriveFolder" placeholder="Public folder ID for hotlink-safe hosting"></div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px">
+            <button class="btn dark sm" onclick="saveImageConfig()">Save Image Settings</button>
+            <button class="btn primary sm" id="bulkFetchBtn" onclick="bulkFetchImagesUI()">Bulk Fetch Missing Product Images</button>
+            <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="imgForceRefresh"> Force Re-fetch All</label>
+          </div>
+          <p class="small" id="imgFetchStatus" style="margin-top:8px"></p>
+        </div>
+        <div class="panel" style="margin-top:14px">
+          <div class="panel-head"><h3>Contact Numbers</h3><span class="small">Shown in footer, contact page &amp; invoices</span></div>
             <div id="contactsEditor"></div>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button class="btn sm" onclick="addContactRow()">+ Add Number</button>
@@ -1330,8 +1345,9 @@ function plateSvg(p){
     +`</g></svg>`;
 }
 function plateUri(p){ return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(plateSvg(p)); }
-function productSrc(p){ return (p.image&&p.image.trim())?p.image.trim():plateUri(p); }
+function productSrc(p){ if((State.settings.imageMode||'svg')==='svg') return plateUri(p); return (p&&p.image&&p.image.trim())?p.image.trim():plateUri(p); }
 function productImages(p){
+  if((State.settings.imageMode||'svg')==='svg') return [plateUri(p)];
   const arr=Array.isArray(p.images)?p.images.filter(x=>x&&String(x).trim()):[];
   if(p.image&&p.image.trim()&&!arr.includes(p.image.trim())) arr.unshift(p.image.trim());
   return arr.length?arr:[plateUri(p)];
@@ -1438,7 +1454,63 @@ function doGet(e){
   if(action==='getProducts') return jsonOut({status:'ok', data: rowsToJson(sheet('Products'))});
   if(action==='getOrders')   return jsonOut({status:'ok', data: rowsToJson(sheet('Orders'))});
   if(action==='getSettings') return jsonOut({status:'ok', data: rowsToJson(sheet('Settings'))});
+  if(action==='getImageConfig'){
+    const props = PropertiesService.getScriptProperties();
+    return jsonOut({status:'ok', data:{
+      imageMode: props.getProperty('imageMode') || 'svg',
+      serperApiKey: props.getProperty('SERPER_API_KEY') || '',
+      driveFolderId: props.getProperty('DRIVE_FOLDER_ID') || ''
+    }});
+  }
   return jsonOut({status:'error', message:'Unknown action'});
+}
+function bulkFetchRealImages(force){
+  const props = PropertiesService.getScriptProperties();
+  const serperApiKey = props.getProperty('SERPER_API_KEY') || '';
+  const folderId = props.getProperty('DRIVE_FOLDER_ID') || '';
+  if(!serperApiKey) return {updated:0, skipped:0, failed:0, error:'Missing SERPER_API_KEY'};
+  const sh = sheet('Products');
+  const rows = sh.getDataRange().getValues();
+  if(rows.length < 2) return {updated:0, skipped:0, failed:0};
+  const headers = rows[0].map(x=>String(x).trim());
+  const nameIdx = headers.indexOf('name'), imgIdx = headers.indexOf('image');
+  if(nameIdx < 0 || imgIdx < 0) return {updated:0, skipped:0, failed:0, error:'Missing name or image column'};
+  let updated=0, skipped=0, failed=0, folder=null;
+  if(folderId){ try{ folder = DriveApp.getFolderById(folderId); }catch(e){ folder=null; } }
+  for(let r=1; r<rows.length; r++){
+    const cur = String(rows[r][imgIdx] || '').trim();
+    if(!force && cur && cur.indexOf('data:image/svg') !== 0){ skipped++; continue; }
+    const q = String(rows[r][nameIdx] || '').trim();
+    if(!q){ skipped++; continue; }
+    try{
+      const res = UrlFetchApp.fetch('https://google.serper.dev/images', {
+        method: 'post',
+        contentType: 'application/json',
+        headers: { 'X-API-KEY': serperApiKey },
+        payload: JSON.stringify({ q: q + ' product photo', num: 3 }),
+        muteHttpExceptions: true
+      });
+      const data = JSON.parse(res.getContentText() || '{}');
+      const results = (data.images || []).map(function(img){ return img.imageUrl; });
+      let savedUrl = '';
+      for(let i=0; i<results.length && !savedUrl; i++){
+        const link = results[i];
+        if(!link) continue;
+        if(folder){
+          try{
+            const blob = UrlFetchApp.fetch(link, {muteHttpExceptions:true}).getBlob();
+            const file = folder.createFile(blob).setName(q.replace(/[^a-zA-Z0-9_-]/g,'_')+'_'+r);
+            file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+            savedUrl = 'https://lh3.googleusercontent.com/d/' + file.getId();
+          }catch(e){ savedUrl = link; }
+        } else { savedUrl = link; }
+      }
+      if(savedUrl){ sh.getRange(r+1, imgIdx+1).setValue(savedUrl); updated++; }
+      else { failed++; }
+    }catch(e){ failed++; }
+    Utilities.sleep(250);
+  }
+  return {updated:updated, skipped:skipped, failed:failed};
 }
 function doPost(e){
   const body = JSON.parse(e.postData.contents || '{}');
@@ -1467,6 +1539,17 @@ function doPost(e){
   }
   // One-time (or deliberate) bulk load from the app into the sheet.
   // Rewrites the tab with a header row + one row per object.
+  if(body.action==='saveImageConfig'){
+    const props = PropertiesService.getScriptProperties();
+    const c = body.config || {};
+    if(c.imageMode) props.setProperty('imageMode', String(c.imageMode));
+    if(c.serperApiKey!==undefined) props.setProperty('SERPER_API_KEY', String(c.serperApiKey));
+    if(c.driveFolderId!==undefined) props.setProperty('DRIVE_FOLDER_ID', String(c.driveFolderId));
+    return jsonOut({status:'ok'});
+  }
+  if(body.action==='bulkFetchRealImages'){
+    return jsonOut(Object.assign({status:'ok'}, bulkFetchRealImages(Boolean(body.force))));
+  }
   if(body.action==='saveSettings'){
     const sh = sheet('Settings');
     sh.clearContents();
@@ -1818,7 +1901,7 @@ const LS_KEY = 'byos_state_v1';
 const State = {
   products:[], orders:[], cart:[], build:{}, assembly:true,
   settings:{mode:'demo', gasUrl:'', razorpayKey:'rzp_test_BYOSdemo123456', upiId:'byos@okhdfcbank', gstin:'33AABCB1234F1Z5', phone:'+91 75300 15155',
-    storeName:'BYOS', storeEmail:'hello@byos.in',
+    storeName:'BYOS',imageMode:'svg',serperApiKey:'',driveFolderId:'', storeEmail:'hello@byos.in',
     storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, PEELAMEDU, Coimbatore, Tamil Nadu 641004',
     tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",
     logo:'', favicon:'', accent:'#EA580C', font:"'Space Grotesk','Inter',sans-serif", theme:'light',
@@ -2820,6 +2903,9 @@ function saveReviews(){
 function renderSettings(){
   renderContactsEditor(); renderReviewsEditor();
   $('setMode').value=State.settings.mode;
+  if($('imgMode')) $('imgMode').value = State.settings.imageMode || 'svg';
+  if($('imgApiKey')) $('imgApiKey').value = State.settings.serperApiKey || '';
+  if($('imgDriveFolder')) $('imgDriveFolder').value = State.settings.driveFolderId || '';
   $('setGasUrl').value=State.settings.gasUrl||'';
   $('setRazorpay').value=State.settings.razorpayKey||'';
   $('setUpi').value=State.settings.upiId||'';
@@ -2827,6 +2913,37 @@ function renderSettings(){
   $('setPhone').value=State.settings.phone||'';
 }
 function onModeChange(){ updateSyncPill(); toast($('setMode').value==='sync'?'Sync Mode selected — save settings to connect Google Sheets':'Demo Mode — data stored locally'); }
+async function saveImageConfig(silent){
+  State.settings.imageMode=$('imgMode')?$('imgMode').value:'svg';
+  if($('imgApiKey')) State.settings.serperApiKey=$('imgApiKey').value.trim();
+  if($('imgDriveFolder')) State.settings.driveFolderId=$('imgDriveFolder').value.trim();
+  persist();
+  renderStorefront(); renderPrebuilt();
+  if(ApiService.isSync()){
+    try{ await ApiService._fetch('saveImageConfig',{config:{imageMode:State.settings.imageMode,serperApiKey:State.settings.serperApiKey,driveFolderId:State.settings.driveFolderId}}); }catch(e){}
+  }
+  if(!silent) toast('Image display mode: '+(State.settings.imageMode==='real'?'Real Product Photos':'Auto-Generated SVGs'),'success');
+}
+async function bulkFetchImagesUI(){
+  await saveImageConfig(true);
+  if(!ApiService.isSync()){ toast('Switch to Sync Mode & set your Apps Script URL first','error'); return; }
+  const btn=$('bulkFetchBtn'), st=$('imgFetchStatus');
+  const force=Boolean($('imgForceRefresh')&&$('imgForceRefresh').checked);
+  if(btn){ btn.disabled=true; btn.textContent='Fetching images…'; }
+  if(st) st.textContent='Querying Serper.dev Images API…';
+  try{
+    const r=await ApiService._fetch('bulkFetchRealImages',{force});
+    const msg='Done — Updated: '+(r.updated||0)+', Skipped: '+(r.skipped||0)+', Failed: '+(r.failed||0)+(r.error?' ('+r.error+')':'');
+    if(st) st.textContent=msg;
+    toast(msg,'success');
+    await pullFromSheets();
+  }catch(e){
+    if(st) st.textContent='Fetch failed: '+e.message;
+    toast('Bulk fetch failed: '+e.message,'error');
+  }finally{
+    if(btn){ btn.disabled=false; btn.textContent='Bulk Fetch Missing Product Images'; }
+  }
+}
 function saveSettings(){
   setTimeout(()=>ApiService.saveSettings(State.settings), 50);
   State.settings.mode=$('setMode').value;
