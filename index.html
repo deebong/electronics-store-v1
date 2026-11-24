@@ -79,7 +79,7 @@ a{color:inherit;text-decoration:none}
 .search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted2)}
 .search-box input{width:100%;height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 12px 0 36px;background:#fff;outline:none}
 .search-box input:focus{border-color:var(--charcoal);box-shadow:0 0 0 3px rgba(24,24,27,.08)}
-.select{height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 10px;background:#fff;outline:none;font-weight:500}
+.select{height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 34px 0 10px;background-color:#fff;outline:none;font-weight:500}
 .select:focus{border-color:var(--charcoal)}
 /* Selects: replace the OS arrow with a hairline chevron pinned to the right edge */
 select{appearance:none;-webkit-appearance:none;-moz-appearance:none;
@@ -233,7 +233,7 @@ th{text-align:left;font-size:10px;letter-spacing:.07em;text-transform:uppercase;
 td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#F8FAFC}
-.status-select{height:30px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:600;padding:0 6px;background:#fff}
+.status-select{height:30px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:600;padding:0 28px 0 8px;background-color:#fff;background-position:right 8px center}
 .status-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;border:1px solid}
 .status-badge.pending{background:var(--amber-bg);color:var(--amber);border-color:#FDE68A}
 .status-badge.progress{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
@@ -309,11 +309,12 @@ code.block{display:block;background:#0F172A;color:#E2E8F0;padding:14px;border-ra
   .doc-table td::before{content:attr(data-label);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748B;flex:0 0 auto;text-align:left}
   .doc-table td.sub{justify-content:space-between}
 }
-.gst-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;min-width:0;table-layout:auto;border:1px solid #CBD5E1}
-.gst-table th{background:#F1F5F9;color:#334155;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  padding:8px 10px;border:1px solid #CBD5E1;text-align:right;vertical-align:bottom;white-space:nowrap}
+.invoice-paper,.quote-paper{overflow-x:auto}
+.gst-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:14px;min-width:0;table-layout:auto;border:1px solid #CBD5E1}
+.gst-table th{background:#F1F5F9;color:#334155;font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:6px 7px;border:1px solid #CBD5E1;text-align:right;vertical-align:bottom;white-space:nowrap}
 .gst-table th.l{text-align:left}
-.gst-table td{padding:8px 10px;border:1px solid #E2E8F0;text-align:right;vertical-align:top;background:#fff}
+.gst-table td{padding:6px 7px;border:1px solid #E2E8F0;text-align:right;vertical-align:top;background:#fff}
 .gst-table td.l{text-align:left}
 .gst-table tbody tr:nth-child(even) td{background:#FCFDFE}
 .gst-table tbody tr{page-break-inside:avoid;break-inside:avoid}
@@ -386,7 +387,11 @@ body.dark-theme tr:hover td{background:#1F2937}
 .cmp thead th{background:#F1F5F9;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .cmp td.num,.cmp th.num{text-align:right;font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
 /* YouTube shorts rail */
-.yt-rail{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.yt-wrap{position:relative;display:flex;align-items:center;gap:8px}
+.yt-rail{display:flex;gap:12px;overflow-x:auto;padding:4px 2px;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;flex:1}
+.yt-rail::-webkit-scrollbar{display:none}
+.yt-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--ink);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;box-shadow:var(--shadow)}
+.yt-arrow:hover{border-color:var(--charcoal);background:#F8FAFC}
 .yt-card{flex:0 0 190px;scroll-snap-align:start;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden;display:block}
 .yt-card:hover{border-color:var(--border-strong)}
 .yt-thumb{width:100%;aspect-ratio:9/16;max-height:250px;object-fit:cover;background:#F1F5F9;display:block}
@@ -559,7 +564,7 @@ body.dark-theme tr:hover td{background:#1F2937}
         <a class="btn sm dark" href="https://www.youtube.com/@byos-buildyourownsystem7316?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
       </div>
     </div>
-    <div class="yt-rail" id="ytRail"></div>
+    <div class="yt-wrap"><button type="button" class="yt-arrow" aria-label="Previous videos" onclick="scrollYtRail(-1)">‹</button><div class="yt-rail" id="ytRail"></div><button type="button" class="yt-arrow" aria-label="Next videos" onclick="scrollYtRail(1)">›</button></div>
   </div>
 
   <!-- ═══ Google rating strip ═══ -->
@@ -1122,19 +1127,37 @@ body.dark-theme tr:hover td{background:#1F2937}
 <div class="toast-wrap" id="toastWrap"></div>
 
 <footer class="footer">
-  <div class="footer-inner">
+  <div class="footer-inner" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px">
     <div>
-      <div class="logo" style="margin-bottom:8px"><span id="footerLogoSlot"><div class="logo-mark">B</div></span><div class="logo-text" id="footerLogoText">BYOS</div></div>
-      <p id="footerAddress">Build Your Own System<br>42, 3rd Cross Street, RS Puram,<br>Coimbatore, Tamil Nadu 641002</p>
-      <div class="social-row" id="footerSocials" style="margin-top:10px"></div>
+      <div class="logo" style="margin-bottom:10px"><span id="footerLogoSlot"><div class="logo-mark">B</div></span><div class="logo-text" id="footerLogoText">BYOS</div></div>
+      <p id="footerAddress" style="line-height:1.6">93, Avinashi Rd, Periyar Nagar, Sri Nagar,<br>Hope College, PEELAMEDU,<br>Coimbatore, Tamil Nadu 641004</p>
+      <div class="social-row" id="footerSocials" style="margin-top:12px"></div>
     </div>
-    <div><h4>Store</h4><p id="footerContact"></p><p style="margin-top:8px" id="footerRating"></p>
-      <p style="margin-top:10px"><button class="btn sm install-btn" id="installBtnFooter" onclick="promptInstall()">Install App (PWA)</button></p></div>
-    <div><h4>Quick Links</h4><p><a href="#" onclick="showView('faq');return false">FAQs</a><br><a href="#" onclick="showView('contact');return false">Contact Us</a><br><a href="#" onclick="showView('privacy');return false">Privacy Policy</a><br><a href="#" onclick="showView('terms');return false">Terms &amp; Conditions</a><br><span id="footerCustomLinks"></span></p></div>
-    <div><h4>Compliance</h4><p>GSTIN: <span class="mono" id="footerGstin">33AABCB1234F1Z5</span><br>State Code: 33 (Tamil Nadu)<br>All prices include GST unless<br>marked exclusive. GST invoice<br>provided on every order.</p></div>
-    <div><h4>Support</h4><p>3-year assembly warranty<br>Component manufacturer warranty<br>7-day replacement on DOA<br>Free diagnostics at store</p></div>
+    <div>
+      <h4>Store &amp; Contact</h4>
+      <p id="footerContact" style="line-height:1.7"></p>
+      <p style="margin-top:8px" id="footerRating"></p>
+      <p style="margin-top:12px"><button class="btn sm install-btn" id="installBtnFooter" onclick="promptInstall()">Install App (PWA)</button></p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p style="line-height:1.9">
+        <a href="#" onclick="showView('prebuilt');return false">Pre-Built PCs</a><br>
+        <a href="#" onclick="showView('builder');return false">Custom PC Builder</a><br>
+        <a href="#" onclick="showView('faq');return false">FAQs</a> · <a href="#" onclick="showView('contact');return false">Contact</a><br>
+        <a href="#" onclick="showView('privacy');return false">Privacy</a> · <a href="#" onclick="showView('terms');return false">Terms</a>
+        <span id="footerCustomLinks"></span>
+      </p>
+    </div>
+    <div>
+      <h4>Warranty &amp; GST</h4>
+      <p style="line-height:1.7">3-year assembly warranty &amp; 7-day DOA replacement.<br>GSTIN: <span class="mono" id="footerGstin">33AABCB1234F1Z5</span> (TN · 33)<br>GST tax invoice on every order.</p>
+    </div>
   </div>
-  <p class="small" style="text-align:center;margin-top:20px">© 2026 BYOS Computer Systems Pvt. Ltd. · Coimbatore, Tamil Nadu · Demo build — connect Google Sheets in Admin → Settings for live sync.</p>
+  <div style="max-width:1440px;margin:22px auto 0;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted)">
+    <span>© 2026 BYOS Computer Systems Pvt. Ltd. · Coimbatore, Tamil Nadu</span>
+    <span>Prices inclusive of GST · Demo Mode (connect Google Sheets in Admin → Settings)</span>
+  </div>
 </footer>
 
 <script>
@@ -1357,10 +1380,22 @@ function seedOrders(){
 }
 const ORDER_STATUSES = ['Pending','Parts Sourced','Assembling','Testing','Dispatched','Completed'];
 const CODE_GS = `/* BYOS — Google Apps Script backend (Code.gs)
-   Setup: Create sheet with tabs: Products, Orders, Customers, Settings
+   Auto-creates tabs (Products, Orders, Customers, Settings) + headers on first run!
    Deploy: Deploy > New deployment > Web app (Execute as: Me, Access: Anyone) */
 const SHEET_ID = 'PASTE_YOUR_GOOGLE_SHEET_ID_HERE';
-function sheet(name){ return SpreadsheetApp.openById(SHEET_ID).getSheetByName(name); }
+const SCHEMA = {
+  Products:  ['id','sku','name','brand','category','price','cost_price','stock_qty','hsn_code','gst_rate','socket','ram_type','form_factor','wattage','specs','description','barcode','serial_required','image','images','subcat','purpose'],
+  Orders:    ['order_id','date','customer_name','phone','email','address','gstin','state','items','subtotal','gst_amount','total','payment_method','status','invoice_no','order_type','delivery'],
+  Customers: ['id','name','phone','email','address','gstin','state','created_at'],
+  Settings:  ['key','value']
+};
+function sheet(name){
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sh = ss.getSheetByName(name);
+  if(!sh){ sh = ss.insertSheet(name); }
+  if(sh.getLastRow() === 0 && SCHEMA[name]){ sh.appendRow(SCHEMA[name]); }
+  return sh;
+}
 function rowsToJson(sh){
   const v = sh.getDataRange().getValues();
   const h = v[0].map(x=>String(x).trim());
@@ -1737,7 +1772,7 @@ const State = {
   products:[], orders:[], cart:[], build:{}, assembly:true,
   settings:{mode:'demo', gasUrl:'', razorpayKey:'rzp_test_BYOSdemo123456', upiId:'byos@okhdfcbank', gstin:'33AABCB1234F1Z5', phone:'+91 75300 15155',
     storeName:'BYOS', storeEmail:'hello@byos.in',
-    storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, Peelamedu, Coimbatore, Tamil Nadu 641004',
+    storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, PEELAMEDU, Coimbatore, Tamil Nadu 641004',
     tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",
     logo:'', favicon:'', accent:'#EA580C', font:"'Space Grotesk','Inter',sans-serif", theme:'light',
     contacts:[{label:'Mobile · Sales',phone:'7530015155'},{label:'Mobile · Service',phone:'7530016166'}],
@@ -2857,7 +2892,7 @@ function saveBranding(){
   toast('Branding saved','success');
 }
 function resetBranding(){
-  Object.assign(State.settings,{storeName:'BYOS',storeEmail:'hello@byos.in',storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, Peelamedu, Coimbatore, Tamil Nadu 641004',tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",gmbRating:'4.8',gmbReviews:'1295',logo:'',favicon:'',accent:'#EA580C',font:"'Space Grotesk','Inter',sans-serif",theme:'light',whatsapp:'917530015155',instagram:'https://instagram.com/byos_computerstore/?hl=en',facebook:'https://facebook.com/BuildYourOwnSystem',youtube:'https://www.youtube.com/@byos-buildyourownsystem7316',twitter:''});
+  Object.assign(State.settings,{storeName:'BYOS',storeEmail:'hello@byos.in',storeAddress:'93, Avinashi Rd, Periyar Nagar, Sri Nagar, Hope College, PEELAMEDU, Coimbatore, Tamil Nadu 641004',tagline:"BYOS (Build Your Own System) is a retail store in Coimbatore, Tamil Nadu. We build customised PCs to match each customer's need — from low-config systems to high-end hard-tube liquid-cooled builds.",gmbRating:'4.8',gmbReviews:'1295',logo:'',favicon:'',accent:'#EA580C',font:"'Space Grotesk','Inter',sans-serif",theme:'light',whatsapp:'917530015155',instagram:'https://instagram.com/byos_computerstore/?hl=en',facebook:'https://facebook.com/BuildYourOwnSystem',youtube:'https://www.youtube.com/@byos-buildyourownsystem7316',twitter:''});
   persist(); applyBranding(); renderBrandingForm(); renderContact(); renderFooter();
   toast('Branding reset','success');
 }
