@@ -1792,6 +1792,10 @@ const ApiService = {
     if(!url) throw new Error('No Apps Script URL configured');
     if(payload){
       const body = JSON.stringify({action, ...payload});
+      if(url.includes('script.google.com')){
+        await fetch(url, {method:'POST', mode:'no-cors', credentials:'omit', headers:{'Content-Type':'text/plain;charset=utf-8'}, body});
+        return {status:'ok', opaque:true};
+      }
       try{
         const res = await fetch(url, {method:'POST', mode:'cors', credentials:'omit', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'}, body});
         return await res.json();
@@ -1831,7 +1835,7 @@ const ApiService = {
     persist();
   },
   async saveSettings(settings){
-    if(!this.isSync()) return;
+    if(State.settings.mode!=='sync' || !this.GAS_URL) return;
     try{ await this._fetch('saveSettings', {settings}); }catch(e){ console.warn('saveSettings sync failed',e); }
   },
   async updateOrderStatus(orderId, status){
@@ -2698,6 +2702,7 @@ function trackOrder(){
 /* ---------- Admin ---------- */
 function adminLogin(){
   if($('adminPin').value==='1234'){
+    try{ sessionStorage.setItem('byos_admin','1'); }catch(e){}
     State.admin=true;
     $('adminGate').style.display='none';
     $('adminApp').style.display='block';
@@ -2705,7 +2710,7 @@ function adminLogin(){
     toast('Welcome back, Store Manager','success');
   } else toast('Incorrect PIN. Demo PIN is 1234','error');
 }
-function adminLogout(){ State.admin=false; $('adminGate').style.display='block'; $('adminApp').style.display='none'; $('adminPin').value=''; }
+function adminLogout(){ State.admin=false; try{ sessionStorage.removeItem('byos_admin'); }catch(e){} $('adminGate').style.display='block'; $('adminApp').style.display='none'; $('adminPin').value=''; }
 function renderAdminAll(){ renderKPIs(); renderAdminProducts(); renderAdminOrders(); renderSettings(); renderBrandingForm(); renderCustomPagesList(); updateSyncPill(); }
 function updateSyncPill(){
   const live=State.settings.mode==='sync' && State.settings.gasUrl;
@@ -2918,15 +2923,16 @@ async function saveImageConfig(silent){
   if($('imgApiKey')) State.settings.serperApiKey=$('imgApiKey').value.trim();
   if($('imgDriveFolder')) State.settings.driveFolderId=$('imgDriveFolder').value.trim();
   persist();
-  renderStorefront(); renderPrebuilt();
-  if(ApiService.isSync()){
+  try{ if(sessionStorage.getItem('byos_admin')==='1'){ State.admin=true; $('adminGate').style.display='none'; $('adminApp').style.display='grid'; renderAdmin(); } }catch(e){}
+renderCatalog(); renderPrebuilt();
+  if(State.settings.mode==='sync' && ApiService.GAS_URL){
     try{ await ApiService._fetch('saveImageConfig',{config:{imageMode:State.settings.imageMode,serperApiKey:State.settings.serperApiKey,driveFolderId:State.settings.driveFolderId}}); }catch(e){}
   }
   if(!silent) toast('Image display mode: '+(State.settings.imageMode==='real'?'Real Product Photos':'Auto-Generated SVGs'),'success');
 }
 async function bulkFetchImagesUI(){
   await saveImageConfig(true);
-  if(!ApiService.isSync()){ toast('Switch to Sync Mode & set your Apps Script URL first','error'); return; }
+  if(State.settings.mode!=='sync' || !ApiService.GAS_URL){ toast('Switch to Sync Mode & set your Apps Script URL first','error'); return; }
   const btn=$('bulkFetchBtn'), st=$('imgFetchStatus');
   const force=Boolean($('imgForceRefresh')&&$('imgForceRefresh').checked);
   if(btn){ btn.disabled=true; btn.textContent='Fetching images…'; }
