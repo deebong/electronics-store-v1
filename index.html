@@ -2924,7 +2924,7 @@ async function saveImageConfig(silent){
   if($('imgDriveFolder')) State.settings.driveFolderId=$('imgDriveFolder').value.trim();
   persist();
   try{ if(sessionStorage.getItem('byos_admin')==='1'){ State.admin=true; $('adminGate').style.display='none'; $('adminApp').style.display='grid'; renderAdmin(); } }catch(e){}
-renderCatalog(); renderPrebuilt();
+renderProducts(); renderPrebuilt();
   if(State.settings.mode==='sync' && ApiService.GAS_URL){
     try{ await ApiService._fetch('saveImageConfig',{config:{imageMode:State.settings.imageMode,serperApiKey:State.settings.serperApiKey,driveFolderId:State.settings.driveFolderId}}); }catch(e){}
   }
