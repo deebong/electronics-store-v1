@@ -38,11 +38,17 @@ Admin portal PIN in demo: **1234**.
 
 Deploying the backend:
 
-1. Create a Google Sheet with tabs `Products`, `Orders`, `Customers`, `Settings`.
-2. Extensions → Apps Script → paste `Code.gs` → Deploy → New deployment → Web app,
-   execute as **Me**, access **Anyone**.
+1. Create a blank Google Sheet (no need to add tabs or headers manually — `Code.gs` creates
+   `Products`, `Orders`, `Customers`, and `Settings` with their header rows automatically
+   on first run).
+2. Extensions → Apps Script → paste `Code.gs` (replace `PASTE_YOUR_GOOGLE_SHEET_ID_HERE`
+   with your Sheet ID from the URL) → Deploy → New deployment → Web app, execute as **Me**,
+   access **Anyone**.
 3. Copy the `/exec` URL into Admin → Settings → Apps Script Web App URL.
-4. Click **Push local data to Sheets** to seed the sheet, then switch to Sync Mode.
+4. Click **Push local data to Sheets** — this automatically creates all 4 tabs, writes the
+   headers, and populates your products, orders, and settings.
+5. Switch the mode to **Sync Mode**. Any future updates in Admin → Settings, Products, or
+   Orders will sync to Google Sheets automatically.
 
 ## Round-3 features
 

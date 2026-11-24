@@ -1,7 +1,7 @@
 /* BYOS service worker — offline-first app shell.
    The whole SPA is one file (index.html); we cache the shell plus icons and
    serve cache-first for navigations so the store works with no connection. */
-const CACHE = 'byos-v6';
+const CACHE = 'byos-v7';
 const SHELL = [
   './',
   './index.html',
